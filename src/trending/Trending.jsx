@@ -9,6 +9,7 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import PopularComics from '../popularcomics/popularcomics';
+import CompleteComics from '../complete/completecomics';
 function Trending() {
     const pages = 1
     const dispatch = useDispatch()
@@ -48,6 +49,7 @@ function Trending() {
                 <div></div>
             </div>
             <PopularComics />
+            <CompleteComics />
         </div>
     )
 }

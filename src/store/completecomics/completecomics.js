@@ -17,7 +17,7 @@ export const competecomics = {
 const complteComicsSlice = createSlice({
     name: `${appName}/${moduleName}`,
     initialState: {
-        loadding: true,
+        loading: true,
         error: null,
         completeComics: [],
     },
@@ -26,23 +26,20 @@ const complteComicsSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-            .addCase(competecomics.getList.pending, state => {
-                state.loadding = true,
-                    state.error = null
+            .addCase(competecomics.getList.pending, (state) => {
+                state.loading = true;
+                state.error = null;
             })
-            .addCase(competecomics.getList.fulfilled, (state, {payload}) => {
-                state.loadding = false,
-                    state.completeComics = payload,
-                    state.error = null
+            .addCase(competecomics.getList.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.completeComics = payload;
+                state.error = null;
             })
             .addCase(competecomics.getList.rejected, (state, { error }) => {
-                state.loadding = false,
-                    state.completeComics = {
-                        data: []
-                    },
-                    state.error = error
-            })
-
+                state.loading = false;
+                state.completeComics = { data: [] };
+                state.error = error;
+            });
     }
 })
 export default complteComicsSlice.reducer
