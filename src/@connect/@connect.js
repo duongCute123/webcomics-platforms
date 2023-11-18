@@ -1,5 +1,5 @@
 import axios from "axios"
-import { basicDomain, boy, complete, endPoint, girl, news, recent } from "../@contrain"
+import { basicDomain, boy, complete, endPoint, genres, girl, news, recent } from "../@contrain"
 
 export default {
     trending: {
@@ -29,6 +29,11 @@ export default {
     news: {
         newsComics: {
             getList: (params) => axios.get(`${basicDomain}${news}`)
+        }
+    },
+    genres: {
+        genresComics: {
+            getList: (type, page, entity) => axios.get(`${basicDomain}/${genres}/${type}?${page}`, { entity })
         }
     }
     // top: {

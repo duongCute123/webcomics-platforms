@@ -5,6 +5,7 @@ import RecentlyUpdateReducer from "./recently/recentlyupdate"
 import BoyRducer from "./boy/boy"
 import GirlReducer from "./girl/girl"
 import NewsReducer from "./news/news"
+import GenresReducer from "./genres/genrescomics"
 export const store = configureStore({
     reducer: {
         trending: TrendingReducer,
@@ -12,6 +13,7 @@ export const store = configureStore({
         recently: RecentlyUpdateReducer,
         boy: BoyRducer,
         girl: GirlReducer,
-        news: NewsReducer
+        news: NewsReducer,
+        genres: GenresReducer
     }
 })

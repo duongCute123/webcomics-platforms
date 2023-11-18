@@ -1,5 +1,9 @@
 export const genres = [
     {
+        id: "all",
+        name: "Tất cả"
+    },
+    {
         "id": "ngon-tinh",
         "name": "Ngôn Tình"
     },
