@@ -17,12 +17,11 @@ const GenresComics = () => {
     const slug = "all"
     console.log(slug);
     const [page, setPage] = useState(1)
-    // const page=1
     const dispatch = useDispatch()
     console.log(page);
     console.log(genrescomics);
     useEffect(() => {
-        dispatch(genres.getList(slug, page))
+        dispatch(genres.getList({ type: slug, page: page }))
     }, [dispatch, slug, page])
     return (
         <div className="">
@@ -85,6 +84,7 @@ const GenresComics = () => {
                                                 </div>
                                             ))
                                         }
+
                                     </div>
                                     <div className="flex flex-row  gap-3 text-center">
                                         <div className="bg-white/25">

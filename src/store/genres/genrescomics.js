@@ -3,10 +3,11 @@ import connect from "../../@connect"
 const appName = "Comics"
 const moduleName = "genresComics"
 export const genres = {
-    getList: createAsyncThunk(`${appName}/${moduleName}/genres`, async (params, thunkAPI) => {
-        console.log(params);
+    getList: createAsyncThunk(`${appName}/${moduleName}/genres`, async ({ type, page }, thunkAPI) => {
+        console.log(type);
+        console.log(page);
         try {
-            const responsive = await connect.genres.genresComics.getList(params)
+            const responsive = await connect.genres.genresComics.getList({ type, page })
             return responsive.data
         } catch (error) {
             thunkAPI.dispatch({ variant: "error", message: "Lỗi lấy data nhé" })
