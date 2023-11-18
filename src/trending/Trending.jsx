@@ -11,6 +11,9 @@ import { useEffect } from 'react';
 import PopularComics from '../popularcomics/popularcomics';
 import CompleteComics from '../complete/slidecomplete';
 import RecentlyUpdate from '../recently/sliderecentlyUpdate';
+import SildeBoyComics from '../boy/boy';
+import SildeGirlComics from '../girl/girlslide';
+import SildeNewslComics from '../news/slidenew';
 function Trending() {
     const pages = 1
     const dispatch = useDispatch()
@@ -52,6 +55,9 @@ function Trending() {
             <PopularComics />
             <CompleteComics />
             <RecentlyUpdate />
+            <SildeBoyComics />
+            <SildeGirlComics />
+            <SildeNewslComics />
         </div>
     )
 }

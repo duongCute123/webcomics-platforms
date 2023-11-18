@@ -18,17 +18,17 @@ export default {
     },
     boy: {
         boyComics: {
-            getList: (params) => axios.get(`${basicDomain}/${boy}`)
+            getList: (params) => axios.get(`${basicDomain}${boy}`)
         }
     },
     girl: {
         girlComics: {
-            getList: (params) => axios.get(`${basicDomain}/${girl}`, { params })
+            getList: (params) => axios.get(`${basicDomain}${girl}`, { params })
         }
     },
     news: {
         newsComics: {
-            getList: (params) => axios.get(`${basicDomain}/${news}`)
+            getList: (params) => axios.get(`${basicDomain}${news}`)
         }
     }
     // top: {
