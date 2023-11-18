@@ -33,7 +33,7 @@ export default {
     },
     genres: {
         genresComics: {
-            getList: (type, page, entity) => axios.get(`${basicDomain}/${genres}/${type}?page=${page}`, { entity })
+            getList: (params) => axios.get(`${basicDomain}/${genres}/${params.type}?page=${params.page}`)
         }
     },
     detail: {

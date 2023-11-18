@@ -11,7 +11,7 @@ const RouterPage = () => {
                 <Routes>
                     <Route path="/comics-trending" element={<Trending />} />
                     <Route path="/comics-genres" element={<GenresComics />} />
-                    <Route path="/comics-genres/detail-comics/:slug" element={<DetailPage />} />
+                    <Route path="/detail-comics/:comic_id" element={<DetailPage />} />
                 </Routes>
             </BrowserRouter>
         </div>
