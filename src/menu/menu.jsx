@@ -30,7 +30,7 @@ const Menu = () => {
                         <Link to={`/comics/news/${type}`} about="new">Manga New</Link>
                     </li>
                     <li>
-                        <Link to={'/'} about="top">Manga Top</Link>
+                        <Link to={`/comics/top?${type}`} about="top">Manga Top</Link>
                     </li>
                 </ul>
             </nav>

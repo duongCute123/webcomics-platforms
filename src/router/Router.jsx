@@ -5,6 +5,8 @@ import GenresComics from "../genres/genrescomics"
 import DetailPage from "../detailpage/detailcomics"
 import ReadComics from "../readcomics/readcomics"
 import NewsComics from "../news/comicsnew"
+import ComicsTop from "../top/comicstop"
+// import { useEffect } from "react"
 const RouterPage = () => {
     return (
         <div className="">
@@ -16,6 +18,7 @@ const RouterPage = () => {
                     <Route path="/detail-comics/:comic_id" element={<DetailPage />} />
                     <Route path="/comics/:comic_id/:chapter_id" element={<ReadComics />} />
                     <Route path="/comics/news/:slug" element={<NewsComics />} />
+                    <Route path="/comics/top" element={<ComicsTop />} />
                 </Routes>
             </BrowserRouter>
         </div>

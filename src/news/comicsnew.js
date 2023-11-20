@@ -24,7 +24,8 @@ const NewsComics = () => {
     const [page, setPage] = useState(1)
     const [type, setType] = useState("all")
     const dispatch = useDispatch()
-    const toTalPage = 9
+    const toTalPage = detailComics?.news?.data?.total_pages
+    console.log(toTalPage);
     const [pageRanges, setpageRanges] = useState()
     useEffect(() => {
         dispatch(news.findComicsNew({ page: page, status: type }))
@@ -34,7 +35,7 @@ const NewsComics = () => {
     };
     const handlerClick = (name) => {
         setType(name)
-        navigation(`/comics-genres/${name}`)
+        navigation(`/comics/news/${name}`)
     }
     console.log(toTalPage);
     return (
@@ -49,38 +50,30 @@ const NewsComics = () => {
                     }}
                     breakpoints={{
                         640: {
-                            slidesPerView: 5,
+                            slidesPerView: 3,
 
                         },
                         768: {
-                            slidesPerView: 5,
+                            slidesPerView: 3,
                         },
                         1024: {
-                            slidesPerView: 7,
+                            slidesPerView: 3,
                         },
                     }}
                     modules={[Navigation]} className=" ">
                     {
                         status?.map((status, index) => (
-                            <SwiperSlide key={index} onClick={() => { handlerClick(status.id) }} className={`px-5 ${slug === status.id ? 'bg-emerald-500' : ''} py-3 cursor-pointer text-center select-none`}>
+                            <SwiperSlide key={index} onClick={() => { handlerClick(status.id) }} className={`px-5 ${slug === status.id ? 'bg-emerald-500' : ''} py-3 cursor-pointer  text-center select-none`}>
                                 {status.name}
                             </SwiperSlide>
                         ))
                     }
                 </Swiper>
             </div>
-            <div className='flex w-11/12 bg-sky-500 rounded-md mx-auto  h-10 my-2 flex-row items-center gap-2 w-11/'>
-                <div className='mx-3'>
-                    <IoIosInformationCircleOutline size={"25px"} color='white' />
-                </div>
-                <div className=''>
-                    <p className='text-white text-lg'>Tất cả thể loại truyện tranh</p>
-                </div>
-            </div>
-            {/* <div className="grid grid-cols-3 w-11/12 mx-auto md:grid-cols-5 gap-2 my-2">
+            <div className="grid grid-cols-3 w-11/12 mx-auto md:grid-cols-5 gap-2 my-2">
 
                 {
-                    genrescomics?.genres?.comics?.map((comics, index) => (
+                    detailComics?.news?.data?.comics?.map((comics, index) => (
                         <div className="relative group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                             <Link to={`/detail-comics/${comics.id}`} className="">
                                 <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
@@ -115,7 +108,7 @@ const NewsComics = () => {
                     ))
                 }
 
-            </div> */}
+            </div>
             <div className=''>
                 <ReactPaginate
                     className='flex gap-4 justify-center hover:no-underline font-bold  items-center text-center'
