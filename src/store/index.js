@@ -7,6 +7,7 @@ import GirlReducer from "./girl/girl"
 import NewsReducer from "./news/news"
 import GenresReducer from "./genres/genrescomics"
 import DetailComicsReducer from "./detailcomics/detailcomics"
+import TopComicsReducer from "./top/top"
 export const store = configureStore({
     reducer: {
         trending: TrendingReducer,
@@ -16,6 +17,7 @@ export const store = configureStore({
         girl: GirlReducer,
         news: NewsReducer,
         genres: GenresReducer,
-        detail: DetailComicsReducer
+        detail: DetailComicsReducer,
+        topcomics: TopComicsReducer
     }
 })
