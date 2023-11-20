@@ -28,7 +28,9 @@ export default {
     },
     news: {
         newsComics: {
-            getList: (params) => axios.get(`${basicDomain}${news}`)
+            getList: (params) => axios.get(`${basicDomain}${news}`),
+            findNewComics: (params) => axios.get(`${basicDomain}/new-comics?page=${params.page}&status=${params.status}`)
+
         }
     },
     genres: {
@@ -40,6 +42,12 @@ export default {
         detailComics: {
             findById: (comic_id, entity) => axios.get(`${basicDomain}/${detail}/${comic_id}`, { entity })
         },
+        comicChapters: {
+            findByIdChapter: (comic_id, params) => axios.get(`${basicDomain}/${detail}/${comic_id}/chapters`, { params })
+        },
+        singleChapter: {
+            findByIdSingleChapter: (params) => axios.get(`${basicDomain}/${detail}/${params.comic_id}/chapters/${params.chapter_id}`, { params })
+        }
     }
     // top: {
     //     // getListTop : (params) => axios.get()

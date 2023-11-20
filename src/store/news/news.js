@@ -11,6 +11,15 @@ export const news = {
             thunkAPI.dispatch({ variant: "error", message: "Lỗi lấy dữ liệu" })
             return thunkAPI.rejectWithValue(error)
         }
+    }),
+    findComicsNew: createAsyncThunk(`${appName}/${moduleName}/comics`, async (params, thunkAPI) => {
+        try {
+            const responsive = await connect.news.newsComics.findNewComics(params)
+            return responsive
+        } catch (error) {
+            thunkAPI.dispatch({ variant: "error", message: "Lỗi lấy dữ liệu" })
+            return thunkAPI.rejectWithValue(error)
+        }
     })
 }
 const newsSlice = createSlice({
@@ -36,6 +45,23 @@ const newsSlice = createSlice({
                 state.error = null
             })
             .addCase(news.getList.rejected, (state, { error }) => {
+                state.loading = false
+                state.news = {
+                    data: []
+                }
+                state.error = error
+            })
+            .addCase(news.findComicsNew.pending, (state) => {
+                state.loading = true
+                state.news = null
+                state.error = null
+            })
+            .addCase(news.findComicsNew.fulfilled, (state, { payload }) => {
+                state.loading = false
+                state.news = payload
+                state.error = null
+            })
+            .addCase(news.findComicsNew.rejected, (state, { error }) => {
                 state.loading = false
                 state.news = {
                     data: []

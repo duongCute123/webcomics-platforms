@@ -6,7 +6,7 @@ const Menu = () => {
     const HandlerEnter = () => {
 
     }
-    const slug = "all"
+    const type = "all"
     return (
         <div className="flex flex-row justify-between bg-blue-600 text-white items-center w-full mx-auto px-3 pt-3">
             <div className=" gap-2 flex flex-row items-center text-center">
@@ -24,10 +24,10 @@ const Menu = () => {
                         <Link to={'/'} about="home">Home</Link>
                     </li>
                     <li>
-                        <Link to={`/comics-genres?type=${slug}`} about="genres">Genres Manga</Link>
+                        <Link to={`/comics-genres/${type}`} about="genres">Genres Manga</Link>
                     </li>
                     <li>
-                        <Link to={'/'} about="new">Manga New</Link>
+                        <Link to={`/comics/news/${type}`} about="new">Manga New</Link>
                     </li>
                     <li>
                         <Link to={'/'} about="top">Manga Top</Link>

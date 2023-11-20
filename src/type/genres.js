@@ -1,4 +1,4 @@
-export const genres = [
+export const genress = [
     {
         id: "all",
         name: "Tất cả"

@@ -4,32 +4,31 @@ import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
 import { useDispatch, useSelector } from "react-redux"
 import 'swiper/css/pagination';
+import { status } from '../type';
 // import { useParams } from "react-router-dom"
 // import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
-import { genress } from '../type';
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { useEffect, useState } from 'react';
-import { genres } from '../store/genres/genrescomics';
+// import { genres } from '../store/genres/genrescomics';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
 import ReactPaginate from "react-paginate"
-const GenresComics = () => {
-    const genrescomics = useSelector(state => state.genres)
+import { news } from '../store/news/news';
+const NewsComics = () => {
     const { slug } = useParams()
-    console.log(slug);
-    const [type, setType] = useState("all")
+    const detailComics = useSelector(state => state.news)
+    console.log(detailComics);
     const navigation = useNavigate()
     const [page, setPage] = useState(1)
+    const [type, setType] = useState("all")
     const dispatch = useDispatch()
-    console.log(page);
-    console.log(genrescomics);
-    const toTalPage = genrescomics?.genres?.total_pages
+    const toTalPage = 9
     const [pageRanges, setpageRanges] = useState()
     useEffect(() => {
-        dispatch(genres.getList({ type: type, page: page }))
-    }, [dispatch, type, page])
+        dispatch(news.findComicsNew({ page: page, status: type }))
+    }, [dispatch, page, type])
     const handlePageChange = (selectedPage) => {
         setPage(selectedPage.selected + 1);
     };
@@ -41,7 +40,7 @@ const GenresComics = () => {
     return (
         <div className="">
             <h1 className="">
-                Thê loại truyện
+                Truyện mới
             </h1>
             <div className="w-11/12 border-t-2 border-b-2 h-14  mx-auto justify-center ">
                 <Swiper slidesPerView={3} autoplay={{ delay: 4000 }}
@@ -62,9 +61,9 @@ const GenresComics = () => {
                     }}
                     modules={[Navigation]} className=" ">
                     {
-                        genress?.map((genres, index) => (
-                            <SwiperSlide key={index} onClick={() => { handlerClick(genres.id) }} className={`px-5 ${slug === genres.id ? 'bg-emerald-500' : ''} py-3 cursor-pointer text-center select-none`}>
-                                {genres.name}
+                        status?.map((status, index) => (
+                            <SwiperSlide key={index} onClick={() => { handlerClick(status.id) }} className={`px-5 ${slug === status.id ? 'bg-emerald-500' : ''} py-3 cursor-pointer text-center select-none`}>
+                                {status.name}
                             </SwiperSlide>
                         ))
                     }
@@ -78,7 +77,7 @@ const GenresComics = () => {
                     <p className='text-white text-lg'>Tất cả thể loại truyện tranh</p>
                 </div>
             </div>
-            <div className="grid grid-cols-3 w-11/12 mx-auto md:grid-cols-5 gap-2 my-2">
+            {/* <div className="grid grid-cols-3 w-11/12 mx-auto md:grid-cols-5 gap-2 my-2">
 
                 {
                     genrescomics?.genres?.comics?.map((comics, index) => (
@@ -116,7 +115,7 @@ const GenresComics = () => {
                     ))
                 }
 
-            </div>
+            </div> */}
             <div className=''>
                 <ReactPaginate
                     className='flex gap-4 justify-center hover:no-underline font-bold  items-center text-center'
@@ -144,4 +143,4 @@ const GenresComics = () => {
         </div>
     )
 }
-export default GenresComics
+export default NewsComics

@@ -1,1 +1,3 @@
-export { genres as default } from "./genres"
+export { genress } from "./genres";
+export { status } from "./status";
+export { top } from "./top";
