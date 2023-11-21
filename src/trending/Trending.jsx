@@ -35,7 +35,7 @@ function Trending() {
                         <p className='font-bold'>Xem tất cả</p>
                     </div>
                 </div>
-                <div className="mx-4">
+                <div className="mx-4" >
                     <Swiper spaceBetween={5} slidesPerView={6} autoplay={{ delay: 4000 }} modules={[Navigation, Autoplay]} className="mySwiper gap-5">
                         {
                             trendings?.comics?.map((comics, index) => (

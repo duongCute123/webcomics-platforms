@@ -1,3 +1,3 @@
 export { genress } from "./genres";
 export { status } from "./status";
-export { top } from "./top";
+export { top, iconTop } from "./top";
