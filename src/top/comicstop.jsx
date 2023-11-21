@@ -53,6 +53,15 @@ const ComicsTop = () => {
     const handlePageChange = (selectedPage) => {
         setPage(selectedPage.selected + 1);
     };
+    const convertView = (number) => {
+        if (number > 1000000) {
+            return (number / 1000000).toFixed(0) + 'm'
+        }
+        if (number > 100000) {
+            return (number / 100000).toFixed(0) + 'k'
+        }
+        return number.toString()
+    }
     console.log(type);
     return (
         <div className="">
@@ -82,11 +91,14 @@ const ComicsTop = () => {
                     topscomics?.topcomics?.comics?.map((comics, index) => (
                         <div className="relative group group-hover:shadow-md rounded-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                             <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
-                                <span className="bg-rose-500  text-center py-0.5 px-2 text-white">
+                                <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'Hot' : ''}
                                 </span>
-                                <span className="bg-sky-500 text-center py-0.5 px-2 text-white">
-                                    {comics.status != "Completed" ? 'Up' : 'End'}
+                                <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                    {comics.is_trending === true ? 'End' : ''}
+                                </span>
+                                <span className=" bg-amber-400 text-center py-0.5 px-2 text-white">
+                                    {comics.status != "Completed" ? 'Up' : 'Up'}
                                 </span>
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
@@ -110,11 +122,11 @@ const ComicsTop = () => {
                                     <div className="flex flex-row text-emerald-400 justify-center gap-3 text-center">
                                         <div className="bg-white/25 flex flex-row items-center">
                                             <GrFormView size={20} />
-                                            <p className="">{comics.total_views}</p>
+                                            <p className="">{convertView(comics.total_views)}</p>
                                         </div>
                                         <div className="bg-white/25 flex flex-row items-center">
                                             <GiSelfLove />
-                                            <p>{comics.followers}</p>
+                                            <p>{convertView(comics.followers)}</p>
                                         </div>
                                     </div>
                                 </div>

@@ -8,6 +8,7 @@ import NewsReducer from "./news/news"
 import GenresReducer from "./genres/genrescomics"
 import DetailComicsReducer from "./detailcomics/detailcomics"
 import TopComicsReducer from "./top/top"
+import SearchComicReducer from "./search/search"
 export const store = configureStore({
     reducer: {
         trending: TrendingReducer,
@@ -18,6 +19,7 @@ export const store = configureStore({
         news: NewsReducer,
         genres: GenresReducer,
         detail: DetailComicsReducer,
-        topcomics: TopComicsReducer
+        topcomics: TopComicsReducer,
+        searchcomics: SearchComicReducer
     }
 })

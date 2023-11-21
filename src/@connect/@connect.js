@@ -1,5 +1,5 @@
 import axios from "axios"
-import { basicDomain, boy, complete, detail, endPoint, genres, girl, news, recent } from "../@contrain"
+import { basicDomain, boy, complete, detail, endPoint, genres, girl, news, recent, searchSuggest, searchPage } from "../@contrain"
 
 export default {
     trending: {
@@ -77,6 +77,14 @@ export default {
         },
         topComment: {
             getList: (params) => axios.get(`${basicDomain}/top/comment?page=${params.page}&status=${params.status}`)
+        }
+    },
+    search: {
+        searchSuggest: {
+            querySuggest: (query) => axios.get(`${basicDomain}/${searchSuggest}?q=${query}`)
+        },
+        queryPage: {
+            searchComics: (params) => axios.get(`${basicDomain}/${searchPage}?q=${params.query}&page=${params.page}`)
         }
     }
 }
