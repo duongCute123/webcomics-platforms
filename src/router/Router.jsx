@@ -5,9 +5,9 @@ import GenresComics from "../genres/genrescomics"
 import DetailPage from "../detailpage/detailcomics"
 import ReadComics from "../readcomics/readcomics"
 import NewsComics from "../news/comicsnew"
-import ComicsTop from "../top/comicstop"
 import HomepageComics from "../homepage/homepage"
 import SearchPage from "../search/searchcomics"
+import ComicsTop from "../main/top/comicstop"
 // import { useEffect } from "react"
 const RouterPage = () => {
     return (
