@@ -11,7 +11,7 @@ import { RxUpdate } from "react-icons/rx";
 import { BsGenderMale } from "react-icons/bs";
 import { CgGenderFemale } from "react-icons/cg";
 import { MdHistory } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { search } from "../store/search/search";
 import InputSearch from "./subnav/inputsearch";
@@ -24,16 +24,21 @@ const Menu = () => {
     const [isShow, setIsShow] = useState(false)
     const HandlerEnter = (e) => {
         if (e.key === 'Enter') {
+            // HandlerQuery(query)
             navigation('/comics/seach')
         }
     }
-
+    // Tính sử dụng useCallback để gọi api mà thấy không đáng kể
+    // const HandlerQuery = useCallback((query) => {
+    //     dispatch(search.searchSuggest(query))
+    // }, [dispatch])
+    // Nếu mà thế này thì nó sẽ gọi api luôn không thích như vậy lắm
     useEffect(() => {
         dispatch(search.searchSuggest(query))
     }, [dispatch, query])
     const type = "all"
     return (
-        <div className="flex flex-row justify-between bg-white shadow-md h-12 md:h-14 text-black items-center w-full mx-auto px-3 pt-y3">
+        <div className="flex flex-row justify-between bg-white shadow-md h-12 md:h-14 text-black items-center w-full mx-auto px-3 py-3">
             <div className="flex flex-row justify-between z-50 items-center">
                 <div className="gap-2 flex flex-row items-center text-center">
                     <div className="">

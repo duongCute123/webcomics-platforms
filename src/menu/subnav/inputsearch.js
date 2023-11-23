@@ -13,7 +13,7 @@ const InputSearch = () => {
     const [isShow, setIsShow] = useState(false)
     const HandlerEnter = (e) => {
         if (e.key === 'Enter') {
-            navigation('/comics/seach')
+            navigation(`/comics/search?q=${query}`)
         }
     }
 
@@ -30,7 +30,7 @@ const InputSearch = () => {
                 <div className="flex flex-row items-center mx-2">
                     <input type="text" className="border-2 border-solid rounded-full  border-red-300 text-black w-52 h-9" onClick={() => setIsShow(!isShow)} onKeyPress={HandlerEnter} onChange={(e) => setQuery(e.target.value)} placeholder="Nhập truyện muốn tìm" />
                     <CiSearch className="absolute right-6" color="black" size={25} />
-                    <div className={`absolute top-[57px] z-10 ${isShow ? '' : 'hidden'} px-3 py-5 text-black bg-white  h-[300px] overflow-y-auto`}>
+                    <div className={`absolute top-[57px] z-30 ${isShow ? '' : 'hidden'} px-3 py-5 text-black bg-white  h-[300px] overflow-y-auto`}>
                         {
                             searchdata && searchdata.search && searchdata?.search.length > 0 && searchdata?.search?.map((searchcomics, idx) => (
                                 <div className="flex justify-center border-b-2 gap-4 flex-row" key={idx}>

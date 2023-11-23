@@ -12,9 +12,12 @@ export const search = {
             return thunkAPI.rejectWithValue("Lỗi lấy dữ liệu")
         }
     }),
-    queryPage: createAsyncThunk(`${appName}/${moduleName}/queryPage`, async (params, thunkAPI) => {
+    queryPage: createAsyncThunk(`${appName}/${moduleName}/querypage/query`, async (params, thunkAPI) => {
         try {
-
+            const responsive = await connect.search.queryPage.searchComics(params)
+            console.log(params);
+            thunkAPI.dispatch({type:"SUSSCESS",variant:"sussces",message:"Lấy dữ liệu thành công"})
+            return responsive.data
         } catch (error) {
             thunkAPI.dispatch({ variant: "error", message: "Lỗi lấy dữ liệu" })
             return thunkAPI.rejectWithValue("Lỗi lấy dữ liệu")
