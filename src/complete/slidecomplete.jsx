@@ -4,7 +4,7 @@ import { competecomics } from "../store/completecomics/completecomics";
 import { GrFormView } from "react-icons/gr";
 import { GiSelfLove } from "react-icons/gi";
 import { Link } from "react-router-dom";
-
+import { FaCircleCheck } from "react-icons/fa6";
 const CompleteComics = () => {
     const completecomic = useSelector(state => state.complete)
     console.log(completecomic);
@@ -19,21 +19,33 @@ const CompleteComics = () => {
         if (number > 10000) {
             return (number / 10000).toFixed(0) + 'K'
         }
-        if (number>1000) {
-            return (number/1000).toFixed(0) + 'N'
+        if (number > 1000) {
+            return (number / 1000).toFixed(0) + 'N'
         }
         return number.toString()
     }
     return (
         <div className="">
-            <h1>
-                Truyện nhiều người đọc
-            </h1>
+            <div className="flex flex-row items-center justify-between">
+                <div className="">
+                    <h1 className="flex items-center flex-row gap-2 text-xl md:text-3xl sm:text-2xl font-bold mb-4 mt-6 md:mt-12">
+                        <FaCircleCheck className="text-emerald-400 animate-pulse" />
+                        Truyện tranh đã hoàn thành
+                    </h1>
+                </div>
+                <div className="px-5 py-0.5 bg-transparent overflow-hidden
+                text-emerald-500 hover:text-white hover:ring-2 hover:ring-offset-2
+                hover:ring-emerald-400 duration-300 cursor-pointer
+                border-emerald-500 hover:border-transparent border-2 
+                rounded-full group hover:bg-emerald-500">
+                    <button className="text-sm font-medium">More</button>
+                </div>
+            </div>
             <div className="grid grid-cols-3 md:grid-cols-5 gap-2 mx-2">
 
                 {
                     completecomic?.completeComics?.comics?.slice(0, 10)?.map((comics, index) => (
-                        <div className="relative group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
+                        <div className="relative rounded  group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                             <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                 <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'Hot' : ''}
@@ -79,9 +91,6 @@ const CompleteComics = () => {
                     ))
                 }
 
-            </div>
-            <div className="flex mx-auto justify-center text-center my-4">
-                <h1 className="border-2 border-solid border-yellow-400 w-[150px]">Xem tất cả</h1>
             </div>
         </div>
     )

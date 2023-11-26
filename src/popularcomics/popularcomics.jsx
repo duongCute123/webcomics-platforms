@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { trending } from "../store/trending/comicstrending"
 import { GrFormView } from "react-icons/gr";
 import { GiSelfLove } from "react-icons/gi";
+import { GiBurningRoundShot } from "react-icons/gi";
 import { Link } from "react-router-dom";
 const PopularComics = () => {
     const pages = 1
@@ -24,16 +25,30 @@ const PopularComics = () => {
         return number.toString()
     }
     return (
-        <div className="">
-            <h1>
-                Truyện nhiều người đọc
-            </h1>
-            <div className="grid grid-cols-3 md:grid-cols-5 gap-2 mx-2">
+        <div className="max-w-7xl mx-auto justify-center">
+            <div className="flex flex-row justify-between items-center mb-4 mt-6 md:mt-12">
+                <div className="flex flex-row items-center gap-2 font-bold md:text-3xl sm:text-2xl text-xl">
+                    <div className="animate-bounce">
+                        <GiBurningRoundShot className="text-emerald-400" />
+                    </div>
+                    <h1>
+                        Truyện nhiều người đọc
+                    </h1>
+                </div>
+                <div className="px-5 py-0.5 bg-transparent overflow-hidden
+                text-emerald-500 hover:text-white hover:ring-2 hover:ring-offset-2
+                hover:ring-emerald-400 duration-300 cursor-pointer
+                border-emerald-500 hover:border-transparent border-2 
+                rounded-full group hover:bg-emerald-500">
+                    <button className="text-sm font-medium">More</button>
+                </div>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mx-2">
 
                 {
                     trendings?.comics?.slice(0, 10)?.map((comics, index) => (
                         <div className="relative group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
-                          <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
+                            <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                 <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'Hot' : ''}
                                 </span>
@@ -78,9 +93,6 @@ const PopularComics = () => {
                     ))
                 }
 
-            </div>
-            <div className="flex mx-auto justify-center text-center my-4">
-                <h1 className="border-2 border-solid border-yellow-400 w-[150px]">Xem tất cả</h1>
             </div>
         </div>
     )

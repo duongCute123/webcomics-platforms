@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { girl } from "../store/girl/girl";
 import { Link } from "react-router-dom";
 import { GrFormView } from "react-icons/gr";
+import { CgGenderFemale } from "react-icons/cg";
 import { GiSelfLove } from "react-icons/gi";
 const SildeGirlComics = () => {
     const girlcomics = useSelector(state => state.girl)
@@ -26,9 +27,22 @@ const SildeGirlComics = () => {
     }
     return (
         <div className="">
-            <h1>
-                Girl
-            </h1>
+            <div className="flex-row flex justify-between items-center">
+                <div className="">
+                    <h1 className="flex flex-row  gap-2 items-center text-xl md:text-3xl sm:text-2xl mb-4 mt-6 md:mt-12 font-bold">
+                        <CgGenderFemale className="text-emerald-400" />
+                        Truyện tranh thiếu nữ
+                    </h1>
+                </div>
+                <div className="px-5 py-0.5 bg-transparent overflow-hidden
+                text-emerald-500 hover:text-white hover:ring-2 hover:ring-offset-2
+                hover:ring-emerald-400 duration-300 cursor-pointer
+                border-emerald-500 hover:border-transparent border-2 
+                rounded-full group hover:bg-emerald-500">
+                    <button className="text-sm font-medium">More</button>
+                </div>
+
+            </div>
             <div className="grid grid-cols-3 md:grid-cols-5 gap-2 mx-2">
 
                 {
@@ -79,9 +93,6 @@ const SildeGirlComics = () => {
                     ))
                 }
 
-            </div>
-            <div className="flex mx-auto justify-center text-center my-4">
-                <h1 className="border-2 border-solid border-yellow-400 w-[150px]">Xem tất cả</h1>
             </div>
         </div>
     )

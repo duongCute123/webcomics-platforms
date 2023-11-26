@@ -5,7 +5,7 @@ import { boy } from "../store/boy/boy";
 import { GrFormView } from "react-icons/gr";
 import { GiSelfLove } from "react-icons/gi";
 import { Link } from "react-router-dom";
-
+import { BsGenderMale } from "react-icons/bs";
 const SildeBoyComics = () => {
     const boycomics = useSelector(state => state.boy)
     console.log(boycomics);
@@ -24,9 +24,21 @@ const SildeBoyComics = () => {
     }
     return (
         <div className="">
-            <h1>
-                Boy
-            </h1>
+            <div className="flex flex-row justify-between items-center">
+                <div className="">
+                    <h1 className=" font-bold flex flex-row justify-center gap-2 text-xl md:text-3xl sm:text-2xl mb-4 mt-6 md:mt-12">
+                        <BsGenderMale className="text-emerald-400" />
+                        Truyện tranh cậu bé
+                    </h1>
+                </div>
+                <div className="px-5 py-0.5 bg-transparent overflow-hidden
+                text-emerald-500 hover:text-white hover:ring-2 hover:ring-offset-2
+                hover:ring-emerald-400 duration-300 cursor-pointer
+                border-emerald-500 hover:border-transparent border-2 
+                rounded-full group hover:bg-emerald-500">
+                    <button className="text-sm font-medium">More</button>
+                </div>
+            </div>
             <div className="grid grid-cols-3 md:grid-cols-5 gap-2 mx-2">
 
                 {
@@ -77,9 +89,6 @@ const SildeBoyComics = () => {
                     ))
                 }
 
-            </div>
-            <div className="flex mx-auto justify-center text-center my-4">
-                <h1 className="border-2 border-solid border-yellow-400 w-[150px]">Xem tất cả</h1>
             </div>
         </div>
     )

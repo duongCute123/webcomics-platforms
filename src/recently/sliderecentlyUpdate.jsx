@@ -4,6 +4,7 @@ import { recentlyUpdate } from '../store/recently/recentlyupdate';
 import { Link } from 'react-router-dom';
 import { GrFormView } from "react-icons/gr";
 import { GiSelfLove } from "react-icons/gi";
+import { RxUpdate } from "react-icons/rx";
 function RecentlyUpdate() {
     const dispatch = useDispatch()
     const recentlyUp = useSelector((state) => state.recently)
@@ -25,9 +26,21 @@ function RecentlyUpdate() {
     }
     return (
         <div className="">
-            <h1>
-                Recently
-            </h1>
+            <div className='items-center justify-between flex flex-row'>
+                <div className=''>
+                    <h1 className='flex flex-row items-center gap-2 text-xl md:text-3xl sm:text-2xl font-bold mb-4 mt-6 md:mt-12'>
+                        <RxUpdate className='text-emerald-400' />
+                        Cập nhật gần đây
+                    </h1>
+                </div>
+                <div className="px-5 py-0.5 bg-transparent overflow-hidden
+                text-emerald-500 hover:text-white hover:ring-2 hover:ring-offset-2
+                hover:ring-emerald-400 duration-300 cursor-pointer
+                border-emerald-500 hover:border-transparent border-2 
+                rounded-full group hover:bg-emerald-500">
+                    <button className="text-sm font-medium">More</button>
+                </div>
+            </div>
             <div className="grid grid-cols-3 md:grid-cols-5 gap-2 mx-2">
 
                 {
@@ -78,9 +91,6 @@ function RecentlyUpdate() {
                     ))
                 }
 
-            </div>
-            <div className="flex mx-auto justify-center text-center my-4">
-                <h1 className="border-2 border-solid border-yellow-400 w-[150px]">Xem tất cả</h1>
             </div>
         </div >
     )

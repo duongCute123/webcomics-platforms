@@ -96,7 +96,7 @@ const ComicsTop = () => {
 
                             {
                                 topscomics?.topcomics?.comics?.map((comics, index) => (
-                                    <div className="relative group group-hover:shadow-md rounded-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
+                                    <div className="relative group group-hover:shadow-md rounded-md overflow-hidden hover:border-2 hover:border-solid md:hover:border-emerald-300 cursor-pointer" key={index}>
                                         <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                             <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
                                                 {comics.is_trending === true ? 'Hot' : ''}
@@ -109,7 +109,7 @@ const ComicsTop = () => {
                                             </span>
                                         </div>
                                         <Link to={`/detail-comics/${comics.id}`} className="">
-                                            <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
+                                            <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 hover:border-2 hover:border-solid hover:border-emerald-500 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
                                         </Link>
                                         <div className="absolute top-1/2 bottom-0 px-2 sm:px-4 py-2 inset-x-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-black">
                                             <div className="">
