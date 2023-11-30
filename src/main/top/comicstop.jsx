@@ -52,7 +52,8 @@ const ComicsTop = () => {
     const handlerChangType = (name) => {
         setTypes(name)
     }
-    const handlePageChange = (selectedPage) => {
+    const handlePageChange = (e, selectedPage) => {
+        e.preventDefault()
         setPage(selectedPage.selected + 1);
     };
     const convertView = (number) => {
@@ -79,7 +80,10 @@ const ComicsTop = () => {
                                     top?.map((tops, index) => {
                                         const IconElement = tops.icon
                                         return (
-                                            <Link to={`${types != "all" ? `/comics/top?tab=${type}&filter=${types}` : `/comics/top?tab=${type}`}`} onClick={() => handlerChangType(tops.id)} key={index} className={`${type === tops.id ? 'bg-emerald-500 text-white' : ''} rounded md:justify-center gap-1 flex  h-10 flex-row items-center`}><IconElement />{tops.name}</Link>
+                                            <Link title={`${tops.name}`} to={`${types != "all" ? `/comics/top?tab=${type}&filter=${types}` : `/comics/top?tab=${type}`}`} onClick={() => handlerChangType(tops.id)} key={index}
+                                                className={`${type === tops.id ? 'bg-emerald-500 text-white' : ''} rounded md:justify-center gap-1 flex  h-10 flex-row items-center`}>
+                                                <IconElement />{tops.name}
+                                            </Link>
                                         )
                                     })
                                 }
@@ -96,7 +100,7 @@ const ComicsTop = () => {
 
                             {
                                 topscomics?.topcomics?.comics?.map((comics, index) => (
-                                    <div className="relative group group-hover:shadow-md rounded-md overflow-hidden hover:border-2 hover:border-solid md:hover:border-emerald-300 cursor-pointer" key={index}>
+                                    <div className="relative group group-hover:shadow-md rounded-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                                         <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                             <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
                                                 {comics.is_trending === true ? 'Hot' : ''}

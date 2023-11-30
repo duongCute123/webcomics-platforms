@@ -16,29 +16,29 @@ const DetailPage = () => {
             id: 0
         }
     ])
-    console.log(chaptersSection);
     const { comic_id } = useParams()
     const detaicomicse = useSelector(state => state.detail)
     const loading = useSelector(state => state.detail.loading)
-    console.log(detaicomicse);
     const chapterPerPage = 50
     const navigation = useNavigate()
     const [currentPage, setCurrentChapter] = useState(0)
     const [isShow, setIsShow] = useState(false)
     const dispatch = useDispatch()
-
     // Lấy tất cả thông tin của bộ truyện cần tìm
     useEffect(() => {
         dispatch(detailcomics.findById(comic_id))
     }, [dispatch, comic_id])
     // Lỗi không gọi lại khi bấm lấy chuyện khác
-    const LayChapterSession = useCallback((chapterPerPage) => {
-        setChapterSession(getChapter(0, chapterPerPage))
-    }, [])
-    // Lấy value của 50 chapter đầu tiên của truyện
+    // const LayChapterSession = useCallback((chapterPerPage, chapterEnd) => {
+    //     setChapterSession(getChapter(0, chapterPerPage, chapterEnd))
+    // }, [setChapterSession])
+    // // Lấy value của 50 chapter đầu tiên của truyện
+    // useEffect(() => {
+    //     LayChapterSession(chapterPerPage, detaicomicse?.detailcomics?.chapters)
+    // }, [LayChapterSession, chapterPerPage, detaicomicse?.detailcomics?.chapters])
     useEffect(() => {
-        LayChapterSession(chapterPerPage)
-    }, [LayChapterSession, chapterPerPage])
+        setChapterSession(getChapter(0, chapterPerPage, detaicomicse?.detailcomics?.chapters))
+    }, [setChapterSession, chapterPerPage, detaicomicse?.detailcomics?.chapters])
     const numberchapter = detaicomicse?.detailcomics?.chapters?.length
     const newChapter = detaicomicse?.detailcomics?.chapters?.[0]?.name?.match(/\d+(\.\d+)?/)?.[0];
     // Tính số chapter từ khoảng 0-50 chapter trên mỗi button khi bấm thì thay đổi
@@ -50,6 +50,7 @@ const DetailPage = () => {
     console.log("Tổng số chpater 1 page", totalChapter);
     console.log(newChapter);
     console.log(numberchapter);
+    console.log(chaptersSection);
     // Lây 50 chapter của chương truyện nếu có thì trả về số chapter là 50
     const getChapter = (chapterstart, chapterend) => {
         const chaptersData = Array.isArray(detaicomicse.detailcomics.chapters) ? detaicomicse.detailcomics.chapters : [];

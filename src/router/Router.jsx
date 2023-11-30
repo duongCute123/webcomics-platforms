@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Router, Routes } from "react-router-dom"
 import Trending from "../trending/Trending"
 import Menu from "../menu/menu"
 import GenresComics from "../genres/genrescomics"
@@ -8,12 +8,17 @@ import NewsComics from "../news/comicsnew"
 import HomepageComics from "../homepage/homepage"
 import SearchPage from "../search/searchcomics"
 import ComicsTop from "../main/top/comicstop"
+// import { createBrowserHistory } from "history"
+
+// import * as history from 'history';
 // import { useEffect } from "react"
+// const history = createBrowserHistory()
 const RouterPage = () => {
     return (
         <div className="">
             <BrowserRouter>
                 <Menu />
+                {/* <Router history={history}> */}
                 <Routes>
                     <Route path="/" element={<HomepageComics />} />
                     <Route path="/comics-trending" element={<Trending />} />
@@ -24,6 +29,7 @@ const RouterPage = () => {
                     <Route path="/comics/top" element={<ComicsTop />} />
                     <Route path="/comics/search" element={<SearchPage />} />
                 </Routes>
+                {/* </Router> */}
             </BrowserRouter>
         </div>
     )
