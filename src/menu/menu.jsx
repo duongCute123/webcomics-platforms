@@ -15,13 +15,16 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { search } from "../store/search/search";
 import InputSearch from "./subnav/inputsearch";
+import { selectedUser } from "../store/auth/userslice";
 const Menu = () => {
     const searchdata = useSelector(state => state.searchcomics)
+    const user = useSelector(selectedUser)
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const navigation = useNavigate()
     const [query, setQuery] = useState()
     const [isShow, setIsShow] = useState(false)
+    console.log("Thông tin người dùng", user)
     const HandlerEnter = (e) => {
         if (e.key === 'Enter') {
             // HandlerQuery(query)
@@ -48,8 +51,16 @@ const Menu = () => {
                         <h1>Truyện tranh</h1>
                     </div>
                 </div>
-                <div className="text-3xl absolute right-0 md:hidden" onClick={() => { setOpen(!open) }}>
-                    <ion-icon name={`${open ? 'close' : 'menu'}`}></ion-icon>
+                <div className="">
+                    <div className="">
+                        <img className="bg-cover bg-no-repeat object-cover rounded-full w-8"  src={user?.photoUrl} alt="" />
+                        <div className="">
+                            <p>{user?.displayName}</p>
+                        </div>
+                    </div>
+                    <div className="text-3xl absolute right-0 md:hidden" onClick={() => { setOpen(!open) }}>
+                        <ion-icon name={`${open ? 'close' : 'menu'}`}></ion-icon>
+                    </div>
                 </div>
             </div>
             {/* Trên thiết bị mấy tính và các màn hình lớn */}

@@ -46,7 +46,7 @@ const LoginPage = () => {
             .then(res => {
                 console.log(res);
                 const IDTokent = res.user.accessToken
-                console.log(IDTokent);
+                localStorage.setItem("token", IDTokent)
             })
             .catch(err => {
                 console.log("err", err);

@@ -38,8 +38,8 @@ const userSlice = createSlice({
         error: null
     },
     reducers: {
-        loginSucces: (state, { payload }) => {
-            state.user = payload
+        loginSucces: (state, action) => {
+            state.user = action.payload
             state.error = null
         },
         logOut: (state, action) => {

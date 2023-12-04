@@ -8,10 +8,12 @@ import LoginPage from "./main/login/login"
 
 function App() {
   const user = useSelector(selectedUser)
+  console.log(user);
   const dispatch = useDispatch()
   useEffect(() => {
     onAuthStateChanged(auth, (userAuth) => {
       if (userAuth) {
+        console.log(userAuth);
         dispatch(loginSucces({
           email: userAuth.email,
           uid: userAuth.uid,
@@ -25,12 +27,6 @@ function App() {
   }, [])
   return (
     <div className="app">
-      {/* {
-        !user ?
-          <LoginPage />
-          :
-          <RouterPage />
-      } */}
       <RouterPage />
     </div>
   )
