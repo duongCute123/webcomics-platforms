@@ -9,6 +9,7 @@ import GenresReducer from "./genres/genrescomics"
 import DetailComicsReducer from "./detailcomics/detailcomics"
 import TopComicsReducer from "./top/top"
 import SearchComicReducer from "./search/search"
+import UserReducer from "./auth/userslice"
 export const store = configureStore({
     reducer: {
         trending: TrendingReducer,
@@ -20,6 +21,7 @@ export const store = configureStore({
         genres: GenresReducer,
         detail: DetailComicsReducer,
         topcomics: TopComicsReducer,
-        searchcomics: SearchComicReducer
+        searchcomics: SearchComicReducer,
+        user: UserReducer
     }
 })

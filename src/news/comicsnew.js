@@ -5,6 +5,7 @@ import 'swiper/css/autoplay';
 import { useDispatch, useSelector } from "react-redux"
 import 'swiper/css/pagination';
 import { GrFormView } from "react-icons/gr";
+import avtar from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { GiSelfLove } from "react-icons/gi";
 import { status } from '../type';
 // import { useParams } from "react-router-dom"
@@ -25,6 +26,7 @@ const NewsComics = () => {
     const navigation = useNavigate()
     const [page, setPage] = useState(1)
     const [type, setType] = useState("all")
+    const [errorImage, setErrorImage] = useState(false)
     const dispatch = useDispatch()
     const toTalPage = detailComics?.news?.data?.total_pages
     console.log(toTalPage);
@@ -84,7 +86,7 @@ const NewsComics = () => {
                     }
                 </Swiper>
             </div>
-            <div className="grid grid-cols-3 w-11/12 mx-auto md:grid-cols-5 gap-2 my-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 w-11/12 mx-auto md:grid-cols-4 lg:grid-cols-5 gap-2 my-2">
 
                 {
                     detailComics?.news?.data?.comics?.map((comics, index) => (
@@ -101,7 +103,15 @@ const NewsComics = () => {
                                 </span>
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
-                                <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
+                                {
+                                    errorImage
+                                        ?
+                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={avtar} alt="" />
+
+                                        :
+                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" onError={() => setErrorImage(!errorImage)} loading="lazy" src={comics.thumbnail} alt="" />
+
+                                }
                             </Link>
                             <div className="absolute top-1/2 bottom-0 px-2 sm:px-4 py-2 inset-x-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-black">
                                 <div className="">

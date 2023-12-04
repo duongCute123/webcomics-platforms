@@ -8,6 +8,8 @@ import NewsComics from "../news/comicsnew"
 import HomepageComics from "../homepage/homepage"
 import SearchPage from "../search/searchcomics"
 import ComicsTop from "../main/top/comicstop"
+import LoginPage from "../main/login/login"
+import RegisterPage from "../main/login/register"
 // import { createBrowserHistory } from "history"
 
 // import * as history from 'history';
@@ -17,7 +19,7 @@ const RouterPage = () => {
     return (
         <div className="">
             <BrowserRouter>
-                <Menu />
+                <Menu  />
                 {/* <Router history={history}> */}
                 <Routes>
                     <Route path="/" element={<HomepageComics />} />
@@ -28,6 +30,8 @@ const RouterPage = () => {
                     <Route path="/comics/news/:slug" element={<NewsComics />} />
                     <Route path="/comics/top" element={<ComicsTop />} />
                     <Route path="/comics/search" element={<SearchPage />} />
+                    <Route path="/user/login" element={<LoginPage />} />
+                    <Route path="/user/register" element={<RegisterPage />} />
                 </Routes>
                 {/* </Router> */}
             </BrowserRouter>

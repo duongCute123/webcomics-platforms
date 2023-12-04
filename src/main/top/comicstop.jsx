@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { GrFormView } from "react-icons/gr";
+import avatar from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { GiSelfLove } from "react-icons/gi";
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
 import ReactPaginate from "react-paginate"
@@ -13,13 +14,12 @@ const ComicsTop = () => {
     const loading = useSelector(state => state.topcomics.loading)
     const dispatch = useDispatch()
     const [page, setPage] = useState(1)
+    const [errorImage, setErrorImage] = useState(false)
     const [type, setTypes] = useState("all")
     const [types, setType] = useState("all")
     // const [isClick, setIsClick] = useState(false)
     const toTalPage = topscomics?.topcomics?.total_pages
-    console.log(toTalPage);
     const [pageRanges, setpageRanges] = useState()
-    console.log(topscomics);
     useEffect(() => {
         console.log(type);
         switch (type) {
@@ -52,8 +52,7 @@ const ComicsTop = () => {
     const handlerChangType = (name) => {
         setTypes(name)
     }
-    const handlePageChange = (e, selectedPage) => {
-        e.preventDefault()
+    const handlePageChange = (selectedPage) => {
         setPage(selectedPage.selected + 1);
     };
     const convertView = (number) => {
@@ -66,6 +65,7 @@ const ComicsTop = () => {
         return number.toString()
     }
     console.log(type);
+    console.log(page);
     return (
         <div className="">
 
@@ -113,7 +113,16 @@ const ComicsTop = () => {
                                             </span>
                                         </div>
                                         <Link to={`/detail-comics/${comics.id}`} className="">
-                                            <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 hover:border-2 hover:border-solid hover:border-emerald-500 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
+                                            {
+                                                errorImage ?
+                                                    <img className={`bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 hover:border-2 hover:border-solid hover:border-emerald-500 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full`} loading="lazy" src={avatar} alt="" />
+                                                    :
+                                                    <img className={`bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 hover:border-2 hover:border-solid hover:border-emerald-500 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full`} loading="lazy" src={comics.thumbnail} onError={() => {
+                                                        console.log("Lỗi ảnh rồi");
+                                                        setErrorImage(true)
+
+                                                    }} alt="" />
+                                            }
                                         </Link>
                                         <div className="absolute top-1/2 bottom-0 px-2 sm:px-4 py-2 inset-x-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-black">
                                             <div className="">

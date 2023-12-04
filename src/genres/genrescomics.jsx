@@ -77,7 +77,7 @@ const GenresComics = () => {
                     modules={[Navigation]} className=" ">
                     {
                         genress?.map((genres, index) => (
-                            <SwiperSlide key={index} onClick={() => { handlerClick(genres.id) }} className={`px-5 ${slug === genres.id ? 'bg-emerald-500' : ''} py-3 cursor-pointer text-center select-none`}>
+                            <SwiperSlide key={index} onClick={() => { handlerClick(genres.id) }} className={`${slug === genres.id ? 'bg-emerald-500' : ''} py-3 cursor-pointer mx-auto text-center line-clamp-1 select-none`}>
                                 {genres.name}
                             </SwiperSlide>
                         ))
@@ -92,11 +92,11 @@ const GenresComics = () => {
                     <p className='text-white text-lg'>Tất cả thể loại truyện tranh</p>
                 </div>
             </div>
-            <div className="grid grid-cols-3 w-11/12 mx-auto md:grid-cols-5 gap-2 my-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 w-11/12 mx-auto md:grid-cols-4 gap-2 my-2">
 
                 {
                     genrescomics?.genres?.comics?.map((comics, index) => (
-                        <div className="relative group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
+                        <div className="relative group group-hover:shadow-md rounded overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                             <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                 <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'Hot' : ''}
