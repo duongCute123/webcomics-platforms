@@ -109,28 +109,28 @@ const Menu = () => {
                                 <Link to={""} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><IoHomeOutline />Home</Link>
                             </li>
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
-                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><GiCrown />Genres</Link>
+                                <Link to={"/comics-genres/all"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><GiCrown />Genres</Link>
                             </li>
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
-                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><FaAutoprefixer />Top</Link>
+                                <Link to={"/comics/top?all"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><FaAutoprefixer />Top</Link>
                             </li>
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
-                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><PiNewspaperClippingLight />New Comics</Link>
+                                <Link to={"comics/news/all"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><PiNewspaperClippingLight />New Comics</Link>
                             </li>
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
-                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><GiBurningRoundShot />Popular Comics</Link>
+                                <Link to={"/comics/popular-comics"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><GiBurningRoundShot />Popular Comics</Link>
                             </li>
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
-                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><FaCircleCheck />Complete Comics</Link>
+                                <Link to={"/comics/complete-comics"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><FaCircleCheck />Complete Comics</Link>
                             </li>
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
-                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><RxUpdate />Recently Comics</Link>
+                                <Link to={"/comics/recently-comics"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><RxUpdate />Recently Comics</Link>
                             </li>
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
-                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><BsGenderMale />Boy Comics</Link>
+                                <Link to={"/comics/boy-comics"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><BsGenderMale />Boy Comics</Link>
                             </li>
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
-                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><CgGenderFemale />Girl Comics</Link>
+                                <Link to={"/comics/girl-comics"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><CgGenderFemale />Girl Comics</Link>
                             </li>
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
                                 <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><MdHistory />History</Link>

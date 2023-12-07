@@ -3,17 +3,17 @@ import { basicDomain, boy, complete, detail, endPoint, genres, girl, news, recen
 
 export default {
     trending: {
-        getTrending: (pages, params) => axios.get(`${basicDomain}${endPoint}${pages}`, { params })
+        getTrending: (params) => axios.get(`${basicDomain}${endPoint}${params.page}`)
     },
     complete: {
         getComplete: {
-            getList: (pages, params) => axios.get(`${basicDomain}${complete}${pages}`, { params })
+            getList: (params) => axios.get(`${basicDomain}${complete}`, { params })
         }
     },
     recently: {
         recentlyUpdate: {
             getList: (params) => axios.get(`${basicDomain}/recent-update-comics`, { params }),
-            findBySatusPage: (page, status, entity) => axios.get(`${basicDomain}/${recent}?page=${page}&status=${status}`, { entity })
+            findBySatusPage: (params) => axios.get(`${basicDomain}/${recent}`, { params })
         }
     },
     boy: {
@@ -35,13 +35,13 @@ export default {
     news: {
         newsComics: {
             getList: (params) => axios.get(`${basicDomain}${news}`),
-            findNewComics: (params) => axios.get(`${basicDomain}/new-comics?page=${params.page}&status=${params.status}`)
+            findNewComics: (params) => axios.get(`${basicDomain}/new-comics`, { params })
 
         }
     },
     genres: {
         genresComics: {
-            getList: (params) => axios.get(`${basicDomain}/${genres}/${params.type}?page=${params.page}`)
+            getList: (params) => axios.get(`${basicDomain}/${genres}/${params.type}`, { params })
         }
     },
     detail: {

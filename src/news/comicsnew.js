@@ -106,10 +106,14 @@ const NewsComics = () => {
                                 {
                                     errorImage
                                         ?
-                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={avtar} alt="" />
+                                        <img className="bg-cover object-center scale-[1.01] origin-bottom 
+                                        select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" 
+                                        loading="lazy" src={avtar} alt="" />
 
                                         :
-                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" onError={() => setErrorImage(!errorImage)} loading="lazy" src={comics.thumbnail} alt="" />
+                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none 
+                                        group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" 
+                                        onError={() => setErrorImage(!errorImage)} loading="lazy" src={comics.thumbnail} alt="" />
 
                                 }
                             </Link>
