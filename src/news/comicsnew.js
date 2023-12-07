@@ -26,7 +26,12 @@ const NewsComics = () => {
     const navigation = useNavigate()
     const [page, setPage] = useState(1)
     const [type, setType] = useState("all")
-    const [errorImage, setErrorImage] = useState(false)
+    const [errorImages, setErrorImages] = useState([]);
+    const handleImageError = (index) => {
+        const updatedErrorImages = [...errorImages];
+        updatedErrorImages[index] = true;
+        setErrorImages(updatedErrorImages);
+    };
     const dispatch = useDispatch()
     const toTalPage = detailComics?.news?.data?.total_pages
     console.log(toTalPage);
@@ -104,16 +109,16 @@ const NewsComics = () => {
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
                                 {
-                                    errorImage
+                                    errorImages[index]
                                         ?
                                         <img className="bg-cover object-center scale-[1.01] origin-bottom 
-                                        select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" 
-                                        loading="lazy" src={avtar} alt="" />
+                                        select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full"
+                                            loading="lazy" src={avtar} alt="" />
 
                                         :
                                         <img className="bg-cover object-center scale-[1.01] origin-bottom select-none 
-                                        group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" 
-                                        onError={() => setErrorImage(!errorImage)} loading="lazy" src={comics.thumbnail} alt="" />
+                                        group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full"
+                                            onError={() => handleImageError(index)} loading="lazy" src={comics.thumbnail} alt="" />
 
                                 }
                             </Link>
@@ -153,10 +158,10 @@ const NewsComics = () => {
             <div className=''>
                 <ReactPaginate
                     className='flex gap-4 justify-center hover:no-underline font-bold  items-center text-center'
-                    pageCount={toTalPage} // Tổng số trang
-                    pageRangeDisplayed={pageRanges} // Số lượng nút phân trang hiển thị
-                    marginPagesDisplayed={2} // Số lượng nút phân trang hiển thị ở hai đầu
-                    onPageChange={handlePageChange} // Xử lý sự kiện khi người dùng chuyển trang
+                    pageCount={toTalPage}
+                    pageRangeDisplayed={pageRanges}
+                    marginPagesDisplayed={2}
+                    onPageChange={handlePageChange}
                     containerClassName="pagination"
                     activeClassName="text-white bg-yellow-400"
                     disabledClassName="disabled"
