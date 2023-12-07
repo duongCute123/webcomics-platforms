@@ -96,7 +96,7 @@ const ComicsTop = () => {
                                 ))
                             }
                         </ul>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 bg-cover bg-no-repeat w-11/12 mx-auto md:grid-cols-5 gap-2 my-2">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 bg-cover bg-no-repeat w-[98%] mx-auto md:grid-cols-5 gap-2 my-2">
 
                             {
                                 topscomics?.topcomics?.comics?.map((comics, index) => (

@@ -37,13 +37,13 @@ function Trending() {
                     </div>
                 </div>
                 <div className="" >
-                    <Swiper spaceBetween={5} slidesPerView={3}
+                    <Swiper spaceBetween={5} slidesPerView={2}
                         pagination={{
                             clickable: true,
                         }}
                         breakpoints={{
                             640: {
-                                slidesPerView: 4,
+                                slidesPerView: 3,
 
                             },
                             768: {
@@ -53,11 +53,11 @@ function Trending() {
                                 slidesPerView: 6,
                             },
                         }}
-                        autoplay={{ delay: 4000 }} modules={[Navigation, Autoplay]} className="mySwiper gap-5">
+                        autoplay={{ delay: 4000 }} modules={[Navigation, Autoplay]} className="mySwiper gap-6">
                         {
                             trendings?.comics?.map((comics, index) => (
-                                <SwiperSlide key={index}>
-                                    <Link to={`/detail-comics/${comics.id}`} className='relative'>
+                                <SwiperSlide className='rounded' key={index}>
+                                    <Link to={`/detail-comics/${comics.id}`} className='relative rounded'>
                                         <div className='w-full h-full'>
                                             <img className='aspect-[2/3] w-full h-full object-cover bg-cover bg-no-repeat' src={comics.thumbnail} alt="" />
                                         </div>

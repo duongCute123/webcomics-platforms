@@ -41,11 +41,11 @@ function RecentlyUpdate() {
                     <button className="text-sm font-medium">More</button>
                 </div>
             </div>
-            <div className="grid grid-cols-3 md:grid-cols-5 gap-2 mx-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mx-2">
 
                 {
                     recentlyUp?.recently?.comics?.slice(0, 10)?.map((comics, index) => (
-                        <div className="relative group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
+                        <div className="relative rounded group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                             <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                 <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'Hot' : ''}

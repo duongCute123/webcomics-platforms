@@ -28,8 +28,10 @@ const InputSearch = () => {
                     <MdHistory color="blue" size={25} />
                 </div>
                 <div className="flex flex-row items-center mx-2">
-                    <input type="text" className="border-2 border-solid rounded-full  border-red-300 text-black w-52 h-9" onClick={() => setIsShow(!isShow)} onKeyPress={HandlerEnter} onChange={(e) => setQuery(e.target.value)} placeholder="Nhập truyện muốn tìm" />
-                    <CiSearch className="absolute right-6" color="black" size={25} />
+                    <form className="flex flex-row items-center relative">
+                        <input type="text" className="border-2 border-solid rounded-full  border-red-300 text-black w-52 h-9" onClick={() => setIsShow(!isShow)} onKeyPress={HandlerEnter} onChange={(e) => setQuery(e.target.value)} placeholder="Nhập truyện muốn tìm" />
+                        <CiSearch className="" color="black" size={25} />
+                    </form>
                     <div className={`absolute top-[57px] z-30 ${isShow ? '' : 'hidden'} px-3 py-5 text-black bg-white  h-[300px] overflow-y-auto`}>
                         {
                             searchdata && searchdata.search && searchdata?.search.length > 0 && searchdata?.search?.map((searchcomics, idx) => (

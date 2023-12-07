@@ -21,6 +21,7 @@ const Menu = () => {
     const user = useSelector(selectedUser)
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
+    const [IsClose, setIsClose] = useState(false)
     const navigation = useNavigate()
     const [query, setQuery] = useState()
     const [isShow, setIsShow] = useState(false)
@@ -41,89 +42,102 @@ const Menu = () => {
     }, [dispatch, query])
     const type = "all"
     return (
-        <div className="flex flex-row justify-between bg-white shadow-md h-12 md:h-14 text-black items-center w-full mx-auto px-3 py-3">
-            <div className="flex flex-row justify-between z-50 items-center">
-                <div className="gap-2 flex flex-row items-center text-center">
-                    <div className="">
-                        <img className="bg-no-repeat bg-cover" width={"40px"} src={logo} alt="" />
-                    </div>
-                    <div className="font-bold text-green-500/95 text-2xl">
-                        <h1>Truyện tranh</h1>
-                    </div>
-                </div>
-                <div className="">
-                    <div className="">
-                        <img className="bg-cover bg-no-repeat object-cover rounded-full w-8"  src={user?.photoUrl} alt="" />
-                        <div className="">
-                            <p>{user?.displayName}</p>
+        <div className="relative">
+            <div className="">
+                <div className="flex flex-row  justify-between bg-white shadow-md h-12 md:h-14 text-black items-center w-full mx-auto px-3 py-3">
+                    <div className="flex  flex-row justify-between items-center">
+                        <div className="gap-2 flex flex-row items-center justify-between text-center">
+                            <div className="">
+                                <img className="bg-no-repeat bg-cover" width={"40px"} src={logo} alt="" />
+                            </div>
+                            <div className="font-bold text-green-500/95 text-2xl">
+                                <h1>Truyện tranh</h1>
+                            </div>
                         </div>
                     </div>
-                    <div className="text-3xl absolute right-0 md:hidden" onClick={() => { setOpen(!open) }}>
-                        <ion-icon name={`${open ? 'close' : 'menu'}`}></ion-icon>
+                    {/* Trên thiết bị mấy tính và các màn hình lớn */}
+                    <nav className="hidden md:block">
+                        <ul className="flex flex-row gap-9 font-bold">
+                            <li>
+                                <Link to={'/'} about="home">Home</Link>
+                            </li>
+                            <li>
+                                <Link to={`/comics-genres/${type}`} about="genres">Genres</Link>
+                            </li>
+                            <li>
+                                <Link to={`/comics/news/${type}`} about="new">New</Link>
+                            </li>
+                            <li>
+                                <Link to={`/comics/top?${type}`} about="top">Top</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div className="hidden md:block">
+                        <InputSearch />
+                    </div>
+                    <div className="flex flex-row items-center justify-center gap-1">
+                        <div className="group">
+                            <div className="py-7 px-4">
+                                <img className="bg-cover bg-no-repeat object-cover rounded-full w-8" src={user?.photoUrl} alt="" />
+                            </div>
+                            <div className="absolute py-7 z-50 top-9 px-3 right-1 group-hover:block hover:block hidden">
+                                <div className="border-2 flex flex-col bg-white border-solid rounded-md">
+                                    <p>Tên:{user?.displayName}</p>
+                                    <p>Email:{user?.email}</p>
+                                    <button>Logout</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="text-3xl   md:hidden" onClick={() => { setOpen(!open) }}>
+                            <ion-icon name={`${open ? 'close' : 'menu'}`}></ion-icon>
+                        </div>
+                    </div>
+                    {/* Trên thiết bị điện thoại có màn hình nhỏ */}
+                    <div className={` inset-y-0
+                    md:hidden fixed bg-white w-10/12  overflow-y-auto max-h-screen translate-x-0 pl-4 z-20 bottom-0
+                     duration-500 ${open ? 'right-0' : 'right-[-100%]'}
+                    `}>
+                        <div className="text-3xl flex flex-row px-3 py-3 justify-end  md:hidden" onClick={() => { setOpen(!open) }}>
+                            <ion-icon name={`${open ? 'close' : 'menu'}`}></ion-icon>
+                        </div>
+                        <div className="flex flex-row justify-center items-center gap-8">
+                            <input type="text" placeholder="Vui lòng nhập tên truyện cần tìm" className="w-11/12 text-black text-lg h-10 rounded-full border-2 border-solid border-red-400" />
+                            <CiSearch size={40} className="font-bold absolute right-4 text-3xl" />
+                        </div>
+                        <ul className="mx-5 my-6 gap-5 text-lg grid font-semibold">
+                            <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
+                                <Link to={""} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><IoHomeOutline />Home</Link>
+                            </li>
+                            <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
+                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><GiCrown />Genres</Link>
+                            </li>
+                            <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
+                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><FaAutoprefixer />Top</Link>
+                            </li>
+                            <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
+                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><PiNewspaperClippingLight />New Comics</Link>
+                            </li>
+                            <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
+                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><GiBurningRoundShot />Popular Comics</Link>
+                            </li>
+                            <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
+                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><FaCircleCheck />Complete Comics</Link>
+                            </li>
+                            <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
+                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><RxUpdate />Recently Comics</Link>
+                            </li>
+                            <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
+                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><BsGenderMale />Boy Comics</Link>
+                            </li>
+                            <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
+                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><CgGenderFemale />Girl Comics</Link>
+                            </li>
+                            <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
+                                <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><MdHistory />History</Link>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-            {/* Trên thiết bị mấy tính và các màn hình lớn */}
-            <nav className="hidden md:block">
-                <ul className="flex flex-row gap-9 font-bold">
-                    <li>
-                        <Link to={'/'} about="home">Home</Link>
-                    </li>
-                    <li>
-                        <Link to={`/comics-genres/${type}`} about="genres">Genres</Link>
-                    </li>
-                    <li>
-                        <Link to={`/comics/news/${type}`} about="new">New</Link>
-                    </li>
-                    <li>
-                        <Link to={`/comics/top?${type}`} about="top">Top</Link>
-                    </li>
-                </ul>
-            </nav>
-            <div className="hidden md:block">
-                <InputSearch />
-            </div>
-            {/* Trên thiết bị điện thoại có màn hình nhỏ */}
-            <div className={` overflow-y-auto
-                    md:hidden absolute bg-white w-full h-full pl-4 z-20 bottom-0
-                    py-24 duration-500 ${open ? 'left-0' : 'left-[-100%]'}
-                    `}>
-                <div className="flex flex-row justify-center items-center gap-8">
-                    <input type="text" placeholder="Vui lòng nhập tên truyện cần tìm" className="w-11/12 text-black text-lg h-10 rounded-full border-2 border-solid border-red-400" />
-                    <CiSearch size={40} className="font-bold absolute right-4 text-3xl" />
-                </div>
-                <ul className="mx-5 my-6 gap-5 text-lg grid font-semibold">
-                    <li>
-                        <Link to={""} className="flex flex-row items-center gap-2"><IoHomeOutline />Home</Link>
-                    </li>
-                    <li>
-                        <Link className="flex flex-row items-center gap-2"><GiCrown />Genres</Link>
-                    </li>
-                    <li>
-                        <Link className="flex flex-row items-center gap-2"><FaAutoprefixer />Top</Link>
-                    </li>
-                    <li>
-                        <Link className="flex flex-row items-center gap-2"><PiNewspaperClippingLight />New Comics</Link>
-                    </li>
-                    <li>
-                        <Link className="flex flex-row items-center gap-2"><GiBurningRoundShot />Popular Comics</Link>
-                    </li>
-                    <li>
-                        <Link className="flex flex-row items-center gap-2"><FaCircleCheck />Complete Comics</Link>
-                    </li>
-                    <li>
-                        <Link className="flex flex-row items-center gap-2"><RxUpdate />Recently Comics</Link>
-                    </li>
-                    <li>
-                        <Link className="flex flex-row items-center gap-2"><BsGenderMale />Boy Comics</Link>
-                    </li>
-                    <li>
-                        <Link className="flex flex-row items-center gap-2"><CgGenderFemale />Girl Comics</Link>
-                    </li>
-                    <li>
-                        <Link className="flex flex-row items-center gap-2"><MdHistory />History</Link>
-                    </li>
-                </ul>
             </div>
         </div>
     )

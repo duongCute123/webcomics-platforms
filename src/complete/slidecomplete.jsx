@@ -41,7 +41,7 @@ const CompleteComics = () => {
                     <button className="text-sm font-medium">More</button>
                 </div>
             </div>
-            <div className="grid grid-cols-3 md:grid-cols-5 gap-2 mx-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mx-2">
 
                 {
                     completecomic?.completeComics?.comics?.slice(0, 10)?.map((comics, index) => (

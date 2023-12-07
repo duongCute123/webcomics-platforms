@@ -1,17 +1,31 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-// import { competecomics } from "../store/completecomics/completecomics";
-import { news } from "../store/news/news";
+import { boy } from "../store/boy/boy"
 import { GrFormView } from "react-icons/gr";
 import { GiSelfLove } from "react-icons/gi";
-import { Link } from "react-router-dom";
-const SildeNewslComics = () => {
-    const newscomics = useSelector(state => state.news)
-    console.log(newscomics);
+import { Link, useNavigate } from "react-router-dom";
+import { FaCircleCheck } from "react-icons/fa6";
+import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
+import ReactPaginate from "react-paginate";
+const BoyComics = () => {
+    const boycomics = useSelector(state => state.boy)
+    console.log(boycomics);
     const dispatch = useDispatch()
+    const [page, setPage] = useState(1)
+    const toTalPage = boycomics?.boy?.total_pages
+    const [pageRanges, setpageRanges] = useState()
+    const handlePageChange = (selectedPage) => {
+        setPage(selectedPage.selected + 1);
+    };
+    const navigato = useNavigate()
     useEffect(() => {
-        dispatch(news.getList())
-    }, [dispatch])
+        dispatch(boy.getComicswithPage({ page: page }))
+        if (page !== 1) {
+            navigato(`/comics/boy-comics?page=${page}`)
+        } else {
+            navigato("/comics/boy-comics")
+        }
+    }, [dispatch, page])
     const convertView = (number) => {
         if (number > 1000000) {
             return (number / 1000000).toFixed(0) + 'M'
@@ -25,15 +39,20 @@ const SildeNewslComics = () => {
         return number.toString()
     }
     return (
-        <div className="">
-            <h1>
-                News
-            </h1>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mx-2">
+        <div className="mx-6">
+            <div className="flex flex-row items-center justify-between">
+                <div className="">
+                    <h1 className="flex items-center flex-row gap-2 text-xl md:text-3xl sm:text-2xl font-bold mb-4 mt-6 md:mt-12">
+                        <FaCircleCheck className="text-emerald-400 animate-pulse" />
+                        Boy Comics {`${page !== 1 ? `- Page ${page}` : ''}`}
+                    </h1>
+                </div>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
 
                 {
-                    newscomics?.news?.comics?.slice(0, 10)?.map((comics, index) => (
-                        <div className="relative rounded group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
+                    boycomics?.boy?.comics?.map((comics, index) => (
+                        <div className="relative rounded  group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                             <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                 <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'Hot' : ''}
@@ -80,7 +99,31 @@ const SildeNewslComics = () => {
                 }
 
             </div>
+            <div className=''>
+                <ReactPaginate
+                    className='flex gap-4 justify-center hover:no-underline font-bold  items-center text-center'
+                    pageCount={toTalPage} // Tổng số trang
+                    pageRangeDisplayed={pageRanges} // Số lượng nút phân trang hiển thị
+                    marginPagesDisplayed={2} // Số lượng nút phân trang hiển thị ở hai đầu
+                    onPageChange={handlePageChange} // Xử lý sự kiện khi người dùng chuyển trang
+                    containerClassName="pagination"
+                    activeClassName="text-white bg-yellow-400"
+                    disabledClassName="disabled"
+                    nextLabel={<BiChevronRight size={"25px"} />}
+                    pageClassName="border-solid border-2 border-yellow-400 justify-center items-center w-10"
+
+                    previousClassName={page === 1 ? 'hidden' : ''}
+                    previousLabel={
+                        <div className="flex items-center justify-center text-center">
+                            <BiChevronLeft size={"25px"} />
+                        </div>
+                    }
+                    pageLinkClassName={""}
+                    activeLinkClassName={""}
+                />
+                {/* <Pagination currentPage={currentPage} totalPages={toTalPage} onPageChange={handlePageChange}/> */}
+            </div>
         </div>
     )
 }
-export default SildeNewslComics
+export default BoyComics

@@ -1,9 +1,11 @@
+import Menu from "../menu/menu"
 import Trending from "../trending/Trending"
 
 const HomepageComics = () => {
     return (
         <div className="">
-            <Trending/>
+            {/* <Menu /> */}
+            <Trending />
         </div>
     )
 }

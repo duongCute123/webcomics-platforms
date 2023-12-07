@@ -19,10 +19,16 @@ export default {
     boy: {
         boyComics: {
             getList: (params) => axios.get(`${basicDomain}${boy}`)
+        },
+        boyComicsandPage: {
+            getList: (params) => axios.get(`${basicDomain}${boy}`, { params })
         }
     },
     girl: {
         girlComics: {
+            getList: (params) => axios.get(`${basicDomain}${girl}`, { params })
+        },
+        girlComicsandPage: {
             getList: (params) => axios.get(`${basicDomain}${girl}`, { params })
         }
     },

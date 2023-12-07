@@ -10,6 +10,8 @@ import SearchPage from "../search/searchcomics"
 import ComicsTop from "../main/top/comicstop"
 import LoginPage from "../main/login/login"
 import RegisterPage from "../main/login/register"
+import BoyComics from "../boy/boycomics"
+import GirlComics from "../girl/girlcomics"
 // import { createBrowserHistory } from "history"
 
 // import * as history from 'history';
@@ -19,7 +21,7 @@ const RouterPage = () => {
     return (
         <div className="">
             <BrowserRouter>
-                <Menu  />
+                <Menu />
                 {/* <Router history={history}> */}
                 <Routes>
                     <Route path="/" element={<HomepageComics />} />
@@ -28,6 +30,8 @@ const RouterPage = () => {
                     <Route path="/detail-comics/:comic_id" element={<DetailPage />} />
                     <Route path="/comics/:comic_id/:chapter_id" element={<ReadComics />} />
                     <Route path="/comics/news/:slug" element={<NewsComics />} />
+                    <Route path="/comics/boy-comics" element={<BoyComics />} />
+                    <Route path="/comics/girl-comics" element={<GirlComics />} />
                     <Route path="/comics/top" element={<ComicsTop />} />
                     <Route path="/comics/search" element={<SearchPage />} />
                     <Route path="/user/login" element={<LoginPage />} />

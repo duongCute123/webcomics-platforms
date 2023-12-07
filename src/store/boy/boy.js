@@ -11,6 +11,15 @@ export const boy = {
             thunkAPI.dispatch({ variant: "error", message: "Lỗi lấy dữ liệu" })
             return thunkAPI.rejectWithValue(error)
         }
+    }),
+    getComicswithPage: createAsyncThunk(`${appName}/${moduleName}/getcomicspage=1`, async (params, thunkAPI) => {
+        try {
+            const responsive = await connect.boy.boyComicsandPage.getList(params)
+            return responsive.data
+        } catch (error) {
+            thunkAPI.dispatch({ variant: "error", message: "Lỗi lấy dữ liệu" })
+            return thunkAPI.rejectWithValue(error)
+        }
     })
 }
 const boySlice = createSlice({
@@ -36,6 +45,23 @@ const boySlice = createSlice({
                 state.error = null
             })
             .addCase(boy.getList.rejected, (state, { error }) => {
+                state.loading = false
+                state.boy = {
+                    data: []
+                }
+                state.error = error
+            })
+            .addCase(boy.getComicswithPage.pending, (state) => {
+                state.loading = true
+                state.boy = null
+                state.error = null
+            })
+            .addCase(boy.getComicswithPage.fulfilled, (state, { payload }) => {
+                state.loading = false
+                state.boy = payload
+                state.error = null
+            })
+            .addCase(boy.getComicswithPage.rejected, (state, { error }) => {
                 state.loading = false
                 state.boy = {
                     data: []
