@@ -76,18 +76,27 @@ const Menu = () => {
                         <InputSearch />
                     </div>
                     <div className="flex flex-row items-center justify-center gap-1">
-                        <div className="group">
-                            <div className="py-7 px-4">
-                                <img className="bg-cover bg-no-repeat object-cover rounded-full w-8" src={user?.photoUrl} alt="" />
-                            </div>
-                            <div className="absolute py-7 z-50 top-9 px-3 right-1 group-hover:block hover:block hidden">
-                                <div className="border-2 flex flex-col bg-white border-solid rounded-md">
-                                    <p>Tên:{user?.displayName}</p>
-                                    <p>Email:{user?.email}</p>
-                                    <button>Logout</button>
+                        {
+                            user ?
+                                <div>
+                                    <div className="group">
+                                        <div className="py-7 px-4">
+                                            <img className="bg-cover bg-no-repeat object-cover rounded-full w-8" src={user?.photoUrl} alt="" />
+                                        </div>
+                                        <div className="absolute py-7 z-50 top-9 px-3 right-1 group-hover:block hover:block hidden">
+                                            <div className="border-2 flex flex-col bg-white border-solid rounded-md">
+                                                <p>Tên:{user?.displayName}</p>
+                                                <p>Email:{user?.email}</p>
+                                                <button>Logout</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                                :
+                                <button onClick={() => {
+                                    navigation("/user/login")
+                                }} className="border border-solid border-blue-400 font-bold px-5 py-1 rounded">Login</button>
+                        }
                         <div className="text-3xl   md:hidden" onClick={() => { setOpen(!open) }}>
                             <ion-icon name={`${open ? 'close' : 'menu'}`}></ion-icon>
                         </div>
