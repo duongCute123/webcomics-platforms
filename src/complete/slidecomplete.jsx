@@ -1,7 +1,8 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { competecomics } from "../store/completecomics/completecomics";
 import { GrFormView } from "react-icons/gr";
+import avata from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { GiSelfLove } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { FaCircleCheck } from "react-icons/fa6";
@@ -23,6 +24,12 @@ const CompleteComics = () => {
             return (number / 1000).toFixed(0) + 'N'
         }
         return number.toString()
+    }
+    const [errImage, setErrImage] = useState([])
+    const handlerChangeImage = (index) => {
+        const updateImage = [...errImage]
+        updateImage[index] = true
+        setErrImage(updateImage)
     }
     return (
         <div className="">
@@ -58,7 +65,13 @@ const CompleteComics = () => {
                                 </span>
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
-                                <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
+                                {
+                                    errImage[index] ?
+                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
+                                        :
+                                        <img onError={() => handlerChangeImage(index)} className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
+
+                                }
                             </Link>
                             <div className="absolute top-1/2 bottom-0 px-2 sm:px-4 py-2 inset-x-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-black">
                                 <div className="">

@@ -21,7 +21,6 @@ const Menu = () => {
     const user = useSelector(selectedUser)
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
-    const [IsClose, setIsClose] = useState(false)
     const navigation = useNavigate()
     const [query, setQuery] = useState()
     const [isShow, setIsShow] = useState(false)

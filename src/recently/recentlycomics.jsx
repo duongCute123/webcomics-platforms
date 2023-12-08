@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { recentlyUpdate } from '../store/recently/recentlyupdate';
 import { GrFormView } from "react-icons/gr";
 import { GiSelfLove } from "react-icons/gi";
+import avata from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { Link, useNavigate } from "react-router-dom";
 import { FaCircleCheck } from "react-icons/fa6";
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
@@ -26,6 +27,12 @@ const RecentlyComics = () => {
             navigato("/comics/recently-comics")
         }
     }, [dispatch, page])
+    const [errorImage, setErrorImage] = useState([])
+    const handlerChangeImage = (index) => {
+        const updateImage = [...errorImage]
+        updateImage[index] = true
+        setErrorImage(updateImage)
+    }
     const convertView = (number) => {
         if (number > 1000000) {
             return (number / 1000000).toFixed(0) + 'M'
@@ -65,7 +72,13 @@ const RecentlyComics = () => {
                                 </span>
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
-                                <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
+                                {
+                                    errorImage[index] ?
+                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={avata} alt="" />
+                                        :
+                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" onError={() => handlerChangeImage(index)} loading="lazy" src={comics.thumbnail} alt="" />
+
+                                }
                             </Link>
                             <div className="absolute top-1/2 bottom-0 px-2 sm:px-4 py-2 inset-x-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-black">
                                 <div className="">

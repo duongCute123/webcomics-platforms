@@ -1,6 +1,7 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 // import { competecomics } from "../store/completecomics/completecomics";
+import avata from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { girl } from "../store/girl/girl";
 import { Link } from "react-router-dom";
 import { GrFormView } from "react-icons/gr";
@@ -24,6 +25,12 @@ const SildeGirlComics = () => {
             return (number / 1000).toFixed(0) + 'N'
         }
         return number.toString()
+    }
+    const [errorImage, setErrorImage] = useState([])
+    const handlerChangeImage = (index) => {
+        const updateImage = [...errorImage]
+        updateImage[index] = true
+        setErrorImage(updateImage)
     }
     return (
         <div className="">
@@ -60,7 +67,18 @@ const SildeGirlComics = () => {
                                 </span>
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
-                                <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
+                                {
+                                    errorImage[index] ?
+                                        <img className="bg-cover object-center scale-[1.01] 
+                                 origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat 
+                                 aspect-[2/3] object-cover w-full h-full" loading="lazy" src={avata} alt="" />
+                                        :
+                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none 
+                                 group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] 
+                                 object-cover w-full h-full" onError={() => handlerChangeImage(index)}
+                                            loading="lazy" src={comics.thumbnail} alt="" />
+
+                                }
                             </Link>
                             <div className="absolute top-1/2 bottom-0 px-2 sm:px-4 py-2 inset-x-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-black">
                                 <div className="">

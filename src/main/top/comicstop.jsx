@@ -14,7 +14,12 @@ const ComicsTop = () => {
     const loading = useSelector(state => state.topcomics.loading)
     const dispatch = useDispatch()
     const [page, setPage] = useState(1)
-    const [errorImage, setErrorImage] = useState(false)
+    const [errorImage, setErrorImage] = useState([])
+    const handlerChangeImage = (index) => {
+        const updateImage = [...errorImage]
+        updateImage[index] = true
+        setErrorImage(updateImage)
+    }
     const [type, setTypes] = useState("all")
     const [types, setType] = useState("all")
     // const [isClick, setIsClick] = useState(false)
@@ -114,14 +119,10 @@ const ComicsTop = () => {
                                         </div>
                                         <Link to={`/detail-comics/${comics.id}`} className="">
                                             {
-                                                errorImage ?
+                                                errorImage[index] ?
                                                     <img className={`bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 hover:border-2 hover:border-solid hover:border-emerald-500 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full`} loading="lazy" src={avatar} alt="" />
                                                     :
-                                                    <img className={`bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 hover:border-2 hover:border-solid hover:border-emerald-500 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full`} loading="lazy" src={comics.thumbnail} onError={() => {
-                                                        console.log("Lỗi ảnh rồi");
-                                                        setErrorImage(true)
-
-                                                    }} alt="" />
+                                                    <img className={`bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 hover:border-2 hover:border-solid hover:border-emerald-500 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full`} loading="lazy" src={comics.thumbnail} onError={() => handlerChangeImage(index)} alt="" />
                                             }
                                         </Link>
                                         <div className="absolute top-1/2 bottom-0 px-2 sm:px-4 py-2 inset-x-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-black">

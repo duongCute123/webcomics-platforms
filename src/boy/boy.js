@@ -1,18 +1,27 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 // import { competecomics } from "../store/completecomics/completecomics";
 import { boy } from "../store/boy/boy";
 import { GrFormView } from "react-icons/gr";
+import avatar from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { GiSelfLove } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { BsGenderMale } from "react-icons/bs";
 const SildeBoyComics = () => {
     const boycomics = useSelector(state => state.boy)
+    const loading = useSelector(state => state.boy)
+    console.log(loading);
     console.log(boycomics);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(boy.getList())
     }, [dispatch])
+    const [errorImage, setErrorImage] = useState([])
+    const handlerChangeImage = (index) => {
+        const updateImageError = [...errorImage]
+        updateImageError[index] = true
+        setErrorImage(updateImageError)
+    }
     const convertView = (number) => {
         if (number > 1000000) {
             return (number / 1000000).toFixed(0) + 'm'
@@ -56,7 +65,13 @@ const SildeBoyComics = () => {
                                 </span>
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
-                                <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
+                                {
+                                    errorImage[index] ?
+                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={avatar} alt="" />
+                                        :
+                                        <img onError={() => handlerChangeImage(index)} className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
+
+                                }
                             </Link>
                             <div className="absolute top-1/2 bottom-0 px-2 sm:px-4 py-2 inset-x-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-black">
                                 <div className="">

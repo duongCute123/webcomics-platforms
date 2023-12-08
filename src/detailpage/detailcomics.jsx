@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { detailcomics } from "../store/detailcomics/detailcomics"
 import { Link } from "react-router-dom";
 import { CgReadme } from "react-icons/cg";
+import avata from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
+
 import { GrFormView } from "react-icons/gr";
 import React from "react";
 import { GiSelfLove } from "react-icons/gi";
@@ -82,6 +84,7 @@ const DetailPage = () => {
         ))
 
     }
+    const [errImage, setErrImage] = useState(false)
     return (
         <div className="relative w-full">
 
@@ -93,7 +96,13 @@ const DetailPage = () => {
                         <div className=" mx-auto my-10 max-w-5xl justify-center items-center grid grid-cols-1 md:grid-cols-4">
 
                             <div className="mx-auto  justify-center items-center my-6 rounded-lg">
-                                <img src={detaicomicse.detailcomics.thumbnail} className="mx-3 bg-no-repeat rounded-lg bg-cover w-full h-full object-cover object-center" alt="" />
+                                {
+                                    errImage ?
+                                        <img src={avata} className="mx-3 bg-no-repeat rounded-lg bg-cover w-full h-full object-cover object-center" alt="" />
+                                        :
+                                        <img onError={() => setErrImage(true)} src={detaicomicse.detailcomics.thumbnail} className="mx-3 bg-no-repeat rounded-lg bg-cover w-full h-full object-cover object-center" alt="" />
+
+                                }
                             </div>
                             <div className="mx-10 col-span-3">
                                 <h1 className="font-bold text-xl md:text-2xl">{detaicomicse.detailcomics.title}</h1>
