@@ -61,9 +61,6 @@ const GenresComics = () => {
     }
     return (
         <div className="">
-            <h1 className="">
-                Thê loại truyện
-            </h1>
             <div className="w-11/12 border-t-2 border-b-2 h-14  mx-auto justify-center ">
                 <Swiper slidesPerView={3} autoplay={{ delay: 4000 }}
                     pagination={{

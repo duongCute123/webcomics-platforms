@@ -61,10 +61,7 @@ const NewsComics = () => {
     console.log(toTalPage);
     return (
         <div className="">
-            <h1 className="">
-                Truyện mới
-            </h1>
-            <div className="w-11/12 border-t-2 border-b-2 h-14  mx-auto justify-center ">
+            <div className="w-11/12 border-t-2 border-b-2 h-14 my-2 mx-auto justify-center ">
                 <Swiper slidesPerView={3} autoplay={{ delay: 4000 }}
                     pagination={{
                         clickable: true,
@@ -95,7 +92,7 @@ const NewsComics = () => {
 
                 {
                     detailComics?.news?.data?.comics?.map((comics, index) => (
-                        <div className="relative group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
+                        <div className="relative rounded group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                             <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                 <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'Hot' : ''}

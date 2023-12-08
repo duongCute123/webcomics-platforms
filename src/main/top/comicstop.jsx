@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { GrFormView } from "react-icons/gr";
 import avatar from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
@@ -21,6 +21,7 @@ const ComicsTop = () => {
         setErrorImage(updateImage)
     }
     const [type, setTypes] = useState("all")
+    const navigation = useNavigate()
     const [types, setType] = useState("all")
     // const [isClick, setIsClick] = useState(false)
     const toTalPage = topscomics?.topcomics?.total_pages
@@ -60,6 +61,9 @@ const ComicsTop = () => {
     const handlePageChange = (selectedPage) => {
         setPage(selectedPage.selected + 1);
     };
+    const handlerChangeUrl = () => {
+
+    }
     const convertView = (number) => {
         if (number > 1000000) {
             return (number / 1000000).toFixed(0) + 'm'
@@ -79,20 +83,25 @@ const ComicsTop = () => {
                     <AnimationLoading />
                     :
                     <div>
-                        <ul className="mx-3 my-6 text-center">
-                            <li className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-5 text-center">
+                        <ul className="mx-3 my-6 grid grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-5 text-center">
+                            
                                 {
                                     top?.map((tops, index) => {
                                         const IconElement = tops.icon
                                         return (
-                                            <Link title={`${tops.name}`} to={`${types != "all" ? `/comics/top?tab=${type}&filter=${types}` : `/comics/top?tab=${type}`}`} onClick={() => handlerChangType(tops.id)} key={index}
-                                                className={`${type === tops.id ? 'bg-emerald-500 text-white' : ''} rounded md:justify-center gap-1 flex  h-10 flex-row items-center`}>
-                                                <IconElement />{tops.name}
-                                            </Link>
+                                            <li>
+                                                <Link title={`${tops.name}`} to={`${types !== "all" ? `/comics/top?tab=${type}&filter=${types}` : `/comics/top?tab=${type}`}`} onClick={() => {
+                                                    handlerChangType(tops.id)
+
+                                                }} key={index}
+                                                    className={`${type === tops.id ? 'bg-emerald-500 text-white' : ''} rounded md:justify-center gap-1 flex  h-10 flex-row items-center`}>
+                                                    <IconElement />{tops.name}
+                                                </Link>
+                                            </li>
                                         )
                                     })
                                 }
-                            </li>
+                            
                         </ul>
                         <ul className="flex flex-wrap items-center gap-2.5 mb-5 mt-3 font-semibold sm:gap-5 mx-3">
                             {
