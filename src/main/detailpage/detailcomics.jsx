@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom";
-import { detailcomics } from "../store/detailcomics/detailcomics"
+import { detailcomics } from "../../store/detailcomics/detailcomics"
 import { Link } from "react-router-dom";
 import { CgReadme } from "react-icons/cg";
-import avata from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
+import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 
 import { GrFormView } from "react-icons/gr";
 import React from "react";
 import { GiSelfLove } from "react-icons/gi";
 import { FaDownload } from "react-icons/fa6";
-import AnimationLoading from "../main/loading/loading";
+import AnimationLoading from "../loading/loading";
 const DetailPage = () => {
     const [chaptersSection, setChapterSession] = useState([
         {

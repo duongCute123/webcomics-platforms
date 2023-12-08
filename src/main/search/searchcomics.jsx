@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useLocation, useParams } from "react-router-dom"
-import { search } from "../store/search/search"
+import { search } from "../../store/search/search"
 import { GoChevronRight } from "react-icons/go";
 import ReactPaginate from "react-paginate"
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
-import { searchPage } from "../@contrain"
+import { searchPage } from "../../@contrain"
 const SearchPage = () => {
     // lây thông tin người dùng cần tìm kiếm từ ô input
     const location = useLocation();

@@ -1,38 +1,51 @@
-import { useEffect, useState } from "react"
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
 import { useDispatch, useSelector } from "react-redux"
-import { girl } from "../store/girl/girl";
-import avata from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
+import 'swiper/css/pagination';
 import { GrFormView } from "react-icons/gr";
+import avtar from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { GiSelfLove } from "react-icons/gi";
-import { Link, useNavigate } from "react-router-dom";
-import { FaCircleCheck } from "react-icons/fa6";
+import { status } from '../../type';
+// import { useParams } from "react-router-dom"
+// import { Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Autoplay } from 'swiper/modules';
+import { IoIosInformationCircleOutline } from "react-icons/io";
+import { useEffect, useState } from 'react';
+// import { genres } from '../store/genres/genrescomics';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
-import ReactPaginate from "react-paginate";
-const GirlComics = () => {
-    const girlcomics = useSelector(state => state.girl)
-    console.log(girlcomics);
-    const dispatch = useDispatch()
+import ReactPaginate from "react-paginate"
+import { news } from '../../store/news/news';
+const NewsComics = () => {
+    const { slug } = useParams()
+    const detailComics = useSelector(state => state.news)
+    console.log(detailComics);
+    const navigation = useNavigate()
     const [page, setPage] = useState(1)
-    const toTalPage = girlcomics?.girl?.total_pages
+    const [type, setType] = useState("all")
+    const [errorImages, setErrorImages] = useState([]);
+    const handleImageError = (index) => {
+        const updatedErrorImages = [...errorImages];
+        updatedErrorImages[index] = true;
+        setErrorImages(updatedErrorImages);
+    };
+    const dispatch = useDispatch()
+    const toTalPage = detailComics?.news?.data?.total_pages
+    console.log(toTalPage);
     const [pageRanges, setpageRanges] = useState()
+    useEffect(() => {
+        dispatch(news.findComicsNew({ page: page, status: type }))
+    }, [dispatch, page, type])
     const handlePageChange = (selectedPage) => {
         setPage(selectedPage.selected + 1);
     };
-    const [errorImage, setErrorImage] = useState([])
-    const handlerChangeImage = (index) => {
-        const updateImage = [...errorImage]
-        updateImage[index] = true
-        setErrorImage(updateImage)
+    const handlerClick = (name) => {
+        setType(name)
+        navigation(`/comics/news/${name}`)
     }
-    const navigato = useNavigate()
-    useEffect(() => {
-        dispatch(girl.getComicswithPage({ page: page }))
-        if (page !== 1) {
-            navigato(`/comics/girl-comics?page=${page}`)
-        } else {
-            navigato("/comics/girl-comics")
-        }
-    }, [dispatch, page])
     const convertView = (number) => {
         if (number > 1000000) {
             return (number / 1000000).toFixed(0) + 'M'
@@ -45,21 +58,44 @@ const GirlComics = () => {
         }
         return number.toString()
     }
+    console.log(toTalPage);
     return (
-        <div className="mx-6">
-            <div className="flex flex-row items-center justify-between">
-                <div className="">
-                    <h1 className="flex items-center flex-row gap-2 text-xl md:text-3xl sm:text-2xl font-bold mb-4 mt-6 md:mt-12">
-                        <FaCircleCheck className="text-emerald-400 animate-pulse" />
-                        Girl Comics {`${page !== 1 ? `- Page ${page}` : ''}`}
-                    </h1>
-                </div>
+        <div className="">
+            <h1 className="">
+                Truyện mới
+            </h1>
+            <div className="w-11/12 border-t-2 border-b-2 h-14  mx-auto justify-center ">
+                <Swiper slidesPerView={3} autoplay={{ delay: 4000 }}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    breakpoints={{
+                        640: {
+                            slidesPerView: 3,
+
+                        },
+                        768: {
+                            slidesPerView: 3,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                        },
+                    }}
+                    modules={[Navigation]} className=" ">
+                    {
+                        status?.map((status, index) => (
+                            <SwiperSlide key={index} onClick={() => { handlerClick(status.id) }} className={`px-5 ${slug === status.id ? 'bg-emerald-500' : ''} py-3 cursor-pointer  text-center select-none`}>
+                                {status.name}
+                            </SwiperSlide>
+                        ))
+                    }
+                </Swiper>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 w-11/12 mx-auto md:grid-cols-4 lg:grid-cols-5 gap-2 my-2">
 
                 {
-                    girlcomics?.girl?.comics?.map((comics, index) => (
-                        <div className="relative rounded  group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
+                    detailComics?.news?.data?.comics?.map((comics, index) => (
+                        <div className="relative group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                             <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                 <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'Hot' : ''}
@@ -73,10 +109,16 @@ const GirlComics = () => {
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
                                 {
-                                    errorImage[index] ?
-                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={avata} alt="" />
+                                    errorImages[index]
+                                        ?
+                                        <img className="bg-cover object-center scale-[1.01] origin-bottom 
+                                        select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full"
+                                            loading="lazy" src={avtar} alt="" />
+
                                         :
-                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" onError={() => handlerChangeImage(index)} loading="lazy" src={comics.thumbnail} alt="" />
+                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none 
+                                        group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full"
+                                            onError={() => handleImageError(index)} loading="lazy" src={comics.thumbnail} alt="" />
 
                                 }
                             </Link>
@@ -93,6 +135,7 @@ const GirlComics = () => {
                                                 </div>
                                             ))
                                         }
+
                                     </div>
                                     <div className="flex flex-row text-emerald-400 justify-center gap-3 text-center">
                                         <div className="bg-white/25 rounded flex text-xs flex-row items-center">
@@ -115,10 +158,10 @@ const GirlComics = () => {
             <div className=''>
                 <ReactPaginate
                     className='flex gap-4 justify-center hover:no-underline font-bold  items-center text-center'
-                    pageCount={toTalPage} // Tổng số trang
-                    pageRangeDisplayed={pageRanges} // Số lượng nút phân trang hiển thị
-                    marginPagesDisplayed={2} // Số lượng nút phân trang hiển thị ở hai đầu
-                    onPageChange={handlePageChange} // Xử lý sự kiện khi người dùng chuyển trang
+                    pageCount={toTalPage}
+                    pageRangeDisplayed={pageRanges}
+                    marginPagesDisplayed={2}
+                    onPageChange={handlePageChange}
                     containerClassName="pagination"
                     activeClassName="text-white bg-yellow-400"
                     disabledClassName="disabled"
@@ -139,4 +182,4 @@ const GirlComics = () => {
         </div>
     )
 }
-export default GirlComics
+export default NewsComics

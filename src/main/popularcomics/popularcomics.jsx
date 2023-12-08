@@ -1,25 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect ,useState} from 'react';
-import { recentlyUpdate } from '../store/recently/recentlyupdate';
-import { Link } from 'react-router-dom';
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { trending } from "../../store/trending/comicstrending"
 import { GrFormView } from "react-icons/gr";
 import { GiSelfLove } from "react-icons/gi";
-import { RxUpdate } from "react-icons/rx";
-import avata from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
-
-function RecentlyUpdate() {
+import { GiBurningRoundShot } from "react-icons/gi";
+import { Link } from "react-router-dom";
+const PopularComics = () => {
+    const pages = 1
+    const trendings = useSelector(state => state.trending.trending)
     const dispatch = useDispatch()
-    const recentlyUp = useSelector((state) => state.recently)
-    console.log(recentlyUp);
     useEffect(() => {
-        dispatch(recentlyUpdate.getList())
-    }, [dispatch])
-    const [errorImage, setErrorImage] = useState([])
-    const handlerChangeImage = (index) => {
-        const updateImage = [...errorImage]
-        updateImage[index] = true
-        setErrorImage(updateImage)
-    }
+        dispatch(trending.getList({page:pages}))
+    }, [dispatch, pages])
     const convertView = (number) => {
         if (number > 1000000) {
             return (number / 1000000).toFixed(0) + 'M'
@@ -33,12 +25,14 @@ function RecentlyUpdate() {
         return number.toString()
     }
     return (
-        <div className="">
-            <div className='items-center justify-between flex flex-row'>
-                <div className=''>
-                    <h1 className='flex flex-row items-center gap-2 text-xl md:text-3xl sm:text-2xl font-bold mb-4 mt-6 md:mt-12'>
-                        <RxUpdate className='text-emerald-400' />
-                        Cập nhật gần đây
+        <div className="max-w-7xl mx-auto justify-center">
+            <div className="flex flex-row justify-between items-center mb-4 mt-6 md:mt-12">
+                <div className="flex flex-row items-center gap-2 font-bold md:text-3xl sm:text-2xl text-xl">
+                    <div className="animate-bounce">
+                        <GiBurningRoundShot className="text-emerald-400" />
+                    </div>
+                    <h1>
+                        Truyện nhiều người đọc
                     </h1>
                 </div>
                 <div className="px-5 py-0.5 bg-transparent overflow-hidden
@@ -52,8 +46,8 @@ function RecentlyUpdate() {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mx-2">
 
                 {
-                    recentlyUp?.recently?.comics?.slice(0, 10)?.map((comics, index) => (
-                        <div className="relative rounded group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
+                    trendings?.comics?.slice(0, 10)?.map((comics, index) => (
+                        <div className="relative group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                             <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                 <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'Hot' : ''}
@@ -66,13 +60,7 @@ function RecentlyUpdate() {
                                 </span>
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
-                                {
-                                    errorImage[index] ?
-                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={avata} alt="" />
-                                        :
-                                        <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" onError={() => handlerChangeImage(index)} loading="lazy" src={comics.thumbnail} alt="" />
-
-                                }
+                                <img className="bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full" loading="lazy" src={comics.thumbnail} alt="" />
                             </Link>
                             <div className="absolute top-1/2 bottom-0 px-2 sm:px-4 py-2 inset-x-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-black">
                                 <div className="">
@@ -106,7 +94,7 @@ function RecentlyUpdate() {
                 }
 
             </div>
-        </div >
+        </div>
     )
 }
-export default RecentlyUpdate
+export default PopularComics

@@ -1,4 +1,4 @@
-import Menu from "../menu/menu"
+import Menu from "../../menu/menu"
 import Trending from "../trending/Trending"
 
 const HomepageComics = () => {

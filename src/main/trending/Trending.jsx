@@ -4,8 +4,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
-import avata from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
-import { trending } from "../store/trending/comicstrending"
+import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
+import { trending } from "../../store/trending/comicstrending"
 import { Navigation, Autoplay } from 'swiper/modules';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect,useState } from 'react';

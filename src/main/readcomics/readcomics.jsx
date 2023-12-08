@@ -2,9 +2,9 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-import { detailcomics } from "../store/detailcomics/detailcomics";
-import "../App.css"
-import AnimationLoading from "../main/loading/loading";
+import { detailcomics } from "../../store/detailcomics/detailcomics";
+import "../../App.css"
+import AnimationLoading from "../loading/loading";
 const ReadComics = () => {
     const { comic_id } = useParams()
     const { chapter_id } = useParams()

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { competecomics } from "../store/completecomics/completecomics";
+import { competecomics } from "../../store/completecomics/completecomics";
 import { GrFormView } from "react-icons/gr";
 import { GiSelfLove } from "react-icons/gi";
-import avata from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
+import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { Link, useNavigate } from "react-router-dom";
 import { FaCircleCheck } from "react-icons/fa6";
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"

@@ -1,24 +1,19 @@
-import { useEffect,useState } from "react"
-import avtar from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 // import { competecomics } from "../store/completecomics/completecomics";
-import { news } from "../store/news/news";
-import { GrFormView } from "react-icons/gr";
-import { GiSelfLove } from "react-icons/gi";
+import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
+import { girl } from "../../store/girl/girl";
 import { Link } from "react-router-dom";
-const SildeNewslComics = () => {
-    const newscomics = useSelector(state => state.news)
-    console.log(newscomics);
+import { GrFormView } from "react-icons/gr";
+import { CgGenderFemale } from "react-icons/cg";
+import { GiSelfLove } from "react-icons/gi";
+const SildeGirlComics = () => {
+    const girlcomics = useSelector(state => state.girl)
+    console.log(girlcomics);
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(news.getList())
+        dispatch(girl.getList())
     }, [dispatch])
-    const [errorImages, setErrorImages] = useState([]);
-    const handleImageError = (index) => {
-        const updatedErrorImages = [...errorImages];
-        updatedErrorImages[index] = true;
-        setErrorImages(updatedErrorImages);
-    };
     const convertView = (number) => {
         if (number > 1000000) {
             return (number / 1000000).toFixed(0) + 'M'
@@ -31,15 +26,34 @@ const SildeNewslComics = () => {
         }
         return number.toString()
     }
+    const [errorImage, setErrorImage] = useState([])
+    const handlerChangeImage = (index) => {
+        const updateImage = [...errorImage]
+        updateImage[index] = true
+        setErrorImage(updateImage)
+    }
     return (
         <div className="">
-            <h1>
-                News
-            </h1>
+            <div className="flex-row flex justify-between items-center">
+                <div className="">
+                    <h1 className="flex flex-row  gap-2 items-center text-xl md:text-3xl sm:text-2xl mb-4 mt-6 md:mt-12 font-bold">
+                        <CgGenderFemale className="text-emerald-400" />
+                        Truyện tranh thiếu nữ
+                    </h1>
+                </div>
+                <div className="px-5 py-0.5 bg-transparent overflow-hidden
+                text-emerald-500 hover:text-white hover:ring-2 hover:ring-offset-2
+                hover:ring-emerald-400 duration-300 cursor-pointer
+                border-emerald-500 hover:border-transparent border-2 
+                rounded-full group hover:bg-emerald-500">
+                    <button className="text-sm font-medium">More</button>
+                </div>
+
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mx-2">
 
                 {
-                    newscomics?.news?.comics?.slice(0, 10)?.map((comics, index) => (
+                    girlcomics?.girl?.comics?.slice(0, 10)?.map((comics, index) => (
                         <div className="relative rounded group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                             <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                 <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
@@ -53,18 +67,16 @@ const SildeNewslComics = () => {
                                 </span>
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
-
                                 {
-                                    errorImages[index]
-                                        ?
-                                        <img className="bg-cover object-center scale-[1.01] origin-bottom 
-                                        select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full"
-                                            loading="lazy" src={avtar} alt="" />
-
+                                    errorImage[index] ?
+                                        <img className="bg-cover object-center scale-[1.01] 
+                                 origin-bottom select-none group-hover:scale-105 duration-300 bg-no-repeat 
+                                 aspect-[2/3] object-cover w-full h-full" loading="lazy" src={avata} alt="" />
                                         :
                                         <img className="bg-cover object-center scale-[1.01] origin-bottom select-none 
-                                        group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full"
-                                            onError={() => handleImageError(index)} loading="lazy" src={comics.thumbnail} alt="" />
+                                 group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] 
+                                 object-cover w-full h-full" onError={() => handlerChangeImage(index)}
+                                            loading="lazy" src={comics.thumbnail} alt="" />
 
                                 }
                             </Link>
@@ -103,4 +115,4 @@ const SildeNewslComics = () => {
         </div>
     )
 }
-export default SildeNewslComics
+export default SildeGirlComics

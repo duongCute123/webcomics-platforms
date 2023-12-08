@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 // import { competecomics } from "../store/completecomics/completecomics";
-import { boy } from "../store/boy/boy";
+import { boy } from "../../store/boy/boy";
 import { GrFormView } from "react-icons/gr";
-import avatar from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
+import avatar from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { GiSelfLove } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { BsGenderMale } from "react-icons/bs";
