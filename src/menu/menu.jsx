@@ -11,11 +11,12 @@ import { RxUpdate } from "react-icons/rx";
 import { BsGenderMale } from "react-icons/bs";
 import { CgGenderFemale } from "react-icons/cg";
 import { MdHistory } from "react-icons/md";
-import { useCallback, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { search } from "../store/search/search";
 import InputSearch from "./subnav/inputsearch";
-import { selectedUser } from "../store/auth/userslice";
+import { logOut, selectedUser } from "../store/auth/userslice";
+import { auth } from "../@config";
 const Menu = () => {
     const searchdata = useSelector(state => state.searchcomics)
     const user = useSelector(selectedUser)
@@ -25,21 +26,33 @@ const Menu = () => {
     const [query, setQuery] = useState()
     const [isShow, setIsShow] = useState(false)
     console.log("Thông tin người dùng", user)
+    const handlerLogout = () => {
+        auth.signOut()
+        dispatch(logOut())
+    }
     const HandlerEnter = (e) => {
         if (e.key === 'Enter') {
-            // HandlerQuery(query)
-            navigation('/comics/seach')
+            e.preventDefault()
+            setIsShow(false)
+            setOpen(false)
+            navigation(`/comics/search?q=${query}`)
         }
     }
-    // Tính sử dụng useCallback để gọi api mà thấy không đáng kể
-    // const HandlerQuery = useCallback((query) => {
-    //     dispatch(search.searchSuggest(query))
-    // }, [dispatch])
-    // Nếu mà thế này thì nó sẽ gọi api luôn không thích như vậy lắm
     useEffect(() => {
-        dispatch(search.searchSuggest(query))
+        if (query !== undefined) {
+            dispatch(search.searchSuggest(query))
+        }
     }, [dispatch, query])
     const type = "all"
+    const handlerShowSearch = () => {
+        if (searchdata.search.length > 0) {
+            setIsShow(true)
+        }
+    }
+    const handlerDetailComics = (id) => {
+        setOpen(false)
+        navigation(`/detail-comics/${id}`)
+    }
     return (
         <div className="relative">
             <div className="">
@@ -86,7 +99,7 @@ const Menu = () => {
                                             <div className="border-2 flex flex-col bg-white border-solid rounded-md">
                                                 <p>Tên:{user?.displayName}</p>
                                                 <p>Email:{user?.email}</p>
-                                                <button>Logout</button>
+                                                <button onClick={handlerLogout}>Logout</button>
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +109,7 @@ const Menu = () => {
                                     navigation("/user/login")
                                 }} className="border border-solid border-blue-400 font-bold px-5 py-1 rounded">Login</button>
                         }
-                        <div className="text-3xl   md:hidden" onClick={() => { setOpen(!open) }}>
+                        <div className="text-3xl py-4  md:hidden" onClick={() => { setOpen(!open) }}>
                             <ion-icon name={`${open ? 'close' : 'menu'}`}></ion-icon>
                         </div>
                     </div>
@@ -109,8 +122,30 @@ const Menu = () => {
                             <ion-icon name={`${open ? 'close' : 'menu'}`}></ion-icon>
                         </div>
                         <div className="flex flex-row justify-center items-center gap-8">
-                            <input type="text" placeholder="Vui lòng nhập tên truyện cần tìm" className="w-11/12 text-black text-lg h-10 rounded-full border-2 border-solid border-red-400" />
+                            <input type="text" onBlur={() => setIsShow(false)} onFocus={handlerShowSearch} onKeyPress={HandlerEnter} onChange={(e) => setQuery(e.target.value)} placeholder="Vui lòng nhập tên truyện cần tìm" className="w-11/12 text-black text-lg h-10 rounded-full border-2 border-solid border-red-400" />
                             <CiSearch size={40} className="font-bold absolute right-4 text-3xl" />
+                        </div>
+                        <div className={`absolute top-28 z-30 ${isShow ? '' : 'hidden'} px-3 py-5 text-black bg-white  h-[300px] overflow-y-auto`}>
+                            {
+                                searchdata && searchdata.search && searchdata?.search.length > 0 && searchdata?.search?.map((searchcomics, idx) => (
+                                    <div onMouseDown={() => handlerDetailComics(searchcomics.id)}  className="flex justify-center border-b-2 gap-4 flex-row" key={idx}>
+                                        <div className="w-full">
+                                            <img src={searchcomics.thumbnail} className="bg-cover my-2 rounded border-2 border-red-500 object-cover bg-no-repeat aspect-[2/3]" width={"150px"} alt="" />
+                                        </div>
+                                        <div className="text-sm">
+                                            <h3>{searchcomics.title}</h3>
+                                            <p>{searchcomics.authors}</p>
+                                            <ul className="flex line-clamp-2 flex-wrap">
+                                                {
+                                                    searchcomics?.genres?.map((genres, idx) => (
+                                                        <li className="line-clamp-2" key={idx}>{genres}</li>
+                                                    ))
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                ))
+                            }
                         </div>
                         <ul className="mx-5 my-6 gap-5 text-lg grid font-semibold">
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
@@ -123,7 +158,7 @@ const Menu = () => {
                                 <Link to={"/comics/top?all"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><FaAutoprefixer />Top</Link>
                             </li>
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
-                                <Link to={"comics/news/all"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><PiNewspaperClippingLight />New Comics</Link>
+                                <Link to={"/comics/news/all"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><PiNewspaperClippingLight />New Comics</Link>
                             </li>
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
                                 <Link to={"/comics/popular-comics"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><GiBurningRoundShot />Popular Comics</Link>

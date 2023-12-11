@@ -32,7 +32,7 @@ const SearchPage = () => {
     return (
         <div className="min-h-screen">
             {
-                searchSuggest?.search?.comics?.length > 0
+                searchSuggest?.search?.comics
                     ?
                     <div className="w-11/12 md:w-9/12 mx-auto justify-center">
                         <div className="flex flex-wrap items-center my-4">

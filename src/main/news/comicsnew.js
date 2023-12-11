@@ -19,6 +19,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
 import ReactPaginate from "react-paginate"
 import { news } from '../../store/news/news';
+import Menu from '../../menu/menu';
 const NewsComics = () => {
     const { slug } = useParams()
     const detailComics = useSelector(state => state.news)
@@ -61,6 +62,7 @@ const NewsComics = () => {
     console.log(toTalPage);
     return (
         <div className="">
+            <Menu />
             <div className="w-11/12 border-t-2 border-b-2 h-14 my-2 mx-auto justify-center ">
                 <Swiper slidesPerView={3} autoplay={{ delay: 4000 }}
                     pagination={{

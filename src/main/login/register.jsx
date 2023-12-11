@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import logo from "../../images/logo.png"
 import { useState } from "react"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
@@ -11,6 +11,7 @@ const RegisterPage = () => {
         displayName: "",
         password: ""
     }
+    const navigation=useNavigate()
     const [forms, setForms] = useState(list)
     const handlerChangValue = (e) => {
         const { name, value, type } = e.target
@@ -47,6 +48,7 @@ const RegisterPage = () => {
                             console.log(err);
                         })
                 }
+                navigation("/user/login")
 
             })
             .catch(err => {

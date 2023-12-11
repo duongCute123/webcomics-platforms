@@ -9,6 +9,7 @@ import { FaCircleCheck } from "react-icons/fa6";
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
 import ReactPaginate from "react-paginate";
 import AnimationLoading from "../loading/loading";
+import Menu from "../../menu/menu";
 const BoyComics = () => {
     const boycomics = useSelector(state => state.boy)
     console.log(boycomics);
@@ -50,6 +51,7 @@ const BoyComics = () => {
     }
     return (
         <div className="">
+            <Menu />
             {
                 loading ?
                     <AnimationLoading />

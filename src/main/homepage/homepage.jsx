@@ -4,7 +4,7 @@ import Trending from "../trending/Trending"
 const HomepageComics = () => {
     return (
         <div className="">
-            {/* <Menu /> */}
+            <Menu />
             <Trending />
         </div>
     )

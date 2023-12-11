@@ -33,6 +33,7 @@ const SildeBoyComics = () => {
     }
     return (
         <div className="">
+            
             <div className="flex flex-row justify-between items-center">
                 <div className="">
                     <h1 className=" font-bold flex flex-row justify-center gap-2 text-xl md:text-3xl sm:text-2xl mb-4 mt-6 md:mt-12">

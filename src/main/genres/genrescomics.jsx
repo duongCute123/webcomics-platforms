@@ -18,6 +18,7 @@ import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generativ
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
 import ReactPaginate from "react-paginate"
+import Menu from '../../menu/menu';
 const GenresComics = () => {
     const genrescomics = useSelector(state => state.genres)
     const { slug } = useParams()
@@ -61,6 +62,7 @@ const GenresComics = () => {
     }
     return (
         <div className="">
+            <Menu />
             <div className="w-11/12 border-t-2 border-b-2 h-14  mx-auto justify-center ">
                 <Swiper slidesPerView={3} autoplay={{ delay: 4000 }}
                     pagination={{
@@ -118,13 +120,13 @@ const GenresComics = () => {
                                         <img className="bg-cover object-center scale-[1.01] origin-bottom 
                                         select-none group-hover:scale-105 duration-300 bg-no-repeat 
                                         aspect-[2/3] object-cover w-full h-full" loading="lazy"
-                                         src={avata} alt="" />
+                                            src={avata} alt="" />
                                         :
                                         <img className="bg-cover object-center scale-[1.01] origin-bottom 
                                         select-none group-hover:scale-105 duration-300 bg-no-repeat 
-                                        aspect-[2/3] object-cover w-full h-full" loading="lazy" 
-                                        onError={()=>handlerChangeImage(index)}
-                                        src={comics.thumbnail} alt="" />
+                                        aspect-[2/3] object-cover w-full h-full" loading="lazy"
+                                            onError={() => handlerChangeImage(index)}
+                                            src={comics.thumbnail} alt="" />
 
                                 }
                             </Link>

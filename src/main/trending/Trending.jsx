@@ -56,7 +56,7 @@ function Trending() {
                                 slidesPerView: 5,
                             },
                             1024: {
-                                slidesPerView: 6,
+                                slidesPerView: 5,
                             },
                         }}
                         autoplay={{ delay: 4000 }} modules={[Navigation, Autoplay]} className="mySwiper gap-6">

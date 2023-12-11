@@ -9,6 +9,7 @@ import ReactPaginate from "react-paginate"
 import { status, top } from "../../type";
 import { topcomics } from "../../store/top/top";
 import AnimationLoading from "../loading/loading";
+import Menu from "../../menu/menu";
 const ComicsTop = () => {
     const topscomics = useSelector(state => state.topcomics)
     const loading = useSelector(state => state.topcomics.loading)
@@ -77,31 +78,31 @@ const ComicsTop = () => {
     console.log(page);
     return (
         <div className="">
-
+            <Menu />
             {
                 loading ?
                     <AnimationLoading />
                     :
                     <div>
                         <ul className="mx-3 my-6 grid grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-5 text-center">
-                            
-                                {
-                                    top?.map((tops, index) => {
-                                        const IconElement = tops.icon
-                                        return (
-                                            <li>
-                                                <Link title={`${tops.name}`} to={`${types !== "all" ? `/comics/top?tab=${type}&filter=${types}` : `/comics/top?tab=${type}`}`} onClick={() => {
-                                                    handlerChangType(tops.id)
 
-                                                }} key={index}
-                                                    className={`${type === tops.id ? 'bg-emerald-500 text-white' : ''} rounded md:justify-center gap-1 flex  h-10 flex-row items-center`}>
-                                                    <IconElement />{tops.name}
-                                                </Link>
-                                            </li>
-                                        )
-                                    })
-                                }
-                            
+                            {
+                                top?.map((tops, index) => {
+                                    const IconElement = tops.icon
+                                    return (
+                                        <li>
+                                            <Link title={`${tops.name}`} to={`${types !== "all" ? `/comics/top?tab=${type}&filter=${types}` : `/comics/top?tab=${type}`}`} onClick={() => {
+                                                handlerChangType(tops.id)
+
+                                            }} key={index}
+                                                className={`${type === tops.id ? 'bg-emerald-500 text-white' : ''} rounded md:justify-center gap-1 flex  h-10 flex-row items-center`}>
+                                                <IconElement />{tops.name}
+                                            </Link>
+                                        </li>
+                                    )
+                                })
+                            }
+
                         </ul>
                         <ul className="flex flex-wrap items-center gap-2.5 mb-5 mt-3 font-semibold sm:gap-5 mx-3">
                             {

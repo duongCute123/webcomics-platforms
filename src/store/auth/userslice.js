@@ -3,23 +3,23 @@ import { auth, signInWithEmailAndPassword } from "../../@config"
 
 const appName = "Comics"
 const moduleName = "authent"
-// export const authencomics = {
-//     login: createAsyncThunk(`${appName}/${moduleName}/login`, async (params, thunkAPI) => {
-//         try {
-//             signInWithEmailAndPassword(params)
-//                 .then(res => {
-//                     console.log(res);
-//                 })
-//                 .catch(err => {
-//                     console.log(err);
-//                 })
-//         } catch (error) {
-//             thunkAPI.dispatch({ variant: "error", message: "Lỗi đăng nhập" })
-//             return thunkAPI.rejectWithValue(error)
-//         }
+export const authencomics = {
+    login: createAsyncThunk(`${appName}/${moduleName}/login`, async (params, thunkAPI) => {
+        try {
+            signInWithEmailAndPassword(params)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        } catch (error) {
+            thunkAPI.dispatch({ variant: "error", message: "Lỗi đăng nhập" })
+            return thunkAPI.rejectWithValue(error)
+        }
 
-//     })
-// }
+    })
+}
 // export const submitLogin = (model) => async dispatch => {
 //     return signInWithEmailAndPassword(auth, model)
 //         .then(res => {

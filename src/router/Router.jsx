@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import HomepageComics from "../main/homepage/homepage"
 import Trending from "../main/trending/Trending"
 import GenresComics from "../main/genres/genrescomics"
@@ -8,13 +8,12 @@ import NewsComics from "../main/news/comicsnew"
 import BoyComics from "../main/boy/boycomics"
 import GirlComics from "../main/girl/girlcomics"
 import PopulaComics from "../main/popularcomics/popular"
-import CompleteComics from "../main/complete/slidecomplete"
 import RecentlyComics from "../main/recently/recentlycomics"
 import ComicsTop from "../main/top/comicstop"
 import SearchPage from "../main/search/searchcomics"
 import LoginPage from "../main/login/login"
 import RegisterPage from "../main/login/register"
-import Menu from "../menu/menu"
+import CompleteComics from "../main/complete/completecomic"
 
 // import { createBrowserHistory } from "history"
 
@@ -25,7 +24,6 @@ const RouterPage = () => {
     return (
         <div className="">
             <BrowserRouter>
-                <Menu />
                 {/* <Router history={history}> */}
                 <Routes>
                     <Route path="/" element={<HomepageComics />} />
