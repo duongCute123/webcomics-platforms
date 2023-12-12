@@ -16,13 +16,14 @@ import {
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyD6tJiSCJgcmQ-Av_ld2B6QP3sVPLlRvOo",
-    authDomain: "authencomics.firebaseapp.com",
-    projectId: "authencomics",
-    storageBucket: "authencomics.appspot.com",
-    messagingSenderId: "15141927513",
-    appId: "1:15141927513:web:91e38c46db9e6b3d394f48",
-    measurementId: "G-RCGNFWHFLH"
+    apiKey: "AIzaSyA8ruAfXOOTIry6j0z6ODL6JKc3pPWfbnw",
+    authDomain: "editrealtime-2da19.firebaseapp.com",
+    databaseURL: "https://editrealtime-2da19-default-rtdb.firebaseio.com",
+    projectId: "editrealtime-2da19",
+    storageBucket: "editrealtime-2da19.appspot.com",
+    messagingSenderId: "50996894410",
+    appId: "1:50996894410:web:2e8420230698c4ef0e3233",
+    measurementId: "G-HJTY0J5MN8"
 };
 initializeApp(firebaseConfig)
 // Initialize Firebase

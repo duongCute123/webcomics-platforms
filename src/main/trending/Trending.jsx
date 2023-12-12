@@ -7,8 +7,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { trending } from "../../store/trending/comicstrending"
 import { Navigation, Autoplay } from 'swiper/modules';
+import { CiCirclePlus } from "react-icons/ci";
+import { CiCircleMinus } from "react-icons/ci";
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import PopularComics from '../popularcomics/popularcomics';
 import CompleteComics from '../complete/slidecomplete';
 import RecentlyUpdate from '../recently/sliderecentlyUpdate';
@@ -16,6 +18,7 @@ import SildeBoyComics from '../boy/boy';
 import SildeGirlComics from '../girl/girlslide';
 import SildeNewslComics from '../news/slidenew';
 import { Link } from 'react-router-dom';
+import { followsComics } from '../../store/followcomics/followscomics';
 function Trending() {
     const pages = 1
     const dispatch = useDispatch()
@@ -31,6 +34,9 @@ function Trending() {
         const updateImage = [...errorImage]
         updateImage[index] = true
         setErrorImage(updateImage)
+    }
+    const addFollowerComics = (comics) => {
+        dispatch(followsComics.addfollowsComics())
     }
     return (
         <div className="max-w-7xl mx-auto justify-center">
@@ -64,6 +70,9 @@ function Trending() {
                             trendings?.comics?.map((comics, index) => (
                                 <SwiperSlide className='rounded' key={index}>
                                     <Link to={`/detail-comics/${comics.id}`} className='relative rounded'>
+                                        <div className=''>
+                                            <CiCirclePlus />
+                                        </div>
                                         <div className='w-full h-full'>
                                             {
                                                 errorImage[index] ?

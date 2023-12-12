@@ -105,7 +105,7 @@ const Menu = () => {
                                                 <div className="border-2 w-[200px] px-2 py-2 bg-white border-solid rounded-md">
                                                     <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center"><CgProfile /> Profile</p>
                                                     <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center"><CiSettings /> Setting</p>
-                                                    <button className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center" onClick={handlerLogout}><CiLogout /> Logout</button>
+                                                    <button className="hover:bg-emerald-400 w-full rounded px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center" onClick={handlerLogout}><CiLogout /> Logout</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -113,7 +113,7 @@ const Menu = () => {
                                     :
                                     <button onClick={() => {
                                         navigation("/user/login")
-                                    }} className="border border-solid border-blue-400 hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-bold rounded">Login</button>
+                                    }} className="border w-full border-solid border-blue-400 hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-bold rounded">Login</button>
                             }
                         </div>
                         <div className="text-3xl py-4  md:hidden" onClick={() => { setOpen(!open) }}>
@@ -197,7 +197,7 @@ const Menu = () => {
                                                 <div className="border-2 w-[200px] bg-white border-solid rounded-md">
                                                     <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center"><CgProfile /> Profile</p>
                                                     <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center"><CiSettings /> Setting</p>
-                                                    <button className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center" onClick={handlerLogout}><CiLogout /> Logout</button>
+                                                    <button className="hover:bg-emerald-400 w-full rounded px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center" onClick={handlerLogout}><CiLogout /> Logout</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -205,7 +205,7 @@ const Menu = () => {
                                     :
                                     <button onClick={() => {
                                         navigation("/user/login")
-                                    }} className="border border-solid border-blue-400 hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-bold rounded">Login</button>
+                                    }} className="border border-solid w-full border-blue-400 hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-bold rounded">Login</button>
                             }
                         </ul>
 

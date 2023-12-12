@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom"
 import logo from "../../images/logo.png"
 import { authencomics, loginErr, loginSucces } from "../../store/auth/userslice"
 import { useDispatch } from "react-redux"
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { useState } from "react"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth, db } from "../../@config"
@@ -56,20 +56,11 @@ const LoginPage = () => {
 
             })
     }
-    const handlerAdd =async () => {
-        // Add a new document in collection "cities"
-        await setDoc(doc(db, "cities", "LA"), {
-            name: "Los Angeles",
-            state: "CA",
-            country: "USA"
-        });
-    }
     console.log(message);
     const { email, password } = infoUser
     console.log(infoUser);
     return (
         <section className="bg-gray-50 w-full flex flex-col justify-center items-center min-h-screen dark:bg-gray-900">
-            <button onClick={handlerAdd}>Thêm data</button>
             <div className="flex w-full flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <Link href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                     <img className="w-8 h-8 mr-2" src={logo} alt="logo" />

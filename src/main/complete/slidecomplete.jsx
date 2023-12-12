@@ -5,7 +5,10 @@ import { GrFormView } from "react-icons/gr";
 import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { GiSelfLove } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { CiCirclePlus } from "react-icons/ci";
+import { CiCircleMinus } from "react-icons/ci";
 import { FaCircleCheck } from "react-icons/fa6";
+import { followsComics } from "../../store/followcomics/followscomics";
 const CompleteComics = () => {
     const completecomic = useSelector(state => state.complete)
     console.log(completecomic);
@@ -31,6 +34,9 @@ const CompleteComics = () => {
         updateImage[index] = true
         setErrImage(updateImage)
     }
+    const addFollowerComics = (comicsfollow) => {
+        dispatch(followsComics.addfollowsComics(comicsfollow))
+    }
     return (
         <div className="">
             <div className="flex flex-row items-center justify-between">
@@ -54,15 +60,22 @@ const CompleteComics = () => {
                     completecomic?.completeComics?.comics?.slice(0, 10)?.map((comics, index) => (
                         <div className="relative rounded  group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                             <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
-                                <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
-                                    {comics.is_trending === true ? 'Hot' : ''}
-                                </span>
-                                <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
-                                    {comics.is_trending === true ? 'End' : ''}
-                                </span>
-                                <span className=" bg-amber-400 text-center py-0.5 px-2 text-white">
-                                    {comics.status !== "Completed" ? 'Up' : 'Up'}
-                                </span>
+                                <div>
+                                    <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                        {comics.is_trending === true ? 'Hot' : ''}
+                                    </span>
+                                    <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                        {comics.is_trending === true ? 'End' : ''}
+                                    </span>
+                                    <span className=" bg-amber-400 text-center py-0.5 px-2 text-white">
+                                        {comics.status !== "Completed" ? 'Up' : 'Up'}
+                                    </span>
+                                </div>
+                                <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
+                                    <button onClick={() => {
+                                        addFollowerComics(comics)
+                                    }}> <CiCirclePlus /></button>
+                                </div>
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
                                 {
