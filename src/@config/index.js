@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 // import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -27,8 +28,10 @@ initializeApp(firebaseConfig)
 // Initialize Firebase
 const auth = getAuth()
 const storage = getStorage()
+const db = getFirestore(initializeApp(firebaseConfig))
 export {
     auth,
+    db,
     createUserWithEmailAndPassword,
     updateProfile,
     onAuthStateChanged,

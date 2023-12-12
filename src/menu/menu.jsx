@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/logo.83be12af.svg"
 import { IoHomeOutline } from "react-icons/io5";
 import { GiCrown } from "react-icons/gi";
+import { CgProfile } from "react-icons/cg";
+import { CiSettings } from "react-icons/ci";
+import { CiLogout } from "react-icons/ci";
 import { FaAutoprefixer } from "react-icons/fa";
 import { PiNewspaperClippingLight } from "react-icons/pi";
 import { GiBurningRoundShot } from "react-icons/gi";
@@ -11,12 +14,13 @@ import { RxUpdate } from "react-icons/rx";
 import { BsGenderMale } from "react-icons/bs";
 import { CgGenderFemale } from "react-icons/cg";
 import { MdHistory } from "react-icons/md";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { search } from "../store/search/search";
 import InputSearch from "./subnav/inputsearch";
 import { logOut, selectedUser } from "../store/auth/userslice";
 import { auth } from "../@config";
+import avatar from "../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 const Menu = () => {
     const searchdata = useSelector(state => state.searchcomics)
     const user = useSelector(selectedUser)
@@ -88,27 +92,30 @@ const Menu = () => {
                         <InputSearch />
                     </div>
                     <div className="flex flex-row items-center justify-center gap-1">
-                        {
-                            user ?
-                                <div>
-                                    <div className="group">
-                                        <div className="py-7 px-4">
-                                            <img className="bg-cover bg-no-repeat object-cover rounded-full w-8" src={user?.photoUrl} alt="" />
-                                        </div>
-                                        <div className="absolute py-7 z-50 top-9 px-3 right-1 group-hover:block hover:block hidden">
-                                            <div className="border-2 flex flex-col bg-white border-solid rounded-md">
-                                                <p>Tên:{user?.displayName}</p>
-                                                <p>Email:{user?.email}</p>
-                                                <button onClick={handlerLogout}>Logout</button>
+                        <div className="hidden md:block">
+                            {
+                                user ?
+                                    <div>
+                                        <div className="group">
+                                            <div className="py-7 px-4 flex flex-row items-center gap-2">
+                                                <img className="bg-cover border bg-no-repeat object-cover rounded-full w-8" src={user?.photoUrl === null ? avatar : user?.photoUrl} alt="" />
+                                                <h1>{user?.displayName === null ? 'Nguyễn Văn A' : user?.displayName}</h1>
+                                            </div>
+                                            <div className="absolute py-7 px-4 z-50 top-9  right-1 group-hover:block hover:block hidden">
+                                                <div className="border-2 w-[200px] px-2 py-2 bg-white border-solid rounded-md">
+                                                    <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center"><CgProfile /> Profile</p>
+                                                    <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center"><CiSettings /> Setting</p>
+                                                    <button className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center" onClick={handlerLogout}><CiLogout /> Logout</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                :
-                                <button onClick={() => {
-                                    navigation("/user/login")
-                                }} className="border border-solid border-blue-400 font-bold px-5 py-1 rounded">Login</button>
-                        }
+                                    :
+                                    <button onClick={() => {
+                                        navigation("/user/login")
+                                    }} className="border border-solid border-blue-400 hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-bold rounded">Login</button>
+                            }
+                        </div>
                         <div className="text-3xl py-4  md:hidden" onClick={() => { setOpen(!open) }}>
                             <ion-icon name={`${open ? 'close' : 'menu'}`}></ion-icon>
                         </div>
@@ -128,7 +135,7 @@ const Menu = () => {
                         <div className={`absolute top-28 z-30 ${isShow ? '' : 'hidden'} px-3 py-5 text-black bg-white  h-[300px] overflow-y-auto`}>
                             {
                                 searchdata && searchdata.search && searchdata?.search.length > 0 && searchdata?.search?.map((searchcomics, idx) => (
-                                    <div onMouseDown={() => handlerDetailComics(searchcomics.id)}  className="flex justify-center border-b-2 gap-4 flex-row" key={idx}>
+                                    <div onMouseDown={() => handlerDetailComics(searchcomics.id)} className="flex justify-center border-b-2 gap-4 flex-row" key={idx}>
                                         <div className="w-full">
                                             <img src={searchcomics.thumbnail} className="bg-cover my-2 rounded border-2 border-red-500 object-cover bg-no-repeat aspect-[2/3]" width={"150px"} alt="" />
                                         </div>
@@ -149,7 +156,7 @@ const Menu = () => {
                         </div>
                         <ul className="mx-5 my-6 gap-5 text-lg grid font-semibold">
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
-                                <Link to={""} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><IoHomeOutline />Home</Link>
+                                <Link to={"/"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><IoHomeOutline />Home</Link>
                             </li>
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
                                 <Link to={"/comics-genres/all"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><GiCrown />Genres</Link>
@@ -175,10 +182,33 @@ const Menu = () => {
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
                                 <Link to={"/comics/girl-comics"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><CgGenderFemale />Girl Comics</Link>
                             </li>
-                            <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
+                            <li className="hover:bg-emerald-400  rounded hover:text-white">
                                 <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><MdHistory />History</Link>
                             </li>
+                            {
+                                user ?
+                                    <div>
+                                        <div className="group">
+                                            <div className="flex flex-row items-center gap-2">
+                                                <img className="bg-cover border bg-no-repeat object-cover rounded-full w-8" src={user?.photoUrl === null ? avatar : user?.photoUrl} alt="" />
+                                                <h1>{user?.displayName === null ? 'Nguyễn Văn A' : user?.displayName}</h1>
+                                            </div>
+                                            <div className=" py-7 px-4 z-50   right-1 group-hover:block hover:block hidden">
+                                                <div className="border-2 w-[200px] bg-white border-solid rounded-md">
+                                                    <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center"><CgProfile /> Profile</p>
+                                                    <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center"><CiSettings /> Setting</p>
+                                                    <button className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center" onClick={handlerLogout}><CiLogout /> Logout</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    :
+                                    <button onClick={() => {
+                                        navigation("/user/login")
+                                    }} className="border border-solid border-blue-400 hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-bold rounded">Login</button>
+                            }
                         </ul>
+
                     </div>
                 </div>
             </div>

@@ -78,7 +78,7 @@ const CompleteComics = () => {
                                     <h1 className="font-bold text-white text-lg line-clamp-1">{comics.title}</h1>
                                 </div>
                                 <div className="text-center justify-center">
-                                    <div className="flex flex-row gap-2">
+                                    <div className="flex flex-row gap-2 border-b-2 border-emerald-400">
                                         {
                                             comics.genres.slice(0, 3).map((genres, idx) => (
                                                 <div className="" key={idx}>
@@ -87,7 +87,7 @@ const CompleteComics = () => {
                                             ))
                                         }
                                     </div>
-                                    <div className="flex flex-row text-emerald-400 justify-center gap-3 text-center">
+                                    <div className="flex flex-row py-1 text-emerald-400 justify-center gap-3 text-center">
                                         <div className="bg-white/25 rounded flex text-xs flex-row items-center">
                                             <GrFormView size={20} />
                                             <p className="text-xs px-1">{convertView(comics.total_views)}</p>
