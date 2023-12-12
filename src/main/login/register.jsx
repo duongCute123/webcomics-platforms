@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "react-router-dom"
 import logo from "../../images/logo.png"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { auth, ref, storage } from "../../@config"
 import { getDownloadURL, uploadBytes } from "firebase/storage"
+import { useSelector } from "react-redux"
+import { selectedUser } from "../../store/auth/userslice"
 const RegisterPage = () => {
     const list = {
         email: "",
@@ -11,7 +13,7 @@ const RegisterPage = () => {
         displayName: "",
         password: ""
     }
-    const navigation=useNavigate()
+    const navigation = useNavigate()
     const [forms, setForms] = useState(list)
     const handlerChangValue = (e) => {
         const { name, value, type } = e.target
@@ -21,6 +23,12 @@ const RegisterPage = () => {
             setForms({ ...forms, [name]: value })
         }
     }
+    const users = useSelector(selectedUser)
+    useEffect(() => {
+        if (users) {
+            navigation("/")
+        }
+    })
     const uploadImageToFirebase = async (file) => {
         const storageRef = ref(storage, `images/${file.name}`)
         await uploadBytes(storageRef, file)

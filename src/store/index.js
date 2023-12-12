@@ -24,6 +24,6 @@ export const store = configureStore({
         topcomics: TopComicsReducer,
         searchcomics: SearchComicReducer,
         user: UserReducer,
-        followsComics: FollowsComics
+        followsComicsUid: FollowsComics
     }
 })

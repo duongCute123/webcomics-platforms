@@ -9,4 +9,5 @@ const news = process.env.REACT_APP_ENPOINT_NEW_COMMICT
 const detail = process.env.REACT_APP_ENPOIN_DETAIL
 const searchSuggest = process.env.REACT_APP_ENPOINT_SEARCH_SUGGETS
 const searchPage = process.env.REACT_APP_ENPOINT_SEARCH
-export { basicDomain, endPoint, complete, recent, boy, girl, news, genres, detail, searchSuggest, searchPage }
+const collectionfollow = "follows"
+export { basicDomain, collectionfollow, endPoint, complete, recent, boy, girl, news, genres, detail, searchSuggest, searchPage }

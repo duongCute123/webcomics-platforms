@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom"
 import logo from "../../images/logo.png"
-import { authencomics, loginErr, loginSucces } from "../../store/auth/userslice"
-import { useDispatch } from "react-redux"
+import { authencomics, loginErr, loginSucces, selectedUser } from "../../store/auth/userslice"
+import { useDispatch, useSelector } from "react-redux"
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth, db } from "../../@config"
 const LoginPage = () => {
@@ -11,11 +11,17 @@ const LoginPage = () => {
         email: "",
         password: ""
     }
+    const users = useSelector(selectedUser)
     const dispatch = useDispatch
     const [infoUser, setInfoUser] = useState(user)
     const [valid, setValid] = useState(false)
     const navigation = useNavigate()
     const [message, setMessage] = useState("")
+    useEffect(() => {
+        if (users) {
+            navigation("/")
+        }
+    }, [users])
     const validation = () => {
         const msg = {
         }

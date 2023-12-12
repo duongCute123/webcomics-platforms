@@ -9,13 +9,22 @@ import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { FaCircleCheck } from "react-icons/fa6";
 import { followsComics } from "../../store/followcomics/followscomics";
+import { selectedUser } from "../../store/auth/userslice";
 const CompleteComics = () => {
     const completecomic = useSelector(state => state.complete)
+    const followcomics = useSelector(state => state.followsComicsUid)
+    console.log(followcomics);
     console.log(completecomic);
+    const user = useSelector(selectedUser)
+    console.log(user);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(competecomics.getList())
     }, [dispatch])
+    useEffect(() => {
+        console.log(user?.uid);
+        dispatch(followsComics.getComicsInUid(user?.uid))
+    }, [dispatch, user?.uid])
     const convertView = (number) => {
         if (number > 1000000) {
             return (number / 1000000).toFixed(0) + 'M'
@@ -34,8 +43,9 @@ const CompleteComics = () => {
         updateImage[index] = true
         setErrImage(updateImage)
     }
-    const addFollowerComics = (comicsfollow) => {
-        dispatch(followsComics.addfollowsComics(comicsfollow))
+    const addFollowerComics = (comicsfollow, uid) => {
+        console.log(uid);
+        dispatch(followsComics.addfollowsComics(comicsfollow, uid))
     }
     return (
         <div className="">
@@ -73,7 +83,7 @@ const CompleteComics = () => {
                                 </div>
                                 <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                     <button onClick={() => {
-                                        addFollowerComics(comics)
+                                        addFollowerComics({ comicsfollow: comics, uid: user.uid })
                                     }}> <CiCirclePlus /></button>
                                 </div>
                             </div>
