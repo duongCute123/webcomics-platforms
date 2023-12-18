@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect ,useState} from 'react';
+import { useEffect, useState } from 'react';
 import { recentlyUpdate } from '../../store/recently/recentlyupdate';
 import { Link } from 'react-router-dom';
 import { GrFormView } from "react-icons/gr";
@@ -32,6 +32,11 @@ function RecentlyUpdate() {
         }
         return number.toString()
     }
+    const PageNotFound = () => {
+        if (recentlyUp?.recently?.comics?.length <= 0) {
+            return <h1 className='flex flex-row justify-center text-center'>Page Not Found 404</h1>
+        }
+    }
     return (
         <div className="">
             <div className='items-center justify-between flex flex-row'>
@@ -50,7 +55,7 @@ function RecentlyUpdate() {
                 </div>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mx-2">
-
+                <PageNotFound />
                 {
                     recentlyUp?.recently?.comics?.slice(0, 10)?.map((comics, index) => (
                         <div className="relative rounded group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>

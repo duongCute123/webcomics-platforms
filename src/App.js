@@ -5,7 +5,6 @@ import { useEffect } from "react"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "./@config"
 import LoginPage from "./main/login/login"
-
 function App() {
   const user = useSelector(selectedUser)
   console.log(user);

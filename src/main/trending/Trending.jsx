@@ -48,7 +48,7 @@ function Trending() {
 
                     </div>
                 </div>
-                <div className="" >
+                <div className="relative" >
                     <Swiper spaceBetween={5} slidesPerView={2}
                         pagination={{
                             clickable: true,
@@ -70,8 +70,8 @@ function Trending() {
                             trendings?.comics?.map((comics, index) => (
                                 <SwiperSlide className='rounded' key={index}>
                                     <Link to={`/detail-comics/${comics.id}`} className='relative rounded'>
-                                        <div className=''>
-                                            <CiCirclePlus />
+                                        <div className='absolute top-0 z-20 right-0'>
+                                            <CiCirclePlus  size={20} />
                                         </div>
                                         <div className='w-full h-full'>
                                             {

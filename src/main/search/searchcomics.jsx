@@ -6,6 +6,7 @@ import { GoChevronRight } from "react-icons/go";
 import ReactPaginate from "react-paginate"
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
 import { searchPage } from "../../@contrain"
+import Menu from "../../menu/menu";
 const SearchPage = () => {
     // lây thông tin người dùng cần tìm kiếm từ ô input
     const location = useLocation();
@@ -31,6 +32,7 @@ const SearchPage = () => {
     };
     return (
         <div className="min-h-screen">
+            <Menu />
             {
                 searchSuggest?.search?.comics
                     ?

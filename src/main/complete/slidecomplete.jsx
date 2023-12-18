@@ -4,7 +4,7 @@ import { competecomics } from "../../store/completecomics/completecomics";
 import { GrFormView } from "react-icons/gr";
 import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { GiSelfLove } from "react-icons/gi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { FaCircleCheck } from "react-icons/fa6";
@@ -21,6 +21,7 @@ const CompleteComics = () => {
     useEffect(() => {
         dispatch(competecomics.getList())
     }, [dispatch])
+    const navigation = useNavigate()
     useEffect(() => {
         console.log(user?.uid);
         dispatch(followsComics.getComicsInUid(user?.uid))
@@ -45,7 +46,11 @@ const CompleteComics = () => {
     }
     const addFollowerComics = (comicsfollow, uid) => {
         console.log(uid);
-        dispatch(followsComics.addfollowsComics(comicsfollow, uid))
+        if (user) {
+            dispatch(followsComics.addfollowsComics(comicsfollow, uid))
+        } else {
+            navigation("/user/login")
+        }
     }
     return (
         <div className="">
@@ -69,23 +74,24 @@ const CompleteComics = () => {
                 {
                     completecomic?.completeComics?.comics?.slice(0, 10)?.map((comics, index) => (
                         <div className="relative rounded  group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
-                            <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
+                            <div className="absolute flex flex-row gap-2 top-0 left-0 duration-300 z-10">
                                 <div>
-                                    <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                    <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                         {comics.is_trending === true ? 'Hot' : ''}
                                     </span>
-                                    <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                    <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                         {comics.is_trending === true ? 'End' : ''}
                                     </span>
                                     <span className=" bg-amber-400 text-center py-0.5 px-2 text-white">
                                         {comics.status !== "Completed" ? 'Up' : 'Up'}
                                     </span>
                                 </div>
-                                <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
-                                    <button onClick={() => {
-                                        addFollowerComics({ comicsfollow: comics, uid: user.uid })
-                                    }}> <CiCirclePlus /></button>
-                                </div>
+
+                            </div>
+                            <div className="absolute flex flex-row gap-2 top-0 right-2  duration-300 z-10">
+                                <button className=" px-2 text-white text-center bg-emerald-400" onClick={() => {
+                                    addFollowerComics({ comicsfollow: comics, uid: user?.uid })
+                                }}> Follow</button>
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
                                 {
