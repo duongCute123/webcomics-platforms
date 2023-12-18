@@ -14,17 +14,15 @@
 - Follow Comics and UnFollow Comics
 - History Comics Read and Remove Comics
 # Screenshots
-![https://photos.google.com/photo/AF1QipNSZkH-q7J1BrkUnhDNrnTj7yTl5wdh8aTbTaZN](https://)
-![https://photos.google.com/photo/AF1QipNL9TYQRSD9ZhFZfe7mMjaf-DA4uiJR2-idh8jP](https://)
-![https://photos.google.com/photo/AF1QipNO-zalbQhRiTb6j1fy1n9ecoZqk3cOub_z2TBP](https://)
-![https://photos.google.com/photo/AF1QipPKEVZoJfLTRGlXDPNpAiFwOb-kkajTObl34vmZ](https://)
-![https://photos.google.com/photo/AF1QipPIQoeM4SrCykG7PGz2vUANsBybHLY9BFuQAkRt](https://)
-![https://photos.google.com/photo/AF1QipOwqKxx-2CslrPdhcmOvLiN97YRFJl6LSKKxlA4](https://)
-![https://photos.google.com/photo/AF1QipMOspC1BEuJeh36-H0cpPJvIylt0QjUmUIIohqt](https://)
+![Home](public/Screenshot%202023-12-18%20163739.png)
+![Genres](public/Screenshot%202023-12-18%20163907.png)
+![New](public/Screenshot%202023-12-18%20164002.png)
+![Top](public/Screenshot%202023-12-18%20164105.png)
+![DetailComics](public/Screenshot%202023-12-18%20164144.png)
+![ReadComics](public/Screenshot%202023-12-18%20164237.png)
+![Search Comics](public/Screenshot%202023-12-18%20165336.png)
 # Summary
-###### If you like this project, give it a 🌟 and share it to your friends 💖
-
-
+###### If you like this, give it a 🌟 and share it to your friends 💖
 
 
 
