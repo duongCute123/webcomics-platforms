@@ -16,7 +16,6 @@ const CompleteComics = () => {
     console.log(followcomics);
     console.log(completecomic);
     const user = useSelector(selectedUser)
-    console.log(user);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(competecomics.getList())
@@ -44,10 +43,10 @@ const CompleteComics = () => {
         updateImage[index] = true
         setErrImage(updateImage)
     }
-    const addFollowerComics = (comicsfollow, uid) => {
+    const addFollowerComics = ({ comicsfollow, uid, comicsID }) => {
         console.log(uid);
         if (user) {
-            dispatch(followsComics.addfollowsComics(comicsfollow, uid))
+            dispatch(followsComics.addfollowsComics({ comicsfollow: comicsfollow, uid: uid, comicsID: comicsID }))
         } else {
             navigation("/user/login")
         }
@@ -90,7 +89,7 @@ const CompleteComics = () => {
                             </div>
                             <div className="absolute flex flex-row gap-2 top-0 right-2  duration-300 z-10">
                                 <button className=" px-2 text-white text-center bg-emerald-400" onClick={() => {
-                                    addFollowerComics({ comicsfollow: comics, uid: user?.uid })
+                                    addFollowerComics({ comicsfollow: comics, uid: user?.uid, comicsID: comics.id })
                                 }}> Follow</button>
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">

@@ -4,7 +4,8 @@ import { logOut, loginSucces, selectedUser } from "./store/auth/userslice"
 import { useEffect } from "react"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "./@config"
-import LoginPage from "./main/login/login"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const user = useSelector(selectedUser)
   console.log(user);
@@ -27,6 +28,7 @@ function App() {
   return (
     <div className="app">
       <RouterPage />
+      <ToastContainer />
     </div>
   )
 }

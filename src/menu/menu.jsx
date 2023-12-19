@@ -185,6 +185,9 @@ const Menu = () => {
                             <li className="hover:bg-emerald-400  rounded hover:text-white">
                                 <Link className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><MdHistory />History</Link>
                             </li>
+                            <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">
+                                <Link to={"/comics/follow"} className={`flex flex-row items-center gap-2 ${open ? 'close' : 'menu'}`} onClick={() => setOpen(!open)}><CgGenderFemale />Follow Comics</Link>
+                            </li>
                             {
                                 user ?
                                     <div>

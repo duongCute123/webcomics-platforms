@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom";
 import { detailcomics } from "../../store/detailcomics/detailcomics"
 import { Link } from "react-router-dom";
 import { CgReadme } from "react-icons/cg";
 import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
-
 import { GrFormView } from "react-icons/gr";
 import React from "react";
 import { GiSelfLove } from "react-icons/gi";
@@ -21,6 +20,7 @@ const DetailPage = () => {
     ])
     const { comic_id } = useParams()
     const detaicomicse = useSelector(state => state.detail)
+    console.log(detaicomicse);
     const loading = useSelector(state => state.detail.loading)
     const chapterPerPage = 50
     const navigation = useNavigate()
@@ -42,18 +42,14 @@ const DetailPage = () => {
     useEffect(() => {
         setChapterSession(getChapter(0, chapterPerPage, detaicomicse?.detailcomics?.chapters))
     }, [setChapterSession, chapterPerPage, detaicomicse?.detailcomics?.chapters])
-    const numberchapter = detaicomicse?.detailcomics?.chapters?.length
+    // const numberchapter = detaicomicse?.detailcomics?.chapters?.length
     const newChapter = detaicomicse?.detailcomics?.chapters?.[0]?.name?.match(/\d+(\.\d+)?/)?.[0];
     // Tính số chapter từ khoảng 0-50 chapter trên mỗi button khi bấm thì thay đổi
     const totalChapter = !isNaN(Number(newChapter))
         ? Math.ceil(Math.floor(Number(newChapter)) / chapterPerPage)
         : 0
 
-    // Log ra kiểm tra giá trị
-    console.log("Tổng số chpater 1 page", totalChapter);
-    console.log(newChapter);
-    console.log(numberchapter);
-    console.log(chaptersSection);
+    
     // Lây 50 chapter của chương truyện nếu có thì trả về số chapter là 50
     const getChapter = (chapterstart, chapterend) => {
         const chaptersData = Array.isArray(detaicomicse.detailcomics.chapters) ? detaicomicse.detailcomics.chapters : [];
@@ -100,7 +96,7 @@ const DetailPage = () => {
                                 <div className="mx-auto  justify-center items-center my-6 rounded-lg">
                                     {
                                         errImage ?
-                                            <img src={avata} className="mx-3 bg-no-repeat rounded-lg bg-cover w-full h-full object-cover object-center" alt="" />
+                                            <img src={avata} className="mx-3 bg-no-repeat rounded-lg bg-cover lg:w-full h-full object-cover object-center" width={"300px"} alt="" />
                                             :
                                             <img onError={() => setErrImage(true)} src={detaicomicse.detailcomics.thumbnail} className="mx-3 bg-no-repeat rounded-lg bg-cover w-full h-full object-cover object-center" alt="" />
 

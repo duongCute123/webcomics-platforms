@@ -8,18 +8,13 @@ import AnimationLoading from "../loading/loading";
 const ReadComics = () => {
     const { comic_id } = useParams()
     const { chapter_id } = useParams()
-    const [isNext, setIsNext] = useState(false)
     console.log(comic_id, chapter_id);
     const singleChapter = useSelector(state => state.detail)
     const loading = useSelector(state => state.detail.loading)
-    console.log(loading);
-    console.log(singleChapter);
     const navigation = useNavigate()
     const [isHidden, setIsHidden] = useState(false)
     const [rangeval, setRangeval] = useState(1);
-    const [id_Next, setIdNext] = useState(comic_id)
     const listReft = useRef(null)
-    console.log(typeof singleChapter?.detailcomics?.chapters)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(detailcomics.findByIdSingleChapter({ comic_id: comic_id, chapter_id: chapter_id }))
@@ -34,7 +29,6 @@ const ReadComics = () => {
         }
     };
     const handlerNext = (type) => {
-        setIsNext(true);
         const chapters = singleChapter?.detailcomics?.chapters;
         if (!chapters || !chapters.length) return;
 
@@ -54,8 +48,6 @@ const ReadComics = () => {
 
         navigation(`/comics/${comic_id}/${chapteres[nextChapter].id}`);
     };
-    console.log(listReft.current);
-    console.log(rangeval);
     return (
         <div className="">
             {
@@ -65,7 +57,7 @@ const ReadComics = () => {
                     :
                     <div className="bg-black">
                         <div className="fixed text-center flex flex-row bg-black/90 opacity-80 text-white w-full h-11 py-2 font-semibold text-xl top-0 mx-auto justify-center">
-                            <Link to={`/detail-comics/${comic_id}`}>{singleChapter?.detailcomics?.comic_name}</Link>- <p>{singleChapter?.detailcomics?.chapter_name}</p>
+                            <Link className="line-clamp-1" to={`/detail-comics/${comic_id}`}>{singleChapter?.detailcomics?.comic_name}</Link>- <p className="line-clamp-1">{singleChapter?.detailcomics?.chapter_name}</p>
                         </div>
                         <div className="justify-center mx-auto"
 

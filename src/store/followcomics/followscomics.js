@@ -2,17 +2,34 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { addDoc, collection, deleteDoc, doc, getDocs } from "firebase/firestore"
 import { db } from "../../@config"
 import { collectionfollow } from "../../@contrain"
+import { toast } from "react-toastify"
 
 const appName = 'Comics'
 const moduleName = 'followsComics'
 export const followsComics = {
     addfollowsComics: createAsyncThunk(`${appName}/${moduleName}/followsComics`, async (params, thunkAPI) => {
-        console.log(params);
+        const { comicsfollow, uid, comicsID } = params
         try {
-            await addDoc(collection(db, "follows"), {
-                params
-            })
-            console.log("Theo dõi phim thành công nhé..!!");
+            // Lấy dữ liệu về
+            const querySnapshot = await getDocs(collection(db, "follows"));
+            const followsComics = querySnapshot.docs
+                .map(doc => doc.data())
+                // Kiểm tra xem trong cơ sở dữ liệu có truyện cẩn theo dõi chưa
+                // Nếu có dồi thì không có thêm vào mà sẽ báo lỗi cho người dùng biết
+                // Nếu chưa có thì thêm dữ liệu vvaif trong db
+                .filter(follow => follow.params && follow.params.uid === uid)
+                .filter(follow => follow.params && follow.params.comicsfollow && follow.params.comicsfollow.id === comicsID);
+            if (followsComics.length === 0) {
+                await addDoc(collection(db, "follows"), {
+                    params: {
+                        comicsfollow: comicsfollow,
+                        uid: uid
+                    }
+                })
+                toast("Theo dõi phim thành công nhé..!!")
+            } else {
+                toast("Bạn đã theo dõi truyện này rồi..!!")
+            }
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
         }
@@ -21,12 +38,12 @@ export const followsComics = {
         console.log(params);
         try {
             const querySnapshot = await getDocs(collection(db, "follows"));
-            const followsComics = querySnapshot
-                .docs
+            const followsComics = querySnapshot.docs
                 .map(doc => doc.data())
-                .filter(follow => follow.params.uid === params)
+                .filter(follow => follow.params && follow.params.uid === params);
             return followsComics;
         } catch (error) {
+            console.log(error);
             return thunkAPI.rejectWithValue(error)
         }
     }),
@@ -34,7 +51,7 @@ export const followsComics = {
         try {
             const documentRef = doc(db, collectionfollow, params)
             await deleteDoc(documentRef)
-            console.log("Xoá thành công với dữ liệu là:",params);
+            console.log("Xoá thành công với dữ liệu là:", params);
         } catch (error) {
             return thunkAPI.rejectWithValue("Lỗi huỷ theo dõi bộ phim")
         }
