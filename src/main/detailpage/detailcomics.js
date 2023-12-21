@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom";
 import { detailcomics } from "../../store/detailcomics/detailcomics"
@@ -48,7 +48,7 @@ const DetailPage = () => {
         ? Math.ceil(Math.floor(Number(newChapter)) / chapterPerPage)
         : 0
 
-    
+
     // Lây 50 chapter của chương truyện nếu có thì trả về số chapter là 50
     const getChapter = (chapterstart, chapterend) => {
         const chaptersData = Array.isArray(detaicomicse.detailcomics.chapters) ? detaicomicse.detailcomics.chapters : [];
@@ -81,6 +81,9 @@ const DetailPage = () => {
 
     }
     const [errImage, setErrImage] = useState(false)
+    useEffect(() => {
+        document.title = `${detaicomicse.detailcomics.title} | Comics Dương`
+    }, [detaicomicse.detailcomics.title])
     return (
         <div className="">
             <Menu />

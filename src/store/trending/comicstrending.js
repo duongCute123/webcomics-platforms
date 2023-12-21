@@ -7,7 +7,6 @@ export const trending = {
     getList: createAsyncThunk(`${appName}/${moduleName}/trending/getList`, async (params, thunkAPI) => {
         try {
             const responsive = await connect.trending.getTrending(params);
-            console.log(responsive.data);
             return responsive.data;
         } catch (error) {
             thunkAPI.dispatch({ variant: "error", message: "Lỗi lấy danh sách truyện Trending" })

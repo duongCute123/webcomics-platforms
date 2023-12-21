@@ -61,6 +61,9 @@ const GirlComics = () => {
             navigation("/user/login")
         }
     }
+    useEffect(() => {
+        document.title = `Girl Comics - Page ${page} | Comics Dương`
+    }, [page])
     return (
         <div>
             <Menu />

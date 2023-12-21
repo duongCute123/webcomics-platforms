@@ -62,7 +62,7 @@ const Menu = () => {
         setOpen(false)
         navigation(`/comics/search?q=${query}`)
     }
-    const handlerFollowComics=()=>{
+    const handlerFollowComics = () => {
         navigation("/comics/follow")
     }
     return (
@@ -70,14 +70,14 @@ const Menu = () => {
             <div className="">
                 <div className="flex flex-row  justify-between bg-white shadow-md h-12 md:h-14 text-black items-center w-full mx-auto px-3 py-3">
                     <div className="flex  flex-row justify-between items-center">
-                        <div className="gap-2 flex flex-row items-center justify-between text-center">
+                        <Link to={"/"} className="gap-2 flex flex-row items-center justify-between text-center">
                             <div className="">
                                 <img className="bg-no-repeat bg-cover" width={"40px"} src={logo} alt="" />
                             </div>
                             <div className="font-bold text-green-500/95 text-2xl">
                                 <h1>Comics Dương</h1>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     {/* Trên thiết bị mấy tính và các màn hình lớn */}
                     <nav className="hidden md:block">
@@ -112,7 +112,9 @@ const Menu = () => {
                                             </div>
                                             <div className="absolute py-7 px-4 z-50 top-9  right-1 group-hover:block hover:block hidden">
                                                 <div className="border-2 w-[200px] px-2 py-2 bg-white border-solid rounded-md">
-                                                    <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center"><CgProfile /> Profile</p>
+                                                    <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center" onClick={() => {
+                                                        navigation("/user/profile")
+                                                    }}><CgProfile /> Profile</p>
                                                     <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center"><CiSettings /> Setting</p>
                                                     <button className="hover:bg-emerald-400 w-full rounded px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center" onClick={handlerLogout}><CiLogout /> Logout</button>
                                                 </div>
@@ -207,7 +209,9 @@ const Menu = () => {
                                             </div>
                                             <div className=" py-7 px-4 z-50   right-1 group-hover:block hover:block hidden">
                                                 <div className="border-2 w-[200px] bg-white border-solid rounded-md">
-                                                    <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center"><CgProfile /> Profile</p>
+                                                    <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center" onClick={() => {
+                                                        navigation("/user/profile")
+                                                    }}><CgProfile /> Profile</p>
                                                     <p className="hover:bg-emerald-400 px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center"><CiSettings /> Setting</p>
                                                     <button className="hover:bg-emerald-400 w-full rounded px-2 py-0.5 hover:text-white font-semibold flex flex-row gap-2 items-center" onClick={handlerLogout}><CiLogout /> Logout</button>
                                                 </div>

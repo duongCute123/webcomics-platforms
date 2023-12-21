@@ -71,6 +71,9 @@ const GenresComics = () => {
             navigation("/user/login")
         }
     }
+    useEffect(() => {
+        document.title = `Genres Comics ${type} - Page ${page} | Comics Dương`
+    }, [type,page])
     return (
         <div className="">
             <Menu />

@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom"
-import logo from "../../images/logo.png"
 import { useEffect, useState } from "react"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { auth, ref, storage } from "../../@config"
 import { getDownloadURL, uploadBytes } from "firebase/storage"
 import { useSelector } from "react-redux"
 import { selectedUser } from "../../store/auth/userslice"
+import { toast } from "react-toastify"
 const RegisterPage = () => {
     const list = {
         email: "",
@@ -13,6 +13,7 @@ const RegisterPage = () => {
         displayName: "",
         password: ""
     }
+    const [message, setMessage] = useState("")
     const navigation = useNavigate()
     const [forms, setForms] = useState(list)
     const handlerChangValue = (e) => {
@@ -33,35 +34,57 @@ const RegisterPage = () => {
         const storageRef = ref(storage, `images/${file.name}`)
         await uploadBytes(storageRef, file)
         const photoURL = await getDownloadURL(storageRef)
-        console.log(photoURL);
         return photoURL
+    }
+    const validation = () => {
+        const msg = {
+        }
+        const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const regexPass = /^[a-zA-Z0-9]{6,8}$/
+        if (!forms.email) {
+            msg.email = "Vui lòng nhập địa chỉ email"
+        } else if (!regexEmail.test(email)) {
+            msg.email = "Nhập lại email theo name@gmail.com"
+        } else {
+            msg.email = ""
+        }
+        if (!forms.password) {
+            msg.password = "Vui lòng nhập mật khẩu"
+        }
+        if (!regexPass.test(password)) {
+            msg.password = "Vui lòng nhập mật khẩu từ 6->8 ký tự"
+        }
+        setMessage(msg)
+        return !msg.email && !msg.password
     }
     const handlerSubmit = async (e) => {
         e.preventDefault()
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(async (userCredential) => {
-                const user = userCredential.user
-                if (photoURL) {
-                    const imageURL = await uploadImageToFirebase(photoURL)
-                    forms.photoURL = imageURL
-                    console.log(imageURL);
-                    updateProfile(user, {
-                        photoURL: imageURL,
-                        displayName: displayName
-                    })
-                        .then(info => {
-                            console.log(info);
+        const isValid = validation()
+        if (isValid) {
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(async (userCredential) => {
+                    const user = userCredential.user
+                    if (photoURL) {
+                        const imageURL = await uploadImageToFirebase(photoURL)
+                        forms.photoURL = imageURL
+                        updateProfile(user, {
+                            photoURL: imageURL,
+                            displayName: displayName
                         })
-                        .catch(err => {
-                            console.log(err);
-                        })
-                }
-                navigation("/user/login")
+                            .then(info => {
+                                toast("Tạo tài khoản thành công")
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
+                    }
+                    navigation("/user/login")
 
-            })
-            .catch(err => {
-                console.log(err);
-            })
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
     }
     const { email, password, photoURL, displayName } = forms
     console.log(forms);
@@ -77,18 +100,20 @@ const RegisterPage = () => {
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Địa chỉ email</label>
                                 <input type="text" name="email" id="email" value={email} onChange={handlerChangValue} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />
+                                {message.email}
                             </div>
                             <div>
                                 <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nhập họ và tên</label>
                                 <input type="text" name="displayName" value={displayName} onChange={handlerChangValue} id="" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nguyễn Văn A " required="" />
                             </div>
                             <div>
-                                <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nhập họ và tên</label>
+                                <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Chọn ảnh đại diện</label>
                                 <input type="file" name="photoURL" onChange={handlerChangValue} id="" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required="" />
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mật khẩu</label>
                                 <input type="password" name="password" value={password} onChange={handlerChangValue} id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                                {message.password}
                             </div>
                             {/* <div className="flex items-center justify-between">
                                 <div className="flex items-start">

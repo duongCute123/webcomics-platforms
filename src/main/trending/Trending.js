@@ -17,7 +17,6 @@ import SildeGirlComics from '../girl/girlslide';
 import SildeNewslComics from '../news/slidenew';
 import { Link, useNavigate } from 'react-router-dom';
 import { followsComics } from '../../store/followcomics/followscomics';
-import AnimationLoading from '../loading/loading';
 import { selectedUser } from '../../store/auth/userslice';
 function Trending() {
     const pages = 1
@@ -58,6 +57,9 @@ function Trending() {
             navigation("/user/login")
         }
     }
+    useEffect(()=>{
+        document.title=`CMS SME`
+    },[])
     return (
         <>
 
@@ -88,7 +90,8 @@ function Trending() {
                                     slidesPerView: 5,
                                 },
                             }}
-                            modules={[Navigation]} className="mySwiper gap-6">
+                            
+                            modules={[Navigation,Autoplay]} className="mySwiper gap-6">
                             {
                                 trendings?.comics?.map((comics, index) => (
                                     <SwiperSlide className='' key={index}>

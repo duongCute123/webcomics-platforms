@@ -35,6 +35,9 @@ const CompleteComics = () => {
     const navigato = useNavigate()
     useEffect(() => {
         dispatch(competecomics.getList({ page: page }))
+        window.scrollTo({
+            top:0
+        })
         if (page !== 1) {
             navigato(`/comics/complete-comics?page=${page}`)
         } else {
@@ -53,6 +56,9 @@ const CompleteComics = () => {
         }
         return number.toString()
     }
+    useEffect(()=>{
+        document.title=`Complete Comics - Page ${page} | Comics Dương`
+    },[page])
     const navigation=useNavigate()
     const addFollowerComics = ({ comicsfollow, uid, comicsID }) => {
         console.log(uid);

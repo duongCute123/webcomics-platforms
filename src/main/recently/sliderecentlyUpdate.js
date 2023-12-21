@@ -10,7 +10,6 @@ import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generativ
 function RecentlyUpdate() {
     const dispatch = useDispatch()
     const recentlyUp = useSelector((state) => state.recently)
-    console.log(recentlyUp);
     useEffect(() => {
         dispatch(recentlyUpdate.getList())
     }, [dispatch])

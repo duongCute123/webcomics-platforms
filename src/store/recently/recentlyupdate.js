@@ -6,7 +6,6 @@ export const recentlyUpdate = {
     getList: createAsyncThunk(`${appName}/${moduleName}/recentlyupdate`, async (params, thunkAPI) => {
         try {
             const responsive = await connect.recently.recentlyUpdate.getList(params)
-            console.log(responsive.data);
             return responsive.data
         } catch (error) {
             thunkAPI.dispatch({ variant: "error", message: "Lỗi lấy dữ liệu" })

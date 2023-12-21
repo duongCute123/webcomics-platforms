@@ -72,6 +72,9 @@ const ComicsTop = () => {
         }
         return number.toString()
     }
+    useEffect(() => {
+        document.title = `Top Comics - Thể loại ${type} - Trạng thái ${types} - Page ${page} | Comics Dương`
+    }, [type,types,page])
     return (
         <div className="">
             <Menu />

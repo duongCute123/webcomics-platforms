@@ -34,6 +34,9 @@ const FollowComics = () => {
         }
         return number.toString()
     }
+    useEffect(() => {
+        document.title = `Follow COmics | Comics Dương`
+    }, [])
     return (
         <div className="">
             <Menu />

@@ -43,6 +43,9 @@ const PopulaComics = () => {
         }
         return number.toString()
     }
+    useEffect(() => {
+        document.title = `Popular Comics - Page ${page} | Comics Dương`
+    }, [page])
     return (
         <div className="">
             <Menu />

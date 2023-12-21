@@ -62,7 +62,9 @@ const NewsComics = () => {
         }
         return number.toString()
     }
-
+    useEffect(() => {
+        document.title = `New Comics ${type} - Page ${page} | Comics Dương`
+    }, [type, page])
     return (
         <div className="">
             <Menu />

@@ -43,7 +43,6 @@ export const followsComics = {
                 .filter(follow => follow.params && follow.params.uid === params);
             return followsComics;
         } catch (error) {
-            console.log(error);
             return thunkAPI.rejectWithValue(error)
         }
     }),
@@ -51,7 +50,6 @@ export const followsComics = {
         try {
             const documentRef = doc(db, collectionfollow, params)
             await deleteDoc(documentRef)
-            console.log("Xoá thành công với dữ liệu là:", params);
         } catch (error) {
             return thunkAPI.rejectWithValue("Lỗi huỷ theo dõi bộ phim")
         }
@@ -90,7 +88,6 @@ const followsSlice = createSlice({
                 state.error = null
             })
             .addCase(followsComics.getComicsInUid.fulfilled, (state, { payload }) => {
-                console.log(payload);
                 state.loading = false
                 state.followsComics = payload
                 state.error = null

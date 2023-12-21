@@ -38,6 +38,9 @@ const BoyComics = () => {
             navigato("/comics/boy-comics")
         }
     }, [dispatch, page])
+    useEffect(()=>{
+        document.title=`Boy Comics -Page ${page} | Comics Dương`
+    },[page])
     const convertView = (number) => {
         if (number > 1000000) {
             return (number / 1000000).toFixed(0) + 'M'

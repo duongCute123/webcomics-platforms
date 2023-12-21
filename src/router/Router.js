@@ -15,6 +15,7 @@ import LoginPage from "../main/login/login"
 import RegisterPage from "../main/login/register"
 import CompleteComics from "../main/complete/completecomic"
 import FollowComics from "../main/followcomics/followcomics"
+import Profile from "../main/profile/profile"
 
 // import { createBrowserHistory } from "history"
 
@@ -43,6 +44,7 @@ const RouterPage = () => {
                     <Route path="/user/login" element={<LoginPage />} />
                     <Route path="/user/register" element={<RegisterPage />} />
                     <Route path="/comics/follow" element={<FollowComics />} />
+                    <Route path="/user/profile" element={<Profile />} />
                 </Routes>
                 {/* </Router> */}
             </BrowserRouter>

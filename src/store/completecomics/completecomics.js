@@ -6,7 +6,6 @@ export const competecomics = {
     getList: createAsyncThunk(`${appName}/${moduleName}/page/complete`, async (params, thunkAPI) => {
         try {
             const responsive = await connect.complete.getComplete.getList(params)
-            console.log(responsive.data);
             return responsive.data
         } catch (error) {
             thunkAPI.dispatch({ variant: "error", message: "Lỗi lấy dữ liệu" })

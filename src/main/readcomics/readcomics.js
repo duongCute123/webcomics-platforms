@@ -47,6 +47,9 @@ const ReadComics = () => {
 
         navigation(`/comics/${comic_id}/${chapteres[nextChapter].id}`);
     };
+    useEffect(() => {
+        document.title = ` ${singleChapter?.detailcomics?.comic_name} - ${singleChapter?.detailcomics?.chapter_name} | Comics Dương`
+    }, [singleChapter?.detailcomics?.comic_name, singleChapter?.detailcomics?.chapter_name])
     return (
         <div className="">
             {

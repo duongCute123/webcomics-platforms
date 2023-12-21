@@ -50,7 +50,9 @@ const RecentlyComics = () => {
         }
         return number.toString()
     }
-    
+    useEffect(() => {
+        document.title = `Recently Comics - Page ${page} | Comics Dương`
+    }, [page])
     return (
         <div>
             <Menu />

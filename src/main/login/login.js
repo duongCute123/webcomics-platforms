@@ -1,20 +1,17 @@
 import { Link, useNavigate } from "react-router-dom"
-import logo from "../../images/logo.png"
-import { authencomics, loginErr, loginSucces, selectedUser } from "../../store/auth/userslice"
+import {  selectedUser } from "../../store/auth/userslice"
 import { useDispatch, useSelector } from "react-redux"
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth, db } from "../../@config"
+import { toast } from "react-toastify";
 const LoginPage = () => {
     const user = {
         email: "",
         password: ""
     }
     const users = useSelector(selectedUser)
-    const dispatch = useDispatch
     const [infoUser, setInfoUser] = useState(user)
-    const [valid, setValid] = useState(false)
     const navigation = useNavigate()
     const [message, setMessage] = useState("")
     useEffect(() => {
@@ -27,21 +24,21 @@ const LoginPage = () => {
         }
         const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         const regexPass = /^[a-zA-Z0-9]{6,8}$/
-        if (email.length < 0) {
+        if (!infoUser.email) {
             msg.email = "Vui lòng nhập địa chỉ email"
-        }
-        if (!regexEmail.test(email)) {
+        } else if (!regexEmail.test(email)) {
             msg.email = "Nhập lại email theo name@gmail.com"
-            return
+        } else {
+            msg.email = ""
         }
-        if (password.length < 0) {
+        if (!infoUser.password) {
             msg.password = "Vui lòng nhập mật khẩu"
         }
         if (!regexPass.test(password)) {
             msg.password = "Vui lòng nhập mật khẩu từ 6->8 ký tự"
         }
         setMessage(msg)
-
+        return !msg.email && !msg.password
     }
     const handlerChangValue = (e) => {
         const { name, value } = e.target
@@ -49,22 +46,24 @@ const LoginPage = () => {
     }
     const handlerSubmit = (e) => {
         e.preventDefault()
-        signInWithEmailAndPassword(auth, email, password)
-            .then(res => {
-                console.log(res);
-                const IDTokent = res.user.accessToken
-                localStorage.setItem("token", IDTokent)
-                navigation("/")
-            })
-            .catch(err => {
-                console.log("err", err);
+        const isValid = validation()
 
+        if (isValid) {
+            signInWithEmailAndPassword(auth, email, password)
+                .then(res => {
+                    const IDTokent = res.user.accessToken
+                    localStorage.setItem("token", IDTokent)
+                    navigation("/")
+                })
+                .catch(err => {
+                    toast("Lỗi đăng nhập")
+                    console.log(err);
 
-            })
+                })
+        }
     }
-    console.log(message);
     const { email, password } = infoUser
-    console.log(infoUser);
+   
     return (
         <section className="bg-gray-50 w-full flex flex-col justify-center items-center min-h-screen dark:bg-gray-900">
             <div className="flex w-full flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

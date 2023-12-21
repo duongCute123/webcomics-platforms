@@ -9,8 +9,6 @@ import { Link } from "react-router-dom";
 import { BsGenderMale } from "react-icons/bs";
 const SildeBoyComics = () => {
     const boycomics = useSelector(state => state.boy)
-    const loading = useSelector(state => state.boy.loading)
-    console.log(loading);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(boy.getList())
