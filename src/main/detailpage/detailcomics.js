@@ -20,7 +20,6 @@ const DetailPage = () => {
     ])
     const { comic_id } = useParams()
     const detaicomicse = useSelector(state => state.detail)
-    console.log(detaicomicse);
     const loading = useSelector(state => state.detail.loading)
     const chapterPerPage = 50
     const navigation = useNavigate()

@@ -1,10 +1,11 @@
 import { CiSearch } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../images/logo.83be12af.svg"
+import logo from "../images/comics.png"
 import { IoHomeOutline } from "react-icons/io5";
 import { GiCrown } from "react-icons/gi";
 import { CgProfile } from "react-icons/cg";
 import { CiSettings } from "react-icons/ci";
+import { SlUserFollowing } from "react-icons/sl";
 import { CiLogout } from "react-icons/ci";
 import { FaAutoprefixer } from "react-icons/fa";
 import { PiNewspaperClippingLight } from "react-icons/pi";
@@ -29,7 +30,6 @@ const Menu = () => {
     const navigation = useNavigate()
     const [query, setQuery] = useState()
     const [isShow, setIsShow] = useState(false)
-    console.log("Thông tin người dùng", user)
     const handlerLogout = () => {
         auth.signOut()
         dispatch(logOut())
@@ -57,6 +57,14 @@ const Menu = () => {
         setOpen(false)
         navigation(`/detail-comics/${id}`)
     }
+    const handlerTimKiem = () => {
+        setIsShow(false)
+        setOpen(false)
+        navigation(`/comics/search?q=${query}`)
+    }
+    const handlerFollowComics=()=>{
+        navigation("/comics/follow")
+    }
     return (
         <div className="relative">
             <div className="">
@@ -67,7 +75,7 @@ const Menu = () => {
                                 <img className="bg-no-repeat bg-cover" width={"40px"} src={logo} alt="" />
                             </div>
                             <div className="font-bold text-green-500/95 text-2xl">
-                                <h1>Truyện tranh</h1>
+                                <h1>Comics Dương</h1>
                             </div>
                         </div>
                     </div>
@@ -91,7 +99,8 @@ const Menu = () => {
                     <div className="hidden md:block">
                         <InputSearch />
                     </div>
-                    <div className="flex flex-row items-center justify-center gap-1">
+                    <div className="flex flex-row items-center justify-center gap-2">
+                        <SlUserFollowing onClick={handlerFollowComics} />
                         <div className="hidden md:block">
                             {
                                 user ?
@@ -130,7 +139,7 @@ const Menu = () => {
                         </div>
                         <div className="flex flex-row justify-center items-center gap-8">
                             <input type="text" onBlur={() => setIsShow(false)} onFocus={handlerShowSearch} onKeyPress={HandlerEnter} onChange={(e) => setQuery(e.target.value)} placeholder="Vui lòng nhập tên truyện cần tìm" className="w-11/12 text-black text-lg h-10 rounded-full border-2 border-solid border-red-400" />
-                            <CiSearch size={40} className="font-bold absolute right-4 text-3xl" />
+                            <CiSearch size={40} className="font-bold absolute right-4 text-3xl" onClick={handlerTimKiem} />
                         </div>
                         <div className={`absolute top-28 z-30 ${isShow ? '' : 'hidden'} px-3 py-5 text-black bg-white  h-[300px] overflow-y-auto`}>
                             {

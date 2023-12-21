@@ -12,19 +12,12 @@ import { followsComics } from "../../store/followcomics/followscomics";
 import { selectedUser } from "../../store/auth/userslice";
 const CompleteComics = () => {
     const completecomic = useSelector(state => state.complete)
-    const followcomics = useSelector(state => state.followsComicsUid)
-    console.log(followcomics);
-    console.log(completecomic);
     const user = useSelector(selectedUser)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(competecomics.getList())
     }, [dispatch])
     const navigation = useNavigate()
-    useEffect(() => {
-        console.log(user?.uid);
-        dispatch(followsComics.getComicsInUid(user?.uid))
-    }, [dispatch, user?.uid])
     const convertView = (number) => {
         if (number > 1000000) {
             return (number / 1000000).toFixed(0) + 'M'
@@ -60,13 +53,13 @@ const CompleteComics = () => {
                         Truyện tranh đã hoàn thành
                     </h1>
                 </div>
-                <div className="px-5 py-0.5 bg-transparent overflow-hidden
+                <Link to={"/comics/complete-comics"} className="px-5 py-0.5 bg-transparent overflow-hidden
                 text-emerald-500 hover:text-white hover:ring-2 hover:ring-offset-2
                 hover:ring-emerald-400 duration-300 cursor-pointer
                 border-emerald-500 hover:border-transparent border-2 
                 rounded-full group hover:bg-emerald-500">
                     <button className="text-sm font-medium">More</button>
-                </div>
+                </Link>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mx-2">
 

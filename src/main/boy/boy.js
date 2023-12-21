@@ -9,9 +9,8 @@ import { Link } from "react-router-dom";
 import { BsGenderMale } from "react-icons/bs";
 const SildeBoyComics = () => {
     const boycomics = useSelector(state => state.boy)
-    const loading = useSelector(state => state.boy)
+    const loading = useSelector(state => state.boy.loading)
     console.log(loading);
-    console.log(boycomics);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(boy.getList())
@@ -41,13 +40,13 @@ const SildeBoyComics = () => {
                         Truyện tranh cậu bé
                     </h1>
                 </div>
-                <div className="px-5 py-0.5 bg-transparent overflow-hidden
+                <Link to={"/comics/boy-comics"} className="px-5 py-0.5 bg-transparent overflow-hidden
                 text-emerald-500 hover:text-white hover:ring-2 hover:ring-offset-2
                 hover:ring-emerald-400 duration-300 cursor-pointer
                 border-emerald-500 hover:border-transparent border-2 
                 rounded-full group hover:bg-emerald-500">
                     <button className="text-sm font-medium">More</button>
-                </div>
+                </Link>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mx-2">
 
@@ -55,10 +54,10 @@ const SildeBoyComics = () => {
                     boycomics?.boy?.comics?.slice(0, 10)?.map((comics, index) => (
                         <div className="relative rounded group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                             <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
-                                <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'Hot' : ''}
                                 </span>
-                                <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'End' : ''}
                                 </span>
                                 <span className=" bg-amber-400 text-center py-0.5 px-2 text-white">

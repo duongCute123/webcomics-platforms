@@ -8,7 +8,6 @@ import AnimationLoading from "../loading/loading";
 const ReadComics = () => {
     const { comic_id } = useParams()
     const { chapter_id } = useParams()
-    console.log(comic_id, chapter_id);
     const singleChapter = useSelector(state => state.detail)
     const loading = useSelector(state => state.detail.loading)
     const navigation = useNavigate()
@@ -103,8 +102,6 @@ const ReadComics = () => {
                             </div>
                         </div>
                     </div>
-
-
             }
         </div>
     )

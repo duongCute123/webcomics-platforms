@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { MdHistory } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { search } from "../../store/search/search";
@@ -22,7 +21,6 @@ const InputSearch = () => {
             dispatch(search.searchSuggest(query))
         }
     }, [dispatch, query])
-    const type = "all"
     const handlerShowSearch = () => {
         if (searchdata.search.length > 0) {
             setIsShow(true)
@@ -31,6 +29,10 @@ const InputSearch = () => {
     const handlerDetailComics = (id) => {
         navigation(`/detail-comics/${id}`)
     }
+    const handlerTimKiem = () => {
+        setIsShow(false)
+        navigation(`/comics/search?q=${query}`)
+    }
     return (
         <div className="">
             <div className="flex  flex-row items-center">
@@ -38,7 +40,7 @@ const InputSearch = () => {
                     <form className="flex items-center rounded-full border py-2 focus-within:border-emerald-500 duration-100 lg:w-[250px] relative">
                         <input type="text" className="outline-none text-sm pl-3 lg:w-[250px] rounded-full" onBlur={() => setIsShow(false)} onFocus={handlerShowSearch} onKeyPress={HandlerEnter} onChange={(e) => setQuery(e.target.value)} placeholder="Nhập truyện muốn tìm" />
                         <button>
-                            <CiSearch className="" color="black" size={25} />
+                            <CiSearch className="" color="black" size={25} onClick={handlerTimKiem} />
                         </button>
                     </form>
                     <div className={`absolute top-[57px] z-30 ${isShow ? '' : 'hidden'} px-3 py-5 text-black bg-white w-[300px] h-[300px] overflow-y-auto`}>

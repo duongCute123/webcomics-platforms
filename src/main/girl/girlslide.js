@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux"
 // import { competecomics } from "../store/completecomics/completecomics";
 import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { girl } from "../../store/girl/girl";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GrFormView } from "react-icons/gr";
 import { CgGenderFemale } from "react-icons/cg";
 import { GiSelfLove } from "react-icons/gi";
+import { followsComics } from "../../store/followcomics/followscomics";
+import { selectedUser } from "../../store/auth/userslice";
 const SildeGirlComics = () => {
     const girlcomics = useSelector(state => state.girl)
-    console.log(girlcomics);
+    // const loading = useSelector(state => state.girl.loading)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(girl.getList())
@@ -32,6 +34,15 @@ const SildeGirlComics = () => {
         updateImage[index] = true
         setErrorImage(updateImage)
     }
+    const navigation = useNavigate()
+    const user = useSelector(selectedUser)
+    const addFollowerComics = ({ comicsfollow, uid, comicsID }) => {
+        if (user) {
+            dispatch(followsComics.addfollowsComics({ comicsfollow: comicsfollow, uid: uid, comicsID: comicsID }))
+        } else {
+            navigation("/user/login")
+        }
+    }
     return (
         <div className="">
             <div className="flex-row flex justify-between items-center">
@@ -41,13 +52,13 @@ const SildeGirlComics = () => {
                         Truyện tranh thiếu nữ
                     </h1>
                 </div>
-                <div className="px-5 py-0.5 bg-transparent overflow-hidden
+                <Link to={"/comics/girl-comics"} className="px-5 py-0.5 bg-transparent overflow-hidden
                 text-emerald-500 hover:text-white hover:ring-2 hover:ring-offset-2
                 hover:ring-emerald-400 duration-300 cursor-pointer
                 border-emerald-500 hover:border-transparent border-2 
                 rounded-full group hover:bg-emerald-500">
                     <button className="text-sm font-medium">More</button>
-                </div>
+                </Link>
 
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mx-2">
@@ -55,16 +66,21 @@ const SildeGirlComics = () => {
                 {
                     girlcomics?.girl?.comics?.slice(0, 10)?.map((comics, index) => (
                         <div className="relative rounded group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
-                            <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
-                                <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                            <div className="absolute flex flex-wrap gap-1 top-0 duration-300 z-10">
+                                <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'Hot' : ''}
                                 </span>
-                                <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                     {comics.is_trending === true ? 'End' : ''}
                                 </span>
                                 <span className=" bg-amber-400 text-center py-0.5 px-2 text-white">
                                     {comics.status !== "Completed" ? 'Up' : 'Up'}
                                 </span>
+                            </div>
+                            <div className="absolute flex flex-row gap-2 top-0 right-0  duration-300 z-10">
+                                <button className=" px-2 py-0.5 text-white text-center bg-emerald-400" onClick={() => {
+                                    addFollowerComics({ comicsfollow: comics, uid: user?.uid, comicsID: comics.id })
+                                }}> Follow</button>
                             </div>
                             <Link to={`/detail-comics/${comics.id}`} className="">
                                 {

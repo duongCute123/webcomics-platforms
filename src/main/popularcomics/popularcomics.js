@@ -1,32 +1,19 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { trending } from "../../store/trending/comicstrending";
+import { trending } from "../../store/trending/comicstrending"
 import { GrFormView } from "react-icons/gr";
 import { GiSelfLove } from "react-icons/gi";
-import { Link, useNavigate } from "react-router-dom";
-import { FaCircleCheck } from "react-icons/fa6";
-import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
-import ReactPaginate from "react-paginate";
-import Menu from "../../menu/menu";
-const PopulaComics = () => {
-    const popularcomics = useSelector(state => state.trending)
-    console.log(popularcomics);
+import { GiBurningRoundShot } from "react-icons/gi";
+import { Link } from "react-router-dom";
+import AnimationLoading from "../loading/loading";
+const PopularComics = () => {
+    const pages = 1
+    const trendings = useSelector(state => state.trending.trending)
+    const loading = useSelector(state => state.trending.loading)
     const dispatch = useDispatch()
-    const [page, setPage] = useState(1)
-    const toTalPage = popularcomics?.trending?.total_pages
-    const [pageRanges, setpageRanges] = useState()
-    const handlePageChange = (selectedPage) => {
-        setPage(selectedPage.selected + 1);
-    };
-    const navigato = useNavigate()
     useEffect(() => {
-        dispatch(trending.getList({ page: page }))
-        if (page !== 1) {
-            navigato(`/comics/popular-comics?page=${page}`)
-        } else {
-            navigato("/comics/popular-comics")
-        }
-    }, [dispatch, page])
+        dispatch(trending.getList({ page: pages }))
+    }, [dispatch, pages])
     const convertView = (number) => {
         if (number > 1000000) {
             return (number / 1000000).toFixed(0) + 'M'
@@ -40,22 +27,31 @@ const PopulaComics = () => {
         return number.toString()
     }
     return (
-        <div className="">
-            <Menu />
-            <div className="mx-6">
-                <div className="flex flex-row items-center justify-between">
-                    <div className="">
-                        <h1 className="flex items-center flex-row gap-2 text-xl md:text-3xl sm:text-2xl font-bold mb-4 mt-6 md:mt-12">
-                            <FaCircleCheck className="text-emerald-400 animate-pulse" />
-                            Popular Comics {`${page !== 1 ? `- Page ${page}` : ''}`}
+        <>
+
+            <div className="max-w-7xl mx-auto justify-center">
+                <div className="flex flex-row justify-between items-center mb-4 mt-6 md:mt-12">
+                    <div className="flex flex-row items-center gap-2 font-bold md:text-3xl sm:text-2xl text-xl">
+                        <div className="animate-bounce">
+                            <GiBurningRoundShot className="text-emerald-400" />
+                        </div>
+                        <h1>
+                            Truyện nhiều người đọc
                         </h1>
                     </div>
+                    <Link to={"/comics/popular-comics"} className="px-5 py-0.5 bg-transparent overflow-hidden
+                text-emerald-500 hover:text-white hover:ring-2 hover:ring-offset-2
+                hover:ring-emerald-400 duration-300 cursor-pointer
+                border-emerald-500 hover:border-transparent border-2 
+                rounded-full group hover:bg-emerald-500">
+                        <button className="text-sm font-medium">More</button>
+                    </Link>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mx-2">
 
                     {
-                        popularcomics?.trending?.comics?.map((comics, index) => (
-                            <div className="relative rounded  group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
+                        trendings?.comics?.slice(0, 10)?.map((comics, index) => (
+                            <div className="relative rounded group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                                 <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                     <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
                                         {comics.is_trending === true ? 'Hot' : ''}
@@ -102,32 +98,9 @@ const PopulaComics = () => {
                     }
 
                 </div>
-                <div className=''>
-                    <ReactPaginate
-                        className='flex gap-4 justify-center hover:no-underline font-bold  items-center text-center'
-                        pageCount={toTalPage} // Tổng số trang
-                        pageRangeDisplayed={pageRanges} // Số lượng nút phân trang hiển thị
-                        marginPagesDisplayed={2} // Số lượng nút phân trang hiển thị ở hai đầu
-                        onPageChange={handlePageChange} // Xử lý sự kiện khi người dùng chuyển trang
-                        containerClassName="pagination"
-                        activeClassName="text-white bg-yellow-400"
-                        disabledClassName="disabled"
-                        nextLabel={<BiChevronRight size={"25px"} />}
-                        pageClassName="border-solid border-2 border-yellow-400 justify-center items-center w-10"
-
-                        previousClassName={page === 1 ? 'hidden' : ''}
-                        previousLabel={
-                            <div className="flex items-center justify-center text-center">
-                                <BiChevronLeft size={"25px"} />
-                            </div>
-                        }
-                        pageLinkClassName={""}
-                        activeLinkClassName={""}
-                    />
-                    {/* <Pagination currentPage={currentPage} totalPages={toTalPage} onPageChange={handlePageChange}/> */}
-                </div>
             </div>
-        </div>
+
+        </>
     )
 }
-export default PopulaComics
+export default PopularComics

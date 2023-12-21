@@ -8,7 +8,6 @@ import { GiSelfLove } from "react-icons/gi";
 import { Link } from "react-router-dom";
 const SildeNewslComics = () => {
     const newscomics = useSelector(state => state.news)
-    console.log(newscomics);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(news.getList())

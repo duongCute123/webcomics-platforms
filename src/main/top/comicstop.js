@@ -22,9 +22,7 @@ const ComicsTop = () => {
         setErrorImage(updateImage)
     }
     const [type, setTypes] = useState("all")
-    const navigation = useNavigate()
     const [types, setType] = useState("all")
-    // const [isClick, setIsClick] = useState(false)
     const toTalPage = topscomics?.topcomics?.total_pages
     const [pageRanges, setpageRanges] = useState()
     useEffect(() => {
@@ -61,10 +59,10 @@ const ComicsTop = () => {
     }
     const handlePageChange = (selectedPage) => {
         setPage(selectedPage.selected + 1);
+        window.scrollTo({
+            top:0
+        })
     };
-    const handlerChangeUrl = () => {
-
-    }
     const convertView = (number) => {
         if (number > 1000000) {
             return (number / 1000000).toFixed(0) + 'm'
@@ -74,8 +72,6 @@ const ComicsTop = () => {
         }
         return number.toString()
     }
-    console.log(type);
-    console.log(page);
     return (
         <div className="">
             <Menu />
@@ -176,11 +172,11 @@ const ComicsTop = () => {
                                 marginPagesDisplayed={2} // Số lượng nút phân trang hiển thị ở hai đầu
                                 onPageChange={handlePageChange} // Xử lý sự kiện khi người dùng chuyển trang
                                 containerClassName="pagination"
-                                activeClassName="text-white bg-yellow-400"
+                                activeClassName="text-white bg-emerald-400"
                                 disabledClassName="disabled"
                                 nextLabel={<BiChevronRight size={"25px"} />}
-                                pageClassName="border-solid border-2 border-yellow-400 justify-center items-center w-10"
-
+                                pageClassName="rounded-full justify-center items-center w-10"
+                                forcePage={page-1}
                                 previousClassName={page === 1 ? 'hidden' : ''}
                                 previousLabel={
                                     <div className="flex items-center justify-center text-center">

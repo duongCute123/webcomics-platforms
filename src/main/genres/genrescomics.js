@@ -4,42 +4,37 @@ import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
 import { useDispatch, useSelector } from "react-redux"
 import 'swiper/css/pagination';
-import { GrFormView } from "react-icons/gr";
-import avtar from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
-import { GiSelfLove } from "react-icons/gi";
-import { status } from '../../type';
 // import { useParams } from "react-router-dom"
 // import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
+import { genress } from '../../type';
+import { GrFormView } from "react-icons/gr";
+import { GiSelfLove } from "react-icons/gi";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { useEffect, useState } from 'react';
-// import { genres } from '../store/genres/genrescomics';
+import { genres } from '../../store/genres/genrescomics';
+import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
 import ReactPaginate from "react-paginate"
-import { news } from '../../store/news/news';
 import Menu from '../../menu/menu';
 import AnimationLoading from '../loading/loading';
-const NewsComics = () => {
+import { selectedUser } from '../../store/auth/userslice';
+import { followsComics } from '../../store/followcomics/followscomics';
+const GenresComics = () => {
+    const genrescomics = useSelector(state => state.genres)
+    const loading = useSelector(state => state.genres.loading)
     const { slug } = useParams()
-    const detailComics = useSelector(state => state.news)
-    const loading = useSelector(state => state.news.loading)
+    const [type, setType] = useState("all")
     const navigation = useNavigate()
     const [page, setPage] = useState(1)
-    const [type, setType] = useState("all")
-    const [errorImages, setErrorImages] = useState([]);
-    const handleImageError = (index) => {
-        const updatedErrorImages = [...errorImages];
-        updatedErrorImages[index] = true;
-        setErrorImages(updatedErrorImages);
-    };
     const dispatch = useDispatch()
-    const toTalPage = detailComics?.news?.data?.total_pages
+    const toTalPage = genrescomics?.genres?.total_pages
     const [pageRanges, setpageRanges] = useState()
     useEffect(() => {
-        dispatch(news.findComicsNew({ page: page, status: type }))
-    }, [dispatch, page, type])
+        dispatch(genres.getList({ type: type, page: page }))
+    }, [dispatch, type, page])
     const handlePageChange = (selectedPage) => {
         setPage(selectedPage.selected + 1);
         window.scrollTo({
@@ -48,7 +43,7 @@ const NewsComics = () => {
     };
     const handlerClick = (name) => {
         setType(name)
-        navigation(`/comics/news/${name}`)
+        navigation(`/comics-genres/${name}`)
     }
     const convertView = (number) => {
         if (number > 1000000) {
@@ -62,7 +57,20 @@ const NewsComics = () => {
         }
         return number.toString()
     }
-
+    const [errorImage, setErrorImage] = useState([])
+    const handlerChangeImage = (index) => {
+        const updateImage = [...errorImage]
+        updateImage[index] = true
+        setErrorImage(updateImage)
+    }
+    const user = useSelector(selectedUser)
+    const addFollowerComics = ({ comicsfollow, uid, comicsID }) => {
+        if (user) {
+            dispatch(followsComics.addfollowsComics({ comicsfollow: comicsfollow, uid: uid, comicsID: comicsID }))
+        } else {
+            navigation("/user/login")
+        }
+    }
     return (
         <div className="">
             <Menu />
@@ -71,38 +79,46 @@ const NewsComics = () => {
                     <AnimationLoading />
                     :
                     <>
-                        <div className="w-11/12 border-t-2 border-b-2 h-14 my-2 mx-auto justify-center ">
+                        <div className="w-11/12 border-t-2 border-b-2 h-14  mx-auto justify-center ">
                             <Swiper slidesPerView={3} autoplay={{ delay: 4000 }}
                                 pagination={{
                                     clickable: true,
                                 }}
                                 breakpoints={{
                                     640: {
-                                        slidesPerView: 3,
+                                        slidesPerView: 5,
 
                                     },
                                     768: {
-                                        slidesPerView: 3,
+                                        slidesPerView: 5,
                                     },
                                     1024: {
-                                        slidesPerView: 3,
+                                        slidesPerView: 7,
                                     },
                                 }}
                                 modules={[Navigation]} className=" ">
                                 {
-                                    status?.map((status, index) => (
-                                        <SwiperSlide key={index} onClick={() => { handlerClick(status.id) }} className={`${slug === status.id ? 'bg-emerald-500' : ''} py-3 cursor-pointer  text-center select-none`}>
-                                            {status.name}
+                                    genress?.map((genres, index) => (
+                                        <SwiperSlide key={index} onClick={() => { handlerClick(genres.id) }} className={`${slug === genres.id ? 'bg-emerald-500' : ''} py-3 cursor-pointer mx-auto text-center line-clamp-1 select-none`}>
+                                            {genres.name}
                                         </SwiperSlide>
                                     ))
                                 }
                             </Swiper>
                         </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 w-11/12 mx-auto md:grid-cols-4 lg:grid-cols-5 gap-2 my-2">
+                        <div className='flex w-11/12 bg-sky-500 rounded-md mx-auto  h-10 my-2 flex-row items-center gap-2 w-11/'>
+                            <div className='mx-3'>
+                                <IoIosInformationCircleOutline size={"25px"} color='white' />
+                            </div>
+                            <div className=''>
+                                <p className='text-white text-lg'>Tất cả thể loại truyện tranh</p>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 w-11/12 mx-auto md:grid-cols-4 gap-2 my-2">
 
                             {
-                                detailComics?.news?.data?.comics?.map((comics, index) => (
-                                    <div className="relative rounded group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
+                                genrescomics?.genres?.comics?.map((comics, index) => (
+                                    <div className="relative group group-hover:shadow-md rounded overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                                         <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
                                             <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                                 {comics.is_trending === true ? 'Hot' : ''}
@@ -114,18 +130,24 @@ const NewsComics = () => {
                                                 {comics.status !== "Completed" ? 'Up' : 'Up'}
                                             </span>
                                         </div>
+                                        <div className="absolute flex flex-row gap-2 top-0 right-0  duration-300 z-10">
+                                            <button className=" px-2 text-white text-center bg-emerald-400" onClick={() => {
+                                                addFollowerComics({ comicsfollow: comics, uid: user?.uid, comicsID: comics.id })
+                                            }}> Follow</button>
+                                        </div>
                                         <Link to={`/detail-comics/${comics.id}`} className="">
                                             {
-                                                errorImages[index]
-                                                    ?
+                                                errorImage[index] ?
                                                     <img className="bg-cover object-center scale-[1.01] origin-bottom 
-                                        select-none group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full"
-                                                        loading="lazy" src={avtar} alt="" />
-
+                                        select-none group-hover:scale-105 duration-300 bg-no-repeat 
+                                        aspect-[2/3] object-cover w-full h-full" loading="lazy"
+                                                        src={avata} alt="" />
                                                     :
-                                                    <img className="bg-cover object-center scale-[1.01] origin-bottom select-none 
-                                        group-hover:scale-105 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full"
-                                                        onError={() => handleImageError(index)} loading="lazy" src={comics.thumbnail} alt="" />
+                                                    <img className="bg-cover object-center scale-[1.01] origin-bottom 
+                                        select-none group-hover:scale-105 duration-300 bg-no-repeat 
+                                        aspect-[2/3] object-cover w-full h-full" loading="lazy"
+                                                        onError={() => handlerChangeImage(index)}
+                                                        src={comics.thumbnail} alt="" />
 
                                             }
                                         </Link>
@@ -162,19 +184,19 @@ const NewsComics = () => {
                             }
 
                         </div>
-                        <div className='my-4'>
+                        <div className=''>
                             <ReactPaginate
-                                className='flex gap-4 justify-center hover:no-underline font-bold  items-center text-center'
-                                pageCount={toTalPage}
-                                pageRangeDisplayed={pageRanges}
-                                marginPagesDisplayed={2}
-                                onPageChange={handlePageChange}
+                                className='flex gap-4 justify-center  hover:no-underline font-bold  items-center text-center'
+                                pageCount={toTalPage} // Tổng số trang
+                                pageRangeDisplayed={pageRanges} // Số lượng nút phân trang hiển thị
+                                marginPagesDisplayed={2} // Số lượng nút phân trang hiển thị ở hai đầu
+                                onPageChange={handlePageChange} // Xử lý sự kiện khi người dùng chuyển trang
                                 containerClassName="pagination"
                                 activeClassName="text-white bg-emerald-400"
                                 disabledClassName="disabled"
                                 nextLabel={<BiChevronRight size={"25px"} />}
                                 pageClassName="rounded-full justify-center items-center w-10"
-
+                                forcePage={page - 1}
                                 previousClassName={page === 1 ? 'hidden' : ''}
                                 previousLabel={
                                     <div className="flex items-center justify-center text-center">
@@ -191,4 +213,4 @@ const NewsComics = () => {
         </div>
     )
 }
-export default NewsComics
+export default GenresComics
