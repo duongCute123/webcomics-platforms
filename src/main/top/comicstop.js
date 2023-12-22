@@ -25,8 +25,8 @@ const ComicsTop = () => {
     const [types, setType] = useState("all")
     const toTalPage = topscomics?.topcomics?.total_pages
     const [pageRanges, setpageRanges] = useState()
+    console.log(toTalPage);
     useEffect(() => {
-        console.log(type);
         switch (type) {
             case "all":
                 dispatch(topcomics.getListTop({ page: page, status: types }))

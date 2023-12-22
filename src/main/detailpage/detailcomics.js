@@ -53,7 +53,6 @@ const DetailPage = () => {
     const getChapter = (chapterstart, chapterend) => {
         const chaptersData = Array.isArray(detaicomicse.detailcomics.chapters) ? detaicomicse.detailcomics.chapters : [];
         const limit = chapterPerPage * 6;
-
         const chapters = chaptersData
             .slice()
             .reverse()

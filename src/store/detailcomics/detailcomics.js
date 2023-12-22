@@ -8,7 +8,6 @@ export const detailcomics = {
     findById: createAsyncThunk(`${appName}/${moduleName}/detailcomics`, async (params, thunkAPI) => {
         try {
             const responsive = await connect.detail.detailComics.findById(params)
-            console.log(params);
             return responsive.data
         } catch (error) {
             thunkAPI.dispatch({ variant: "error", message: "Lỗi lấy dữ liệu" })
@@ -18,7 +17,6 @@ export const detailcomics = {
     findByIdSingleChapter: createAsyncThunk(`${appName}/${moduleName}/singlechapter`, async (params, thunkAPI) => {
         try {
             const responsive = await connect.detail.singleChapter.findByIdSingleChapter(params)
-            console.log(params);
             return responsive.data
         } catch (error) {
             thunkAPI.dispatch({ variant: "error", message: "Lỗi lấy dữ liệu" })
