@@ -153,13 +153,13 @@ const Menu = () => {
                                         <div className="text-sm">
                                             <h3>{searchcomics.title}</h3>
                                             <p>{searchcomics.authors}</p>
-                                            <ul className="flex line-clamp-2 flex-wrap">
+                                            {/* <ul className="flex line-clamp-2 flex-wrap">
                                                 {
                                                     searchcomics?.genres?.map((genres, idx) => (
                                                         <li className="line-clamp-2" key={idx}>{genres}</li>
                                                     ))
                                                 }
-                                            </ul>
+                                            </ul> */}
                                         </div>
                                     </div>
                                 ))

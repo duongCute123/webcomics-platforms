@@ -53,13 +53,13 @@ const InputSearch = () => {
                                     <div className="text-sm col-span-2">
                                         <h3 className="font-semibold">{searchcomics.title}</h3>
                                         <p className="text-emerald-400 font-semibold">{searchcomics.authors}</p>
-                                        <ul className="flex line-clamp-1 flex-wrap gap-1">
+                                        {/* <ul className="flex line-clamp-1 flex-wrap gap-1">
                                             {
                                                 searchcomics?.genres?.map((genres, idx) => (
                                                     <li className="line-clamp-1 " key={idx}>{genres} {idx !== 4 && ','}</li>
                                                 ))
                                             }
-                                        </ul>
+                                        </ul> */}
                                     </div>
                                 </div>
                             ))

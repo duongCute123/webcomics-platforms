@@ -47,6 +47,7 @@ const ReadComics = () => {
 
         navigation(`/comics/${comic_id}/${chapteres[nextChapter].id}`);
     };
+    console.log(singleChapter?.detailcomics?.images);
     useEffect(() => {
         document.title = ` ${singleChapter?.detailcomics?.comic_name} - ${singleChapter?.detailcomics?.chapter_name} | Comics Dương`
     }, [singleChapter?.detailcomics?.comic_name, singleChapter?.detailcomics?.chapter_name])
@@ -66,7 +67,7 @@ const ReadComics = () => {
                         >
                             {
                                 singleChapter?.detailcomics?.images?.map((chapters, index) => (
-                                    <img src={chapters.src} id={`image-${index}`} ref={listReft} className="mx-auto justify-center bg-cover bg-no-repeat object-cover" alt="" key={index} />
+                                    <img src={`${process.env.REACT_APP_DOMAIN}`+chapters.src} id={`image-${index}`} ref={listReft} className="mx-auto justify-center bg-cover bg-no-repeat object-cover" alt="" key={index} />
                                 ))
                             }
                         </div>
