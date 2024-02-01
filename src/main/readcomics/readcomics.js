@@ -67,7 +67,7 @@ const ReadComics = () => {
                         >
                             {
                                 singleChapter?.detailcomics?.images?.map((chapters, index) => (
-                                    <img src={`${process.env.REACT_APP_DOMAIN}`+chapters.src} id={`image-${index}`} ref={listReft} className="mx-auto justify-center bg-cover bg-no-repeat object-cover" alt="" key={index} />
+                                    <img src={chapters.src} id={`image-${index}`} ref={listReft} className="mx-auto justify-center bg-cover bg-no-repeat object-cover" alt="" key={index} />
                                 ))
                             }
                         </div>
