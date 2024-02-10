@@ -80,10 +80,10 @@ function RecentlyUpdate() {
                                 recentlyUp?.recently?.comics?.slice(0, 10)?.map((comics, index) => (
                                     <div className="relative rounded group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                                         <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
-                                            <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                            <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                                 {comics.is_trending === true ? 'Hot' : ''}
                                             </span>
-                                            <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                            <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                                 {comics.is_trending === true ? 'End' : ''}
                                             </span>
                                             <span className=" bg-amber-400 text-center py-0.5 px-2 text-white">
