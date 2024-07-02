@@ -6,6 +6,7 @@ import { GiSelfLove } from "react-icons/gi";
 import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { Link, useNavigate } from "react-router-dom";
 import { FaCircleCheck } from "react-icons/fa6";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
 import ReactPaginate from "react-paginate";
 import Menu from "../../menu/menu";
@@ -36,7 +37,7 @@ const CompleteComics = () => {
     useEffect(() => {
         dispatch(competecomics.getList({ page: page }))
         window.scrollTo({
-            top:0
+            top: 0
         })
         if (page !== 1) {
             navigato(`/comics/complete-comics?page=${page}`)
@@ -56,10 +57,10 @@ const CompleteComics = () => {
         }
         return number.toString()
     }
-    useEffect(()=>{
-        document.title=`Complete Comics - Page ${page} | Comics Dương`
-    },[page])
-    const navigation=useNavigate()
+    useEffect(() => {
+        document.title = `Complete Comics - Page ${page} | Comics Dương`
+    }, [page])
+    const navigation = useNavigate()
     const addFollowerComics = ({ comicsfollow, uid, comicsID }) => {
         console.log(uid);
         if (user) {
@@ -121,18 +122,18 @@ const CompleteComics = () => {
                                             }
                                         </Link>
                                         <div className="absolute top-1/2 bottom-0 px-2 sm:px-4 py-2 inset-x-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-black">
-                                            <div className="">
+                                            <div className="border-b-2 border-emerald-400">
                                                 <h1 className="font-bold text-white text-lg line-clamp-1">{comics.title}</h1>
                                             </div>
                                             <div className="text-center justify-center">
                                                 <div className="flex flex-row gap-2">
-                                                    {
-                                                        comics.genres.slice(0, 3).map((genres, idx) => (
-                                                            <div className="" key={idx}>
-                                                                <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">{genres.name}</p>
-                                                            </div>
-                                                        ))
-                                                    }
+                                                    <hr className="border-b-0 mt-3 mb-0.5 top-2 border-emerald-400"></hr>
+                                                    <div className="flex flex-row gap-2">
+                                                        <div className="flex items-center mt-1 gap-2 text-sm text-gray-300 font-semibold truncate">
+                                                            <AiOutlineLoading3Quarters size={"20px"} color="white" className="animate-spin" />
+                                                            <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">Updating</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div className="flex flex-row text-emerald-400 justify-center gap-3 text-center">
                                                     <div className="bg-white/25 rounded flex text-xs flex-row items-center">

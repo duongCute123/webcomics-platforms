@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { GrFormView } from "react-icons/gr";
 import avatar from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
@@ -9,6 +9,7 @@ import ReactPaginate from "react-paginate"
 import { status, top } from "../../type";
 import { topcomics } from "../../store/top/top";
 import AnimationLoading from "../loading/loading";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Menu from "../../menu/menu";
 const ComicsTop = () => {
     const topscomics = useSelector(state => state.topcomics)
@@ -25,7 +26,6 @@ const ComicsTop = () => {
     const [types, setType] = useState("all")
     const toTalPage = topscomics?.topcomics?.total_pages
     const [pageRanges, setpageRanges] = useState()
-    console.log(toTalPage);
     useEffect(() => {
         switch (type) {
             case "all":
@@ -60,7 +60,7 @@ const ComicsTop = () => {
     const handlePageChange = (selectedPage) => {
         setPage(selectedPage.selected + 1);
         window.scrollTo({
-            top:0
+            top: 0
         })
     };
     const convertView = (number) => {
@@ -74,7 +74,7 @@ const ComicsTop = () => {
     }
     useEffect(() => {
         document.title = `Top Comics - Thể loại ${type} - Trạng thái ${types} - Page ${page} | Comics Dương`
-    }, [type,types,page])
+    }, [type, types, page])
     return (
         <div className="">
             <Menu />
@@ -116,10 +116,10 @@ const ComicsTop = () => {
                                 topscomics?.topcomics?.comics?.map((comics, index) => (
                                     <div className="relative group group-hover:shadow-md rounded-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
                                         <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
-                                            <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                            <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                                 {comics.is_trending === true ? 'Hot' : ''}
                                             </span>
-                                            <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                            <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                                 {comics.is_trending === true ? 'End' : ''}
                                             </span>
                                             <span className=" bg-amber-400 text-center py-0.5 px-2 text-white">
@@ -134,20 +134,17 @@ const ComicsTop = () => {
                                                     <img className={`bg-cover object-center scale-[1.01] origin-bottom select-none group-hover:scale-105 hover:border-2 hover:border-solid hover:border-emerald-500 duration-300 bg-no-repeat aspect-[2/3] object-cover w-full h-full`} loading="lazy" src={comics.thumbnail} onError={() => handlerChangeImage(index)} alt="" />
                                             }
                                         </Link>
-                                        <div className="absolute top-1/2 bottom-0 px-2 sm:px-4 py-2 inset-x-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-black">
+                                        <div className="absolute mb-1 top-1/2 bottom-0 px-2 sm:px-4 py-2 inset-x-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-black">
                                             <div className="">
                                                 <h1 className="font-bold text-white text-lg flex flex-wrap">{comics.title}</h1>
                                             </div>
-                                            <div className="text-center justify-center">
+                                            <div className="text-center justify-center border-t-2 border-gray-500">
                                                 <div className="flex flex-row gap-2">
-                                                    {
-                                                        comics.genres.slice().map((genres, idx) => (
-                                                            <div className="" key={idx}>
-                                                                <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">{genres.name}</p>
-                                                            </div>
-                                                        ))
-                                                    }
-
+                                                    <hr className="border-b-2 mt-3 mb-0.5 border-emerald-400"></hr>
+                                                    <div className="flex items-center mt-1 gap-2 text-sm text-gray-300 font-semibold truncate">
+                                                        <AiOutlineLoading3Quarters size={"20px"} color="white" className="animate-spin" />
+                                                        <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">Updating</p>
+                                                    </div>
                                                 </div>
                                                 <div className="flex flex-row text-emerald-400 justify-center gap-3 text-center">
                                                     <div className="bg-white/25 rounded flex text-xs flex-row items-center">
@@ -179,7 +176,7 @@ const ComicsTop = () => {
                                 disabledClassName="disabled"
                                 nextLabel={<BiChevronRight size={"25px"} />}
                                 pageClassName="rounded-full justify-center items-center w-10"
-                                forcePage={page-1}
+                                forcePage={page - 1}
                                 previousClassName={page === 1 ? 'hidden' : ''}
                                 previousLabel={
                                     <div className="flex items-center justify-center text-center">

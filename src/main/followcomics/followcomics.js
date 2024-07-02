@@ -74,7 +74,7 @@ const FollowComics = () => {
                                             <div className="text-center justify-center">
                                                 <div className="flex flex-row gap-2 border-b-2 border-emerald-400">
                                                     {
-                                                        comics.params?.comicsfollow.genres.slice(0, 3).map((genres, idx) => (
+                                                        comics.params?.comicsfollow?.genres.slice(0, 3).map((genres, idx) => (
                                                             <div className="" key={idx}>
                                                                 <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">{genres.name}</p>
                                                             </div>

@@ -12,6 +12,7 @@ import { genress } from '../../type';
 import { GrFormView } from "react-icons/gr";
 import { GiSelfLove } from "react-icons/gi";
 import { IoIosInformationCircleOutline } from "react-icons/io";
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { genres } from '../../store/genres/genrescomics';
 import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
@@ -73,7 +74,7 @@ const GenresComics = () => {
     }
     useEffect(() => {
         document.title = `Genres Comics ${type} - Page ${page} | Comics Dương`
-    }, [type,page])
+    }, [type, page])
     return (
         <div className="">
             <Menu />
@@ -159,14 +160,12 @@ const GenresComics = () => {
                                                 <h1 className="font-bold text-white text-lg line-clamp-1">{comics.title}</h1>
                                             </div>
                                             <div className="text-center justify-center">
+                                                <hr className='  border-b-0 mt-3 mb-0.5 border-emerald-400'></hr>
                                                 <div className="flex flex-row gap-2">
-                                                    {
-                                                        comics.genres.slice(0, 3).map((genres, idx) => (
-                                                            <div className="" key={idx}>
-                                                                <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">{genres.name}</p>
-                                                            </div>
-                                                        ))
-                                                    }
+                                                    <div className="flex items-center mt-1 gap-2 text-sm text-gray-300 font-semibold truncate">
+                                                        <AiOutlineLoading3Quarters size={"20px"} color="white" className="animate-spin" />
+                                                        <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">Updating</p>
+                                                    </div>
 
                                                 </div>
                                                 <div className="flex flex-row text-emerald-400 justify-center gap-3 text-center">

@@ -144,8 +144,8 @@ const Menu = () => {
                             <CiSearch size={40} className="font-bold absolute right-4 text-3xl" onClick={handlerTimKiem} />
                         </div>
                         <div className={`absolute top-28 z-30 ${isShow ? '' : 'hidden'} px-3 py-5 text-black bg-white  h-[300px] overflow-y-auto`}>
-                            {
-                                searchdata && searchdata.search && searchdata?.search.length > 0 && searchdata?.search?.map((searchcomics, idx) => (
+                            {/* {
+                                searchdata?.search.length>0 && searchdata?.search?.map((searchcomics, idx) => (
                                     <div onMouseDown={() => handlerDetailComics(searchcomics.id)} className="flex justify-center border-b-2 gap-4 flex-row" key={idx}>
                                         <div className="w-full">
                                             <img src={searchcomics.thumbnail} className="bg-cover my-2 rounded border-2 border-red-500 object-cover bg-no-repeat aspect-[2/3]" width={"150px"} alt="" />
@@ -153,17 +153,17 @@ const Menu = () => {
                                         <div className="text-sm">
                                             <h3>{searchcomics.title}</h3>
                                             <p>{searchcomics.authors}</p>
-                                            {/* <ul className="flex line-clamp-2 flex-wrap">
+                                            <ul className="flex line-clamp-2 flex-wrap">
                                                 {
-                                                    searchcomics?.genres?.map((genres, idx) => (
+                                                    searchcomics.genres.map((genres, idx) => (
                                                         <li className="line-clamp-2" key={idx}>{genres}</li>
                                                     ))
                                                 }
-                                            </ul> */}
+                                            </ul>
                                         </div>
                                     </div>
                                 ))
-                            }
+                            } */}
                         </div>
                         <ul className="mx-5 my-6 gap-5 text-lg grid font-semibold">
                             <li className="hover:bg-emerald-400 px-2 py-0.5 rounded hover:text-white">

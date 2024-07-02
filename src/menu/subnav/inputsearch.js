@@ -44,7 +44,7 @@ const InputSearch = () => {
                         </button>
                     </form>
                     <div className={`absolute top-[57px] z-30 ${isShow ? '' : 'hidden'} px-3 py-5 text-black bg-white w-[300px] h-[300px] overflow-y-auto`}>
-                        {
+                        {/* {
                             searchdata && searchdata.search && searchdata?.search.length > 0 && searchdata?.search?.map((searchcomics, idx) => (
                                 <div onMouseDown={() => handlerDetailComics(searchcomics.id)} className="grid grid-cols-3 justify-center border-b-2 gap-4" key={idx}>
                                     <div className="w-full col-span-1">
@@ -53,17 +53,17 @@ const InputSearch = () => {
                                     <div className="text-sm col-span-2">
                                         <h3 className="font-semibold">{searchcomics.title}</h3>
                                         <p className="text-emerald-400 font-semibold">{searchcomics.authors}</p>
-                                        {/* <ul className="flex line-clamp-1 flex-wrap gap-1">
+                                        <ul className="flex line-clamp-1 flex-wrap gap-1">
                                             {
-                                                searchcomics?.genres?.map((genres, idx) => (
+                                                searchcomics?.genres.map((genres, idx) => (
                                                     <li className="line-clamp-1 " key={idx}>{genres} {idx !== 4 && ','}</li>
                                                 ))
                                             }
-                                        </ul> */}
+                                        </ul>
                                     </div>
                                 </div>
                             ))
-                        }
+                        } */}
                     </div>
                 </div>
             </div>

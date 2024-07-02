@@ -5,6 +5,7 @@ import { GrFormView } from "react-icons/gr";
 import { GiSelfLove } from "react-icons/gi";
 import { GiBurningRoundShot } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import AnimationLoading from "../loading/loading";
 const PopularComics = () => {
     const pages = 1
@@ -69,11 +70,11 @@ const PopularComics = () => {
                             {
                                 trendings?.comics?.slice(0, 10)?.map((comics, index) => (
                                     <div className="relative rounded group group-hover:shadow-md overflow-hidden md:hover:border-emerald-300 cursor-pointer" key={index}>
-                                        <div className="absolute flex flex-row gap-2 top-0 duration-300 z-10">
-                                            <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                        <div className="absolute flex flex-row gap-2 left-0 top-0  duration-300 z-10">
+                                            <span className={`${comics.is_trending === true ? 'bg-rose-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                                 {comics.is_trending === true ? 'Hot' : ''}
                                             </span>
-                                            <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : ''}  text-center py-0.5 px-2 text-white`}>
+                                            <span className={`${comics.is_trending === true ? 'bg-sky-500 ' : 'hidden'}  text-center py-0.5 px-2 text-white`}>
                                                 {comics.is_trending === true ? 'End' : ''}
                                             </span>
                                             <span className=" bg-amber-400 text-center py-0.5 px-2 text-white">
@@ -88,14 +89,13 @@ const PopularComics = () => {
                                                 <h1 className="font-bold text-white text-lg line-clamp-1">{comics.title}</h1>
                                             </div>
                                             <div className="text-center justify-center">
+                                                <hr className="border-b mt-3 mb-0.5 border-emerald-400"></hr>
                                                 <div className="flex flex-row gap-2">
-                                                    {
-                                                        comics.genres.slice(0, 3).map((genres, idx) => (
-                                                            <div className="" key={idx}>
-                                                                <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">{genres.name}</p>
-                                                            </div>
-                                                        ))
-                                                    }
+
+                                                    <div className="flex items-center mt-1 gap-2 text-sm text-gray-300 font-semibold truncate">
+                                                        <AiOutlineLoading3Quarters size={"20px"} color="white" className="animate-spin" />
+                                                        <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">Updating</p>
+                                                    </div>
                                                 </div>
                                                 <div className="flex flex-row text-emerald-400 justify-center gap-3 text-center">
                                                     <div className="bg-white/25 rounded flex text-xs flex-row items-center">

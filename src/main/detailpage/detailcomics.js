@@ -30,6 +30,11 @@ const DetailPage = () => {
     useEffect(() => {
         dispatch(detailcomics.findById(comic_id))
     }, [dispatch, comic_id])
+    useEffect(() => {
+        window.scrollTo({
+            top: 0
+        })
+    },[])
     // Lỗi không gọi lại khi bấm lấy chuyện khác
     // const LayChapterSession = useCallback((chapterPerPage, chapterEnd) => {
     //     setChapterSession(getChapter(0, chapterPerPage, chapterEnd))

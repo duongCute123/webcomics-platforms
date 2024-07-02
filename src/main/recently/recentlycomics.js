@@ -5,6 +5,7 @@ import { GrFormView } from "react-icons/gr";
 import { GiSelfLove } from "react-icons/gi";
 import avata from "../../images/cute-asian-girl-kawaii-anime-avatar-ai-generative-art_225753-9233.avif"
 import { Link, useNavigate } from "react-router-dom";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaCircleCheck } from "react-icons/fa6";
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
 import ReactPaginate from "react-paginate";
@@ -100,13 +101,11 @@ const RecentlyComics = () => {
                                             </div>
                                             <div className="text-center justify-center">
                                                 <div className="flex flex-row gap-2">
-                                                    {
-                                                        comics.genres.slice(0, 3).map((genres, idx) => (
-                                                            <div className="" key={idx}>
-                                                                <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">{genres.name}</p>
-                                                            </div>
-                                                        ))
-                                                    }
+                                                    <hr className="border-b-2 mt-3 mb-0.5 border-emerald-400"></hr>
+                                                    <div className="flex items-center mt-1 gap-2 text-sm text-gray-300 font-semibold truncate">
+                                                        <AiOutlineLoading3Quarters size={"20px"} color="white" className="animate-spin" />
+                                                        <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">Updating</p>
+                                                    </div>
                                                 </div>
                                                 <div className="flex flex-row text-emerald-400 justify-center gap-3 text-center">
                                                     <div className="bg-white/25 rounded flex text-xs flex-row items-center">

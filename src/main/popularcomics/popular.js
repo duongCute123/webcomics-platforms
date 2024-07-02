@@ -8,6 +8,7 @@ import { FaCircleCheck } from "react-icons/fa6";
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi"
 import ReactPaginate from "react-paginate";
 import Menu from "../../menu/menu";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import AnimationLoading from "../loading/loading";
 const PopulaComics = () => {
     const popularcomics = useSelector(state => state.trending)
@@ -19,7 +20,7 @@ const PopulaComics = () => {
     const handlePageChange = (selectedPage) => {
         setPage(selectedPage.selected + 1);
         window.scrollTo({
-            top:0
+            top: 0
         })
     };
     const navigato = useNavigate()
@@ -86,14 +87,13 @@ const PopulaComics = () => {
                                                 <h1 className="font-bold text-white text-lg line-clamp-1">{comics.title}</h1>
                                             </div>
                                             <div className="text-center justify-center">
+                                            <div className="border-b mt-3 mb-0.5 border-emerald-400"></div>
                                                 <div className="flex flex-row gap-2">
-                                                    {
-                                                        comics.genres.slice(0, 3).map((genres, idx) => (
-                                                            <div className="" key={idx}>
-                                                                <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">{genres.name}</p>
-                                                            </div>
-                                                        ))
-                                                    }
+                                                    
+                                                    <div className="flex items-center mt-1 gap-2 text-sm text-gray-300 font-semibold truncate">
+                                                        <AiOutlineLoading3Quarters size={"20px"} color="white" className="animate-spin" />
+                                                        <p className=" text-sm font-semibold truncate text-gray-300 line-clamp-1">Updating</p>
+                                                    </div>
                                                 </div>
                                                 <div className="flex flex-row text-emerald-400 justify-center gap-3 text-center">
                                                     <div className="bg-white/25 rounded flex text-xs flex-row items-center">
@@ -125,7 +125,7 @@ const PopulaComics = () => {
                                 disabledClassName="disabled"
                                 nextLabel={<BiChevronRight size={"25px"} />}
                                 pageClassName="rounded-full justify-center items-center w-10"
-                                forcePage={page-1}
+                                forcePage={page - 1}
                                 previousClassName={page === 1 ? 'hidden' : ''}
                                 previousLabel={
                                     <div className="flex items-center justify-center text-center">
