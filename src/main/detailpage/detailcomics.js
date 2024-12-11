@@ -102,9 +102,9 @@ const DetailPage = () => {
                                 <div className="mx-auto  justify-center items-center my-6 rounded-lg">
                                     {
                                         errImage ?
-                                            <img src={avata} className="mx-3 bg-no-repeat rounded-lg bg-cover lg:w-full h-full object-cover object-center" width={"300px"} alt="" />
+                                            <img src={avata} loading="lazy" className="mx-3 bg-no-repeat rounded-lg bg-cover lg:w-full h-full object-cover object-center" width={"300px"} alt="" />
                                             :
-                                            <img onError={() => setErrImage(true)} src={detaicomicse.detailcomics.thumbnail} className="mx-3 bg-no-repeat rounded-lg bg-cover w-full h-full object-cover object-center" alt="" />
+                                            <img onError={() => setErrImage(true)} loading="lazy" src={detaicomicse.detailcomics.thumbnail} className="mx-3 bg-no-repeat rounded-lg bg-cover w-full h-full object-cover object-center" alt="" />
 
                                     }
                                 </div>

@@ -49,10 +49,10 @@ export default {
             findById: (comic_id, entity) => axios.get(`${basicDomain}/${detail}/${comic_id}`, { entity })
         },
         comicChapters: {
-            findByIdChapter: (comic_id, params) => axios.get(`${basicDomain}/${detail}/${comic_id}/chapters`, { params })
+            findByIdChapter: (comic_id, params) => axios.get(`${basicDomain}/${detail}/${comic_id}/chapters`)
         },
         singleChapter: {
-            findByIdSingleChapter: (params) => axios.get(`${basicDomain}/${detail}/${params.comic_id}/chapters/${params.chapter_id}`, { params })
+            findByIdSingleChapter: (params) => axios.get(`${basicDomain}/${detail}/${params.comic_id}/chapters/${params.chapter_id}`)
         }
     },
     //# All: `/top?page=${page}&status=${status}`;
